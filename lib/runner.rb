@@ -14,7 +14,7 @@ class Runner
     detective.brief(repo: config.repo, number: config.id, head_sha: config.sha)
     detective.investigate
     detective.violations.each do |violation|
-      octokit.create_pull_request_comment(generate_comment(violation))
+      octokit.create_pull_request_comment(*generate_comment(violation))
     end
   end
 
