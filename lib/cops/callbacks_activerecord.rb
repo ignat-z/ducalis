@@ -3,6 +3,10 @@ require "rubocop"
 
 module RuboCop
   class CallbacksActiverecord < RuboCop::Cop::Cop
+    OFFENSE = "Please, avoid using of callbacks for models. It's better to keep "\
+              "models small (\"dumb\") and instead use \"builder\" classes"\
+              "/services: to construct new objects. You can read more [here]"\
+              "(https://medium.com/planet-arkency/a61fd75ab2d3)."
     MODELS_CLASS_NAMES = ["ApplicationRecord", "ActiveRecord::Base"].freeze
     METHODS_BLACK_LIST = %i(
       after_commit
@@ -31,7 +35,7 @@ module RuboCop
     def on_send(node)
       return unless @triggered
       return unless METHODS_BLACK_LIST.include?(node.method_name)
-      add_offense(node, :selector, "Don't use callbacks in ActiveRecord classes.")
+      add_offense(node, :selector, OFFENSE)
     end
 
     private

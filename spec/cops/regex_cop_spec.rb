@@ -19,6 +19,8 @@ RSpec.describe RuboCop::RegexCop do
       'puts "hi" if name =~ /john/'
     ])
     expect(cop.offenses.size).to eq(1)
+    expect(cop.offenses.first.message).to match(
+      %r[puts "hi" if name =~ CONST_NAME])
   end
 
   it 'ignores named ruby constants' do

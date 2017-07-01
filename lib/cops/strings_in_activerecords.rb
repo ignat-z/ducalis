@@ -4,6 +4,11 @@ require_relative "./callbacks_activerecord"
 
 module RuboCop
   class StringsInActiverecords < ::RuboCop::Cop::Cop
+    OFFENSE = %{
+Please, do not use strings as arguments for %{method_name} argument.
+It's hard to test, grep sources, code highlighting and so on.
+Consider using of symbols or lambdas for complex expressions.
+    }
     VALIDATEBLE_METHODS = ::RuboCop::CallbacksActiverecord::METHODS_BLACK_LIST + %i(
       validates
       validate
@@ -18,7 +23,7 @@ module RuboCop
         next unless current_node.type == :pair
         next unless %w(if unless).include?(key.source)
         next unless value.type == :str
-        add_offense(node, :selector, "Don't use string in validations and callbacks")
+        add_offense(node, :selector, OFFENSE % { method_name: method_name })
       end
     end
   end
