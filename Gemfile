@@ -4,3 +4,4 @@ source "https://rubygems.org"
 gem 'policial'
 gem 'pry'
 gem 'thor'
+gem 'rspec'

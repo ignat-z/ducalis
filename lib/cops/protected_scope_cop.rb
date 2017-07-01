@@ -1,5 +1,3 @@
-# (send (send (send (const nil _) _ _) _ _) :find _)
-
 require "rubocop"
 
 module RuboCop
