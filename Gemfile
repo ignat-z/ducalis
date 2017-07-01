@@ -2,6 +2,9 @@
 source "https://rubygems.org"
 
 gem 'policial'
-gem 'pry'
 gem 'thor'
-gem 'rspec'
+
+group :test, :development do
+  gem 'rspec'
+  gem 'pry'
+end
