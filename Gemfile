@@ -3,6 +3,7 @@ source "https://rubygems.org"
 
 gem 'policial'
 gem 'thor'
+gem 'regexp-examples'
 
 group :test, :development do
   gem 'rspec'
