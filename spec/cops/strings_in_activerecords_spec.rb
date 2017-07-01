@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require './lib/cops/strings_in_activerecords'
 
@@ -10,7 +12,10 @@ RSpec.describe RuboCop::StringsInActiverecords do
   end
 
   it 'raise for string if argument' do
-    inspect_source(cop, "before_save :set_full_name, if: 'name_changed? || postfix_name_changed?'")
+    inspect_source(cop, [
+                     'before_save :set_full_name, ',
+                     " if: 'name_changed? || postfix_name_changed?'"
+                   ])
     expect(cop.offenses.size).to eq(1)
     expect(cop.offenses.first.message).to match(/before_save/)
   end

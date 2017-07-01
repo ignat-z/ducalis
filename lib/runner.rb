@@ -1,17 +1,19 @@
-require "policial"
+# frozen_string_literal: true
 
-require "./lib/custom_ruby"
+require 'policial'
+
+require './lib/custom_ruby'
 
 class Runner
   def initialize(config)
     @config = config
-    @octokit = Octokit::Client.new(access_token: ENV.fetch("GITHUB_TOKEN"))
+    @octokit = Octokit::Client.new(access_token: ENV.fetch('GITHUB_TOKEN'))
     configure_policial
   end
 
   def call
     detective = Policial::Detective.new(octokit)
-    detective.brief(repo: config.repo, number: config.id, head_sha: config.sha)
+    detective.brief(commit_info)
     detective.investigate
     detective.violations.each do |violation|
       octokit.create_pull_request_comment(*generate_comment(violation))
@@ -21,6 +23,10 @@ class Runner
   private
 
   attr_reader :config, :octokit
+
+  def commit_info
+    { repo: config.repo, number: config.id, head_sha: config.sha }
+  end
 
   def configure_policial
     Policial.style_guides = [CustomRuby]

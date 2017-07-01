@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Adapters
   class Custom
     attr_reader :repo, :id, :sha

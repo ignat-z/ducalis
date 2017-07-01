@@ -1,11 +1,12 @@
 # frozen_string_literal: true
-source "https://rubygems.org"
+
+source 'https://rubygems.org'
 
 gem 'policial'
-gem 'thor'
 gem 'regexp-examples'
+gem 'thor'
 
 group :test, :development do
-  gem 'rspec'
   gem 'pry'
+  gem 'rspec'
 end

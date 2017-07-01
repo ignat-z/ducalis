@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require './lib/cops/protected_scope_cop'
 
@@ -15,7 +17,8 @@ RSpec.describe RuboCop::ProtectedScopeCop do
   end
 
   it 'works ignores where statements and still raises error' do
-    inspect_source(cop, 'Group.includes(:some_relation).where(name: "John").find(8)')
+    inspect_source(cop,
+                   'Group.includes(:some_relation).where(name: "John").find(8)')
     expect(cop.offenses.size).to eq(1)
   end
 end

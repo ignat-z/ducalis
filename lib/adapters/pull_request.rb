@@ -1,8 +1,9 @@
-require "policial"
+# frozen_string_literal: true
+
+require 'policial'
 
 module Adapters
   class PullRequest
-
     def initialize(attributes)
       event = Policial::PullRequestEvent.new(attributes)
       @attributes = event.pull_request_attributes
@@ -21,6 +22,7 @@ module Adapters
     end
 
     private
+
     attr_reader :attributes
   end
 end

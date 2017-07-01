@@ -1,4 +1,6 @@
-require "policial"
+# frozen_string_literal: true
+
+require 'policial'
 
 class CustomRuby < Policial::StyleGuides::Ruby
   KEY = :custom_ruby
