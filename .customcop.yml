@@ -1,0 +1,31 @@
+# Disable all checks not explicitly referenced in this file
+# This is used to easily disable Style/* checks
+AllCops:
+  DisabledByDefault: true
+  TargetRubyVersion: 2.3
+  Exclude:
+    - 'bin/*'
+    - 'client/**/*'
+    - 'coverage/**/*'
+    - 'db/**/*'
+    - 'node_modules/**/*'
+    - 'vendor/bundle/**/*'
+require:
+  - ./lib/cops/callbacks_activerecord.rb
+  - ./lib/cops/protected_scope_cop.rb
+  - ./lib/cops/regex_cop.rb
+  - ./lib/cops/strings_in_activerecords.rb
+
+RuboCop/CallbacksActiverecord:
+  Enabled: true
+
+RuboCop/ProtectedScopeCop:
+  Enabled: true
+
+RuboCop/RegexCop:
+  Enabled: true
+  Exclude:
+    - 'spec/**/*.rb'
+
+RuboCop/StringsInActiverecords:
+  Enabled: true
