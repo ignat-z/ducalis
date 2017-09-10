@@ -9,7 +9,7 @@ module RuboCop
     OFFENSE = %(
 It's better for controllers to stay adherent to REST:
 http://jeromedalbert.com/how-dhh-organizes-his-rails-controllers/
-    )
+    ).strip
 
     def on_class(node)
       _classdef_node, superclass, _body = *node

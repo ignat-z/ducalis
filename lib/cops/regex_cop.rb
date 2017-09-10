@@ -13,7 +13,7 @@ It will allow you to reuse this regex and provide instructions for others.
 CONST_NAME = %<constant>s # "%<example>s"
 %<fixed_string>s
 ```
-    )
+    ).strip
     SELF_DESCRIPTIVE = %w(
       /[[:alnum:]]/
       /[[:alpha:]]/

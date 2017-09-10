@@ -9,7 +9,7 @@ module RuboCop
 Please, do not use strings as arguments for %<method_name>s argument.
 It's hard to test, grep sources, code highlighting and so on.
 Consider using of symbols or lambdas for complex expressions.
-    )
+    ).strip
     VALIDATEBLE_METHODS =
       ::RuboCop::CallbacksActiverecord::METHODS_BLACK_LIST + %i[
         validates

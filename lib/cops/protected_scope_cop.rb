@@ -14,7 +14,7 @@ current_group.employees.find(params[:id])
 # better then
 Employee.find(params[:id])
 ```
-    }
+    }.strip
 
     def on_send(node)
       _, method_name, = *node
