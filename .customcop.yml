@@ -13,6 +13,7 @@ require:
   - ./lib/cops/protected_scope_cop.rb
   - ./lib/cops/regex_cop.rb
   - ./lib/cops/strings_in_activerecords.rb
+  - ./lib/cops/rest_only_cop.rb
 
 RuboCop/CallbacksActiverecord:
   Enabled: true
@@ -26,4 +27,7 @@ RuboCop/RegexCop:
     - 'spec/**/*.rb'
 
 RuboCop/StringsInActiverecords:
+  Enabled: true
+
+RuboCop/RestOnlyCop:
   Enabled: true
