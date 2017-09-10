@@ -3,8 +3,18 @@
 require 'spec_helper'
 require './lib/cops/regex_cop'
 
-RSpec.describe RuboCop::RegexCop do
+RSpec.describe Ducalis::RegexCop do
   subject(:cop) { described_class.new }
+
+  it 'raise if somewhere in code used regex which is not moved to const' do
+    inspect_source(cop, [
+                     'name = "john"',
+                     'puts "hi" if name =~ /john/'
+                   ])
+
+    expect(cop).to raise_violation(%r{CONST_NAME = /john/ # "john"})
+    expect(cop).to raise_violation(/puts "hi" if name =~ CONST_NAME/)
+  end
 
   it 'accepts matching constants' do
     inspect_source(cop, [
@@ -12,21 +22,7 @@ RSpec.describe RuboCop::RegexCop do
                      'name = "john"',
                      'puts "hi" if name =~ REGEX'
                    ])
-    expect(cop.offenses.size).to eq(0)
-  end
-
-  it 'raise if somewhere in code used regex which is not moved to const' do
-    inspect_source(cop, [
-                     'name = "john"',
-                     'puts "hi" if name =~ /john/'
-                   ])
-    expect(cop.offenses.size).to eq(1)
-    expect(cop.offenses.first.message).to match(
-      %r{CONST_NAME = /john/ # "john"}
-    )
-    expect(cop.offenses.first.message).to match(
-      /puts "hi" if name =~ CONST_NAME/
-    )
+    expect(cop).to_not raise_violation
   end
 
   it 'ignores named ruby constants' do
@@ -34,7 +30,7 @@ RSpec.describe RuboCop::RegexCop do
                      'name = "john"',
                      'puts "hi" if name =~ /[[:alpha:]]/'
                    ])
-    expect(cop.offenses.size).to eq(0)
+    expect(cop).to_not raise_violation
   end
 
   it 'ignores dynamic regexs' do
@@ -42,6 +38,6 @@ RSpec.describe RuboCop::RegexCop do
                      'name = "john"',
                      'puts "hi" if name =~ /.{#{name.length}}/'
                    ])
-    expect(cop.offenses.size).to eq(0)
+    expect(cop).to_not raise_violation
   end
 end
