@@ -2,7 +2,7 @@
 
 require 'rubocop'
 
-module RuboCop
+module Ducalis
   class CallbacksActiverecord < RuboCop::Cop::Cop
     OFFENSE = "Please, avoid using of callbacks for models. It's better to "\
               'keep models small ("dumb") and instead use "builder" classes'\

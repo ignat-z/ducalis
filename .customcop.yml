@@ -15,19 +15,19 @@ require:
   - ./lib/cops/strings_in_activerecords.rb
   - ./lib/cops/rest_only_cop.rb
 
-RuboCop/CallbacksActiverecord:
+Ducalis/CallbacksActiverecord:
   Enabled: true
 
-RuboCop/ProtectedScopeCop:
+Ducalis/ProtectedScopeCop:
   Enabled: true
 
-RuboCop/RegexCop:
+Ducalis/RegexCop:
   Enabled: true
   Exclude:
     - 'spec/**/*.rb'
 
-RuboCop/StringsInActiverecords:
+Ducalis/StringsInActiverecords:
   Enabled: true
 
-RuboCop/RestOnlyCop:
+Ducalis/RestOnlyCop:
   Enabled: true

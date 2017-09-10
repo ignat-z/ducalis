@@ -3,7 +3,7 @@
 require 'rubocop'
 require 'regexp-examples'
 
-module RuboCop
+module Ducalis
   class RegexCop < RuboCop::Cop::Cop
     OFFENSE = %(
 It's better to move regex to constants with example instead of direct using it.

@@ -2,7 +2,7 @@
 
 require 'rubocop'
 
-module RuboCop
+module Ducalis
   class ProtectedScopeCop < RuboCop::Cop::Cop
     OFFENSE = %{
 Seems like you are using `find` on non-protected scope. Potentially it could

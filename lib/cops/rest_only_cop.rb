@@ -2,7 +2,7 @@
 
 require 'rubocop'
 
-module RuboCop
+module Ducalis
   class RestOnlyCop < RuboCop::Cop::Cop
     include RuboCop::Cop::DefNode
     WHITELIST = %i[index show new edit create update destroy].freeze
