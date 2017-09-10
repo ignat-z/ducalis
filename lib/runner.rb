@@ -3,11 +3,12 @@
 require 'policial'
 
 require './lib/custom_ruby'
+require './lib/commentators/console'
+require './lib/commentators/github'
 
 class Runner
   def initialize(config)
     @config = config
-    @octokit = Octokit::Client.new(access_token: ENV.fetch('GITHUB_TOKEN'))
     configure_policial
   end
 
@@ -16,13 +17,13 @@ class Runner
     detective.brief(commit_info)
     detective.investigate
     detective.violations.each do |violation|
-      octokit.create_pull_request_comment(*generate_comment(violation))
+      commentator.new(config, violation).call
     end
   end
 
   private
 
-  attr_reader :config, :octokit
+  attr_reader :config
 
   def commit_info
     { repo: config.repo, number: config.id, head_sha: config.sha }
@@ -32,14 +33,11 @@ class Runner
     Policial.style_guides = [CustomRuby]
   end
 
-  def generate_comment(violation)
-    [
-      config.repo,
-      config.id,
-      violation.message,
-      config.sha,
-      violation.filename,
-      violation.line.patch_position
-    ]
+  def commentator
+    @commentator ||= config.dry? ? Commentators::Console : Commentators::Github
+  end
+
+  def octokit
+    @octokit ||= Octokit::Client.new(access_token: ENV.fetch('GITHUB_TOKEN'))
   end
 end

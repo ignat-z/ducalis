@@ -1,13 +1,17 @@
 # frozen_string_literal: true
 
 module Adapters
-  class Custom
-    attr_reader :repo, :id, :sha
+  class Custom < Base
+    def repo
+      @repo ||= options.fetch(:repo)
+    end
 
-    def initialize(options)
-      @repo = options.fetch(:repo)
-      @id = options.fetch(:id)
-      @sha = options.fetch(:sha)
+    def id
+      @id ||= options.fetch(:id)
+    end
+
+    def sha
+      @sha ||= options.fetch(:sha)
     end
   end
 end
