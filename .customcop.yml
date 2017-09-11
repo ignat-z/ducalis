@@ -15,6 +15,7 @@ require:
   - ./lib/cops/strings_in_activerecords.rb
   - ./lib/cops/rest_only_cop.rb
   - ./lib/cops/uncommented_gem.rb
+  - ./lib/cops/keyword_defaults.rb
 
 Ducalis/CallbacksActiverecord:
   Enabled: true
@@ -31,6 +32,9 @@ Ducalis/StringsInActiverecords:
   Enabled: true
 
 Ducalis/RestOnlyCop:
+  Enabled: true
+
+Ducalis/KeywordDefaults:
   Enabled: true
 
 Ducalis/UncommentedGem:
