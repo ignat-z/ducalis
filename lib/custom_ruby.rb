@@ -12,4 +12,8 @@ class CustomRuby < Policial::StyleGuides::Ruby
   def custom_config
     RuboCop::ConfigLoader.load_file(default_config_file)
   end
+
+  def filename_pattern
+    /Gemfile\z|.+\.rb\z/
+  end
 end
