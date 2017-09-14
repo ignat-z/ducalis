@@ -13,6 +13,7 @@ require:
   - ./lib/cops/protected_scope_cop.rb
   - ./lib/cops/regex_cop.rb
   - ./lib/cops/strings_in_activerecords.rb
+  - ./lib/cops/rubocop_disable.rb
   - ./lib/cops/rest_only_cop.rb
   - ./lib/cops/uncommented_gem.rb
   - ./lib/cops/keyword_defaults.rb
@@ -35,6 +36,9 @@ Ducalis/RestOnlyCop:
   Enabled: true
 
 Ducalis/KeywordDefaults:
+  Enabled: true
+
+Ducalis/RubocopDisable:
   Enabled: true
 
 Ducalis/UncommentedGem:

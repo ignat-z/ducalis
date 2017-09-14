@@ -30,7 +30,7 @@ class Runner
   end
 
   def configure_policial
-    Policial.style_guides = [CustomRuby]
+    Policial.linters = [CustomRuby]
   end
 
   def commentator

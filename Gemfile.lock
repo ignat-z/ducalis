@@ -1,8 +1,18 @@
+GIT
+  remote: git://github.com/volmer/policial.git
+  revision: e77a73d96a0350ec2b59737e781fa78476ff9e30
+  specs:
+    policial (0.0.4)
+      coffeelint (~> 1.16)
+      eslintrb (~> 2.1)
+      octokit (~> 4.7)
+      rubocop (~> 0.49)
+
 GEM
   remote: https://rubygems.org/
   specs:
-    addressable (2.5.1)
-      public_suffix (~> 2.0, >= 2.0.2)
+    addressable (2.5.2)
+      public_suffix (>= 2.0.2, < 4.0)
     ast (2.3.0)
     coderay (1.1.1)
     coffee-script (2.4.1)
@@ -19,31 +29,26 @@ GEM
       multi_json (>= 1.3)
       rake
     execjs (2.7.0)
-    faraday (0.12.1)
+    faraday (0.13.1)
       multipart-post (>= 1.2, < 3)
     json (2.1.0)
     method_source (0.8.2)
-    multi_json (1.12.1)
+    multi_json (1.12.2)
     multipart-post (2.0.0)
     octokit (4.7.0)
       sawyer (~> 0.8.0, >= 0.5.3)
-    parallel (1.11.2)
+    parallel (1.12.0)
     parser (2.4.0.0)
       ast (~> 2.2)
-    policial (0.0.4)
-      coffeelint (~> 1.14)
-      eslintrb (~> 2.0)
-      octokit (~> 4.3)
-      rubocop (~> 0.39)
     powerpack (0.1.1)
     pry (0.10.4)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
-    public_suffix (2.0.5)
+    public_suffix (3.0.0)
     rainbow (2.2.2)
       rake
-    rake (12.0.0)
+    rake (12.1.0)
     regexp-examples (1.3.2)
     rspec (3.6.0)
       rspec-core (~> 3.6.0)
@@ -65,7 +70,7 @@ GEM
       rainbow (>= 1.99.1, < 3.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (~> 1.0, >= 1.0.1)
-    ruby-progressbar (1.8.1)
+    ruby-progressbar (1.8.3)
     sawyer (0.8.1)
       addressable (>= 2.3.5, < 2.6)
       faraday (~> 0.8, < 1.0)
@@ -77,7 +82,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  policial
+  policial!
   pry
   regexp-examples
   rspec

@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-gem 'policial'
+gem 'policial', github: 'volmer/policial'
 gem 'regexp-examples'
 gem 'thor'
 

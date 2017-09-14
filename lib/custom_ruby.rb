@@ -2,7 +2,7 @@
 
 require 'policial'
 
-class CustomRuby < Policial::StyleGuides::Ruby
+class CustomRuby < Policial::Linters::Ruby
   KEY = :custom_ruby
 
   def default_config_file

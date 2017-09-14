@@ -11,7 +11,7 @@ It increases readability and reduces ambiguities.
     ).strip
 
     def on_def(node)
-      _name, args, _definition = *node
+      args = node.type == :defs ? node.to_a[2] : node.to_a[1]
       return unless args
       args.children.each do |arg_node|
         next unless arg_node.type == :optarg
