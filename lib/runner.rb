@@ -9,7 +9,7 @@ require './lib/commentators/github'
 class Runner
   def initialize(config)
     @config = config
-    configure_policial
+    configure
   end
 
   def call
@@ -29,7 +29,8 @@ class Runner
     { repo: config.repo, number: config.id, head_sha: config.sha }
   end
 
-  def configure_policial
+  def configure
+    Octokit.auto_paginate = true
     Policial.linters = [CustomRuby]
   end
 
