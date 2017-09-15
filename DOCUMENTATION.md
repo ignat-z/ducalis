@@ -198,3 +198,96 @@ gem 'b', '~> 1.3.1'
 gem 'c', git: 'https://github.com/c/c' # some description
 
 ```
+## Ducalis::UselessOnly
+
+Seems like there is no any reason to keep before filter only for one action. Maybe it will be better to inline it?
+
+```ruby
+before_filter :do_something, only: %i[index]
+def index; end
+
+# to
+
+def index
+  do_something
+end
+```
+- raises for `before_filters` with only one method as array
+```ruby
+
+class MyController < ApplicationController
+  before_filter :do_something, only: [:index]
+  def index; end
+  private
+  def do_something; end
+end
+
+```
+- raises for `before_filters` with only one method as keyword array
+```ruby
+
+class MyController < ApplicationController
+  before_filter :do_something, only: %i[index]
+  def index; end
+  private
+  def do_something; end
+end
+
+```
+- raises for `before_filters` with many actions and only one method
+```ruby
+
+class MyController < ApplicationController
+  before_filter :do_something, :load_me, only: %i[index]
+  def index; end
+  private
+  def do_something; end
+  def load_me; end
+end
+
+```
+- raises for `before_filters` with only one method as argument
+```ruby
+
+class MyController < ApplicationController
+  before_filter :do_something, only: :index
+  def index; end
+  private
+  def do_something; end
+end
+
+```
+- ignores `before_filters` without arguments
+```ruby
+
+class MyController < ApplicationController
+  before_filter :do_something
+  def index; end
+  private
+  def do_something; end
+end
+
+```
+- ignores `before_filters` with `only` and many arguments
+```ruby
+
+class MyController < ApplicationController
+  before_filter :do_something, only: %i[index show]
+  def index; end
+  def show; end
+  private
+  def do_something; end
+end
+
+```
+- ignores `before_filters` with `except` and one argument
+```ruby
+
+class MyController < ApplicationController
+  before_filter :do_something, except: %i[index]
+  def index; end
+  private
+  def do_something; end
+end
+
+```
