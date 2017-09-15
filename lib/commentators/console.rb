@@ -4,7 +4,8 @@ require 'logger'
 
 module Commentators
   class Console
-    RUBY_SNIPPET = /```ruby\n(?<code>.+)\n```/m
+    DOCUMENTATION_PATH = 'https://github.com/ignat-zakrevsky/ducalis/blob/master/DOCUMENTATION.md'
+
     def initialize(config, violation)
       @config = config
       @violation = violation
@@ -19,11 +20,9 @@ module Commentators
     def message
       [
         [cyan(@violation.filename), @violation.line.patch_position].join(':'),
-        ' -- ',
         brown(@violation.linter),
-        "\n",
-        format_code(@violation.message)
-      ].join
+        bold(ancor)
+      ].join(' ')
     end
 
     def logger
@@ -34,10 +33,12 @@ module Commentators
       end
     end
 
-    def format_code(message)
-      match_data = message.match(RUBY_SNIPPET)
-      return message unless match_data
-      message.sub(RUBY_SNIPPET, bold(match_data[:code]))
+    def ancor
+      [
+        DOCUMENTATION_PATH,
+        '#',
+        @violation.linter.downcase.gsub(/[^[:alpha:]]/, '')
+      ].join
     end
 
     def bold(text)
