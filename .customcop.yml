@@ -9,6 +9,7 @@ AllCops:
     - 'node_modules/**/*'
     - 'vendor/bundle/**/*'
 require:
+  - ./lib/cops/useless_only.rb
   - ./lib/cops/callbacks_activerecord.rb
   - ./lib/cops/protected_scope_cop.rb
   - ./lib/cops/regex_cop.rb
@@ -30,6 +31,9 @@ Ducalis/RegexCop:
     - 'spec/**/*.rb'
 
 Ducalis/StringsInActiverecords:
+  Enabled: true
+
+Ducalis/UselessOnly:
   Enabled: true
 
 Ducalis/RestOnlyCop:
