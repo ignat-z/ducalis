@@ -8,6 +8,4 @@ RuboCop::RakeTask.new do |task|
 end
 
 RSpec::Core::RakeTask.new(:spec)
-
-default_tasks = ENV['FULL'].nil? ? %i[spec] : %i[spec rubocop]
-task default: default_tasks
+task default: %i[rubocop spec]
