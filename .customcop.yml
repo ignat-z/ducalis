@@ -18,6 +18,7 @@ require:
   - ./lib/cops/rest_only_cop.rb
   - ./lib/cops/uncommented_gem.rb
   - ./lib/cops/keyword_defaults.rb
+  - ./lib/cops/params_passing.rb
 
 Ducalis/CallbacksActiverecord:
   Enabled: true
@@ -50,3 +51,6 @@ Ducalis/UncommentedGem:
   Include:
     - '**/Gemfile'
     - '**/gems.rb'
+
+Ducalis/ParamsPassing:
+  Enabled: true

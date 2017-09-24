@@ -36,6 +36,70 @@ def some_method; end
 ```ruby
 def self.some_method; end
 ```
+## Ducalis::ParamsPassing
+
+It's better to pass already preprocessed params hash to services. Or you can use
+`arcane` gem
+- raise if user pass `params` as argument from controller
+```ruby
+
+class MyController < ApplicationController
+  def index
+    MyService.new(params).call
+  end
+end
+
+```
+- raise if user pass `params` as any argument from controller
+```ruby
+
+class MyController < ApplicationController
+  def index
+    MyService.new(first_arg, params).call
+  end
+end
+
+```
+- raise if user pass `params` as keyword argument from controller
+```ruby
+
+class MyController < ApplicationController
+  def index
+    MyService.new(first_arg, any_name: params).call
+  end
+end
+
+```
+- ignores passing only one `params` field
+```ruby
+
+class MyController < ApplicationController
+  def index
+    MyService.new(first_arg, params[:id]).call
+  end
+end
+
+```
+- ignores passing processed `params`
+```ruby
+
+class MyController < ApplicationController
+  def index
+    MyService.new(first_arg, params.slice(:name)).call
+  end
+end
+
+```
+- ignores passing `params` from `arcane` gem
+```ruby
+
+class MyController < ApplicationController
+  def index
+    MyService.new(params.for(Log).as(user).refine).call
+  end
+end
+
+```
 ## Ducalis::ProtectedScopeCop
 
 Seems like you are using `find` on non-protected scope. Potentially it could
