@@ -10,6 +10,7 @@ AllCops:
     - 'vendor/bundle/**/*'
 require:
   - ./lib/cops/useless_only.rb
+  - ./lib/cops/controllers_except.rb
   - ./lib/cops/callbacks_activerecord.rb
   - ./lib/cops/protected_scope_cop.rb
   - ./lib/cops/regex_cop.rb
@@ -19,6 +20,7 @@ require:
   - ./lib/cops/uncommented_gem.rb
   - ./lib/cops/keyword_defaults.rb
   - ./lib/cops/params_passing.rb
+  - ./lib/cops/private_instance_assign.rb
 
 Ducalis/CallbacksActiverecord:
   Enabled: true
@@ -53,4 +55,10 @@ Ducalis/UncommentedGem:
     - '**/gems.rb'
 
 Ducalis/ParamsPassing:
+  Enabled: true
+
+Ducalis/ControllersExcept:
+  Enabled: true
+
+Ducalis/PrivateInstanceAssign:
   Enabled: true

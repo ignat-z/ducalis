@@ -13,6 +13,45 @@ class A < SomeBasicClass
   before_create :generate_code
 end
 ```
+## Ducalis::ControllersExcept
+
+Prefer to use `:only` over `:except` in controllers because it's more explicit and will be easier to maintain for new developers.
+- raises for `before_filters` with `except` method as array
+```ruby
+
+class MyController < ApplicationController
+  before_filter :something, except: [:index]
+  def index; end
+  def edit; end
+  private
+  def something; end
+end
+
+```
+- raises for filters with many actions and only one `except` method
+```ruby
+
+class MyController < ApplicationController
+  before_filter :something, :load_me, except: %i[edit]
+  def index; end
+  def edit; end
+  private
+  def something; end
+  def load_me; end
+end
+
+```
+- ignores `before_filters` without arguments
+```ruby
+
+class MyController < ApplicationController
+  before_filter :something
+  def index; end
+  private
+  def something; end
+end
+
+```
 ## Ducalis::KeywordDefaults
 
 Prefer to use keyword arguments for defaults. It increases readability and reduces ambiguities.
@@ -96,6 +135,61 @@ end
 class MyController < ApplicationController
   def index
     MyService.new(params.for(Log).as(user).refine).call
+  end
+end
+
+```
+## Ducalis::PrivateInstanceAssign
+
+Please, don't assign instance variables in controller's private methods. It's make hard to understand what variables are available in views.
+- raises for assigning instance variables in controllers private methods
+```ruby
+
+class MyController < ApplicationController
+  private
+
+  def load_employee
+    @employee = Employee.find(params[:id])
+  end
+end
+
+```
+- raises for memoization variables in controllers private methods
+```ruby
+
+class MyController < ApplicationController
+  private
+
+  def service
+    @service ||= Service.new
+  end
+end
+
+```
+- ignores memoization variables in controllers private methods with _
+```ruby
+
+class MyController < ApplicationController
+  private
+
+  def service
+    @_service ||= Service.new
+  end
+end
+
+```
+- ignores assigning instance variables in controllers public methods
+```ruby
+
+class MyController < ApplicationController
+  def index
+    @employee = load_employee
+  end
+
+  private
+
+  def load_employee
+    Employee.find(params[:id])
   end
 end
 
