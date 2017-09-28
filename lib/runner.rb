@@ -16,9 +16,7 @@ class Runner
     detective = Policial::Detective.new(octokit)
     detective.brief(commit_info)
     detective.investigate
-    detective.violations.each do |violation|
-      commentator.new(config, violation).call
-    end
+    commentator.new(config).call(detective.violations)
   end
 
   private

@@ -12,6 +12,6 @@ group :test, :development do
 end
 
 group :production do
-  gem 'sinatra'
   gem 'puma'
+  gem 'sinatra'
 end

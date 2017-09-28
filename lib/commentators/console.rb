@@ -6,22 +6,23 @@ module Commentators
   class Console
     DOCUMENTATION_PATH = 'https://github.com/ignat-zakrevsky/ducalis/blob/master/DOCUMENTATION.md'
 
-    def initialize(config, violation)
+    def initialize(config)
       @config = config
-      @violation = violation
     end
 
-    def call
-      logger.info(message)
+    def call(violations)
+      violations.each do |violation|
+        logger.info(generate_message(violation))
+      end
     end
 
     private
 
-    def message
+    def generate_message(violation)
       [
-        [cyan(@violation.filename), @violation.line.patch_position].join(':'),
-        brown(@violation.linter),
-        bold(ancor)
+        [cyan(violation.filename), violation.line.patch_position].join(':'),
+        brown(violation.linter),
+        bold(ancor(violation))
       ].join(' ')
     end
 
@@ -33,11 +34,11 @@ module Commentators
       end
     end
 
-    def ancor
+    def ancor(violation)
       [
         DOCUMENTATION_PATH,
         '#',
-        @violation.linter.downcase.gsub(/[^[:alpha:]]/, '')
+        violation.linter.downcase.gsub(/[^[:alpha:]]/, '')
       ].join
     end
 
