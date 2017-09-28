@@ -9,7 +9,7 @@ module Adapters
     end
 
     def dry?
-      @dry ||= @options.fetch(:dry)
+      @dry ||= @options.fetch(:dry, false)
     end
   end
 end
