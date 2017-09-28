@@ -10,3 +10,8 @@ group :test, :development do
   gem 'pry'
   gem 'rspec'
 end
+
+group :production do
+  gem 'sinatra'
+  gem 'puma'
+end
