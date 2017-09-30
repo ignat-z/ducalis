@@ -21,6 +21,7 @@ require:
   - ./lib/cops/keyword_defaults.rb
   - ./lib/cops/params_passing.rb
   - ./lib/cops/private_instance_assign.rb
+  - ./lib/cops/module_like_class.rb
 
 Ducalis/CallbacksActiverecord:
   Enabled: true
@@ -62,3 +63,10 @@ Ducalis/ControllersExcept:
 
 Ducalis/PrivateInstanceAssign:
   Enabled: true
+
+Ducalis/ModuleLikeClass:
+  Enabled: true
+  AllowedIncludes:
+    - Sidekiq::Worker
+    - Singleton
+    - ActiveModel::Model

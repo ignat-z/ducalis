@@ -75,6 +75,92 @@ def some_method; end
 ```ruby
 def self.some_method; end
 ```
+## Ducalis::ModuleLikeClass
+
+Seems like it will be better to define initializer and pass %<args>s there instead of each method.
+- raise if class doesn't contain constructor but accept the same args
+```ruby
+
+class MyClass
+
+  def initialize(customer)
+    # ...
+  end
+
+  def approve(task, estimate, some_args_1)
+    # ...
+  end
+
+  def decline(user, task, estimate, some_args_2)
+    # ...
+  end
+
+  private
+
+  def anything_you_want(args)
+    # ...
+  end
+end
+
+```
+- raise for class with only one public method with args
+```ruby
+
+class MyClass
+  def approve(task)
+    # ...
+  end
+
+  private
+
+  def anything_you_want(args)
+    # ...
+  end
+end
+
+```
+- ignores classes with custom includes
+```ruby
+
+class MyClass
+  include Singleton
+
+  def approve(task)
+    # ...
+  end
+end
+
+```
+- ignores classes with inheritance
+```ruby
+
+class MyClass < AnotherClass
+  def approve(task)
+    # ...
+  end
+
+  private
+
+  def anything_you_want(args)
+    # ...
+  end
+end
+
+```
+- ignores classes with one method and initializer
+```ruby
+
+class MyClass
+  def initialize(task)
+    # ...
+  end
+
+  def call(args)
+    # ...
+  end
+end
+
+```
 ## Ducalis::ParamsPassing
 
 It's better to pass already preprocessed params hash to services. Or you can use
