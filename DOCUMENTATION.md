@@ -307,6 +307,21 @@ Group.includes(:some_relation).find(8)
 ```ruby
 Group.includes(:some_relation).where(name: "John").find(8)
 ```
+## Ducalis::RaiseWithourErrorClass
+
+It's better to add exception class as raise argument. It will make easier to catch and process it later.
+- raise when `raise` called without exception class
+```ruby
+raise "Something went wrong"
+```
+- works when `raise` called with exception class
+```ruby
+raise StandardError, "Something went wrong"
+```
+- works when `raise` called with exception instance
+```ruby
+raise StandardError.new("Something went wrong")
+```
 ## Ducalis::RegexCop
 
 It's better to move regex to constants with example instead of direct using it.
