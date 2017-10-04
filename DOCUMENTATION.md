@@ -3,15 +3,19 @@
 Please, avoid using of callbacks for models. It's better to keep models small ("dumb") and instead use "builder" classes/services: to construct new objects. You can read more [here](https://medium.com/planet-arkency/a61fd75ab2d3).
 - rejects ActiveRecord classes which contains callbacks
 ```ruby
+
 class A < ActiveRecord::Base
   before_create :generate_code
 end
+
 ```
 - ignores non-ActiveRecord classes which contains callbacks
 ```ruby
+
 class A < SomeBasicClass
   before_create :generate_code
 end
+
 ```
 ## Ducalis::ControllersExcept
 
@@ -77,7 +81,7 @@ def self.some_method; end
 ```
 ## Ducalis::ModuleLikeClass
 
-Seems like it will be better to define initializer and pass %<args>s there instead of each method.
+Seems like it will be better to define initialize and pass %<args>s there instead of each method.
 - raise if class doesn't contain constructor but accept the same args
 ```ruby
 

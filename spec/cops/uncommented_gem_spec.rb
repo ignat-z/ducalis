@@ -7,7 +7,7 @@ RSpec.describe Ducalis::UncommentedGem do
   subject(:cop) { described_class.new }
 
   it 'raise for gem from github without comment' do
-    inspect_source(cop, [
+    inspect_source([
                      "gem 'a' ",
                      "gem 'b', '~> 1.3.1' ",
                      "gem 'c', git: 'https://github.com/c/c'"
@@ -16,7 +16,7 @@ RSpec.describe Ducalis::UncommentedGem do
   end
 
   it "doesn't raise for gem from github with comment" do
-    inspect_source(cop, [
+    inspect_source([
                      "gem 'a' ",
                      "gem 'b', '~> 1.3.1' ",
                      "gem 'c', git: 'https://github.com/c/c' # some description"

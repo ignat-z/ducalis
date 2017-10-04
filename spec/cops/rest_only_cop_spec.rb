@@ -7,7 +7,7 @@ RSpec.describe Ducalis::RestOnlyCop do
   subject(:cop) { described_class.new }
 
   it 'raise for controllers with non-REST methods' do
-    inspect_source(cop, [
+    inspect_source([
                      'class MyController < ApplicationController',
                      '  def index; end',
                      '  def non_rest_method; end',
@@ -17,7 +17,7 @@ RSpec.describe Ducalis::RestOnlyCop do
   end
 
   it "doesn't raise for controllers with private non-REST methods" do
-    inspect_source(cop, [
+    inspect_source([
                      'class MyController < ApplicationController',
                      '  def index; end',
                      '  private',
@@ -28,7 +28,7 @@ RSpec.describe Ducalis::RestOnlyCop do
   end
 
   it "doesn't raise for controllers with only REST methods" do
-    inspect_source(cop, [
+    inspect_source([
                      'class MyController < ApplicationController',
                      '  def index; end',
                      '  def show; end',
@@ -43,7 +43,7 @@ RSpec.describe Ducalis::RestOnlyCop do
   end
 
   it "doesn't raise for non-controllers with non-REST methods" do
-    inspect_source(cop, [
+    inspect_source([
                      'class MyClass',
                      '  def index; end',
                      '  def non_rest_method; end',

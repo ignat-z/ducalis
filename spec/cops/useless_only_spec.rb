@@ -7,7 +7,7 @@ RSpec.describe Ducalis::UselessOnly do
   subject(:cop) { described_class.new }
 
   it 'raises for `before_filters` with only one method as array' do
-    inspect_source(cop, [
+    inspect_source([
                      'class MyController < ApplicationController',
                      '  before_filter :do_something, only: [:index]',
                      '  def index; end',
@@ -19,7 +19,7 @@ RSpec.describe Ducalis::UselessOnly do
   end
 
   it 'raises for `before_filters` with only one method as keyword array' do
-    inspect_source(cop, [
+    inspect_source([
                      'class MyController < ApplicationController',
                      '  before_filter :do_something, only: %i[index]',
                      '  def index; end',
@@ -31,7 +31,7 @@ RSpec.describe Ducalis::UselessOnly do
   end
 
   it 'raises for `before_filters` with many actions and only one method' do
-    inspect_source(cop, [
+    inspect_source([
                      'class MyController < ApplicationController',
                      '  before_filter :do_something, :load_me, only: %i[index]',
                      '  def index; end',
@@ -44,7 +44,7 @@ RSpec.describe Ducalis::UselessOnly do
   end
 
   it 'raises for `before_filters` with only one method as argument' do
-    inspect_source(cop, [
+    inspect_source([
                      'class MyController < ApplicationController',
                      '  before_filter :do_something, only: :index',
                      '  def index; end',
@@ -56,7 +56,7 @@ RSpec.describe Ducalis::UselessOnly do
   end
 
   it 'ignores `before_filters` without arguments' do
-    inspect_source(cop, [
+    inspect_source([
                      'class MyController < ApplicationController',
                      '  before_filter :do_something',
                      '  def index; end',
@@ -68,7 +68,7 @@ RSpec.describe Ducalis::UselessOnly do
   end
 
   it 'ignores `before_filters` with `only` and many arguments' do
-    inspect_source(cop, [
+    inspect_source([
                      'class MyController < ApplicationController',
                      '  before_filter :do_something, only: %i[index show]',
                      '  def index; end',
@@ -81,7 +81,7 @@ RSpec.describe Ducalis::UselessOnly do
   end
 
   it 'ignores `before_filters` with `except` and one argument' do
-    inspect_source(cop, [
+    inspect_source([
                      'class MyController < ApplicationController',
                      '  before_filter :do_something, except: %i[index]',
                      '  def index; end',
