@@ -6,6 +6,14 @@ require './lib/utils'
 require './lib/commentators/console'
 require './lib/commentators/github'
 
+module Policial
+  class ConfigLoader
+    def raw(filename)
+      File.read(filename)
+    end
+  end
+end
+
 class Runner
   def initialize(config)
     @config = config
