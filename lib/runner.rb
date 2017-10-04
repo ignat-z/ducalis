@@ -15,7 +15,7 @@ class Runner
   def call
     detective = Policial::Detective.new(octokit)
     detective.brief(commit_info)
-    detective.investigate
+    detective.investigate(ruby: { config_file: '.customcop.yml' })
     commentator.new(config).call(detective.violations)
   end
 
@@ -29,7 +29,7 @@ class Runner
 
   def configure
     Octokit.auto_paginate = true
-    Policial.linters = [CustomRuby]
+    Policial.linters = [Policial::Linters::Ruby]
   end
 
   def commentator
