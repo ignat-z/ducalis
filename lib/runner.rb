@@ -2,7 +2,7 @@
 
 require 'policial'
 
-require './lib/custom_ruby'
+require './lib/utils'
 require './lib/commentators/console'
 require './lib/commentators/github'
 
@@ -13,7 +13,7 @@ class Runner
   end
 
   def call
-    detective = Policial::Detective.new(octokit)
+    detective = Policial::Detective.new(Utils.octokit)
     detective.brief(commit_info)
     detective.investigate(ruby: { config_file: '.customcop.yml' })
     commentator.new(config).call(detective.violations)
@@ -34,9 +34,5 @@ class Runner
 
   def commentator
     @commentator ||= config.dry? ? Commentators::Console : Commentators::Github
-  end
-
-  def octokit
-    @octokit ||= Octokit::Client.new(access_token: ENV.fetch('GITHUB_TOKEN'))
   end
 end

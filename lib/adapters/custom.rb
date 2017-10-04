@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require './lib/utils'
+
 module Adapters
   class Custom < Base
     def repo
@@ -11,13 +13,9 @@ module Adapters
     end
 
     def sha
-      @sha ||= options.fetch(:sha) { octokit.pull_request(repo, id).head.sha }
-    end
-
-    private
-
-    def octokit
-      @octokit ||= Octokit::Client.new(access_token: ENV.fetch('GITHUB_TOKEN'))
+      @sha ||= options.fetch(:sha) do
+        Utils.octokit.pull_request(repo, id).head.sha
+      end
     end
   end
 end

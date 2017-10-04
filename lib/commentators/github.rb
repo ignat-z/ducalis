@@ -13,8 +13,9 @@ module Commentators
         next if commented?(violation)
         generate_comment(violation)
       end.compact
-      @octokit.create_pull_request_review(@config.repo, @config.id,
-                                          event: STATUS, comments: comments)
+      Utils.octokit
+           .create_pull_request_review(@config.repo, @config.id,
+                                       event: STATUS, comments: comments)
     end
 
     private
@@ -31,11 +32,7 @@ module Commentators
 
     def commented_violations
       @commented_violations ||=
-        octokit.pull_request_comments(@config.repo, @config.id)
-    end
-
-    def octokit
-      @octokit ||= Octokit::Client.new(access_token: ENV.fetch('GITHUB_TOKEN'))
+        Utils.octokit.pull_request_comments(@config.repo, @config.id)
     end
 
     def generate_comment(violation)
