@@ -23,9 +23,11 @@ module Commentators
     def commented?(violation)
       commented_violations.find do |commented_violation|
         [
-          violation.message == commented_violation[:body],
           violation.filename == commented_violation[:path],
-          violation.line.patch_position == commented_violation[:position]
+          violation.line.patch_position == commented_violation[:position],
+          Utils.similarity(
+            violation.message, commented_violation[:body]
+          ) > 0.9
         ].all?
       end
     end

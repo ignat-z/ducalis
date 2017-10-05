@@ -6,4 +6,13 @@ module Utils
   def octokit
     @octokit ||= Octokit::Client.new(access_token: ENV.fetch('GITHUB_TOKEN'))
   end
+
+  def similarity(string1, string2)
+    longer = [string1.size, string2.size].max
+    same = string1.each_char
+                  .zip(string2.each_char)
+                  .select { |char1, char2| char1 == char2 }
+                  .size
+    1 - (longer - same) / string1.size.to_f
+  end
 end
