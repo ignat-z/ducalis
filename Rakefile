@@ -4,7 +4,7 @@ require 'rspec/core/rake_task'
 require 'rubocop/rake_task'
 
 RuboCop::RakeTask.new do |task|
-  task.options = ['--auto-correct']
+  task.options = %w[--auto-correct]
 end
 
 task :documentation do
