@@ -18,7 +18,7 @@ module Ducalis
     def call
       detective = Policial::Detective.new(Utils.octokit)
       detective.brief(commit_info)
-      detective.investigate(ruby: { config_file: '.customcop.yml' })
+      detective.investigate(ruby: { config_file: Ducalis::DOTFILE })
       commentator.new(config).call(detective.violations)
     end
 

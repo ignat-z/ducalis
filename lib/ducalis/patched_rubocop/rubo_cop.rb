@@ -2,7 +2,7 @@
 
 module RuboCop
   class ConfigLoader
-    ::Ducalis::Utils.silence_warnings { DOTFILE = '.customcop.yml' }
+    ::Ducalis::Utils.silence_warnings { DOTFILE = ::Ducalis::DOTFILE }
   end
 
   class TargetFinder

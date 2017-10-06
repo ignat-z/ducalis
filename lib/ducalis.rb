@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
+module Ducalis
+  DOTFILE = '.ducalis.yml'
+end
+
 require 'parser/current'
 require 'policial'
 
