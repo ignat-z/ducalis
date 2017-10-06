@@ -1,0 +1,41 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'rubocop'
+require 'benchmark'
+require 'thor'
+
+require './lib/cli'
+require './lib/passed_args'
+require './lib/patched_rubocop/rubo_cop'
+
+if PassedArgs.help_command?
+  puts 'You can start Ducalis in the next modes:'
+  puts "     --ci   check files from remote PR. \
+Env `GITHUB_TOKEN` should be available to receive PRs files."
+  puts ' --branch   check files in RuboCop style against branch.'
+  puts '  --index   check files in RuboCop style against index.'
+  puts '    --all   [default] check all files in RuboCop style.'
+  puts ''
+
+  Ducalis::CLI.start(ARGV)
+  RuboCop::CLI.new.run
+  exit 0
+end
+
+if PassedArgs.ci_mode?
+  Ducalis::CLI.start(ARGV - %w[--ci])
+else
+  PassedArgs.process_args!
+
+  result = 0
+  cli = RuboCop::CLI.new
+  time = Benchmark.realtime do
+    result = cli.run
+  end
+
+  puts "Finished in #{time} seconds" if cli.options[:debug]
+  puts "\033[42mBuild still green. Nothing to worry about\033[0m" if result == 1
+end
+
+exit 0
