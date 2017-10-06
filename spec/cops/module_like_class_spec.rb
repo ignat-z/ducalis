@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require './lib/cops/module_like_class'
+require './lib/ducalis/cops/module_like_class'
 
 RSpec.describe Ducalis::ModuleLikeClass do
   subject(:cop) { described_class.new }

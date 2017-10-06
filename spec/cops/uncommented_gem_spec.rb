@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require './lib/cops/uncommented_gem.rb'
+require './lib/ducalis/cops/uncommented_gem.rb'
 
 RSpec.describe Ducalis::UncommentedGem do
   subject(:cop) { described_class.new }

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require './lib/cops/keyword_defaults'
+require './lib/ducalis/cops/keyword_defaults'
 
 RSpec.describe Ducalis::KeywordDefaults do
   subject(:cop) { described_class.new }

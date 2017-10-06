@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require './lib/cops/controllers_except.rb'
+require './lib/ducalis/cops/controllers_except.rb'
 
 RSpec.describe Ducalis::ControllersExcept do
   subject(:cop) { described_class.new }

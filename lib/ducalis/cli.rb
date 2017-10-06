@@ -2,11 +2,6 @@
 
 require 'thor'
 
-require './lib/runner'
-require './lib/adapters/base'
-require './lib/adapters/circle_ci'
-require './lib/adapters/custom'
-
 module Ducalis
   class CLI < Thor
     ADAPTERS = {

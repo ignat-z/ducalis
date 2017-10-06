@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require './lib/cops/rubocop_disable'
+require './lib/ducalis/cops/rubocop_disable'
 
 RSpec.describe Ducalis::RubocopDisable do
   subject(:cop) { described_class.new }

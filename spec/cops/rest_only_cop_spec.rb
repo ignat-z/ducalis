@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require './lib/cops/rest_only_cop.rb'
+require './lib/ducalis/cops/rest_only_cop.rb'
 
 RSpec.describe Ducalis::RestOnlyCop do
   subject(:cop) { described_class.new }

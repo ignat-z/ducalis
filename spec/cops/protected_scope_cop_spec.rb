@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require './lib/cops/protected_scope_cop'
+require './lib/ducalis/cops/protected_scope_cop'
 
 RSpec.describe Ducalis::ProtectedScopeCop do
   subject(:cop) { described_class.new }

@@ -1,13 +1,8 @@
 # frozen_string_literal: true
 
-require './lib/utils'
-require './lib/patched_rubocop/git_files_access'
-require './lib/patched_rubocop/git_turget_finder'
-require './lib/patched_rubocop/git_runner'
-
 module RuboCop
   class ConfigLoader
-    Utils.silence_warnings { DOTFILE = '.customcop.yml' }
+    ::Ducalis::Utils.silence_warnings { DOTFILE = '.customcop.yml' }
   end
 
   class TargetFinder

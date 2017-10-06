@@ -55,7 +55,7 @@ end
 
 class Documentation
   def call
-    Dir['./lib/cops/*.rb'].map do |f|
+    Dir['./lib/ducalis/cops/*.rb'].map do |f|
       present_cop(klass_const_for(f), spec_cases_for(f))
     end.flatten.join("\n")
   end
@@ -76,7 +76,10 @@ class Documentation
   end
 
   def spec_cases_for(f)
-    source_code = File.read(f.sub('/lib/', '/spec/').sub(/.rb$/, '_spec.rb'))
+    source_code = File.read(
+      f.sub('/lib/ducalis/', '/spec/')
+       .sub(/.rb$/, '_spec.rb')
+    )
     SpecsProcessor.new.tap do |processor|
       processor.process(Parser::CurrentRuby.parse(source_code))
     end.cases

@@ -8,7 +8,7 @@ RuboCop::RakeTask.new do |task|
 end
 
 task :documentation do
-  require './lib/documentation'
+  require './lib/ducalis/documentation'
   File.write('DOCUMENTATION.md', Documentation.new.call)
 end
 

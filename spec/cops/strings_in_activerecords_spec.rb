@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require './lib/cops/strings_in_activerecords'
+require './lib/ducalis/cops/strings_in_activerecords'
 
 RSpec.describe Ducalis::StringsInActiverecords do
   subject(:cop) { described_class.new }

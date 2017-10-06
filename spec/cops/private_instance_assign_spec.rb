@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require './lib/cops/private_instance_assign'
+require './lib/ducalis/cops/private_instance_assign'
 
 RSpec.describe Ducalis::PrivateInstanceAssign do
   subject(:cop) { described_class.new }

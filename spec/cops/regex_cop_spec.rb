@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require './lib/cops/regex_cop'
+require './lib/ducalis/cops/regex_cop'
 
 RSpec.describe Ducalis::RegexCop do
   subject(:cop) { described_class.new }

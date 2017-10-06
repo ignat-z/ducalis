@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require './lib/cops/params_passing'
+require './lib/ducalis/cops/params_passing'
 
 RSpec.describe Ducalis::ParamsPassing do
   subject(:cop) { described_class.new }

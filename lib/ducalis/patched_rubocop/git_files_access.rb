@@ -3,10 +3,10 @@
 require 'git'
 require 'singleton'
 
-require './lib/patched_rubocop/diffs'
-
 module PatchedRubocop
   class GitFilesAccess
+    DELETED = 'deleted'
+
     include PatchedRubocop::Diffs
     include Singleton
 
@@ -21,6 +21,7 @@ module PatchedRubocop
       @changes ||= MODES.fetch(@flag)
                         .call(@git)
                         .map { |diff| GitDiff.new(full_path(diff.path), diff) }
+                        .reject { |diff| diff.diff.type == DELETED }
     end
 
     def changed?(path, line)

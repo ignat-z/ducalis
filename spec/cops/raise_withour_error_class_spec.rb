@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require './lib/cops/raise_withour_error_class'
+require './lib/ducalis/cops/raise_withour_error_class'
 
 RSpec.describe Ducalis::RaiseWithourErrorClass do
   subject(:cop) { described_class.new }

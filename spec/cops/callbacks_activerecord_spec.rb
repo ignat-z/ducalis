@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require './lib/cops/callbacks_activerecord'
+require './lib/ducalis/cops/callbacks_activerecord'
 
 RSpec.describe Ducalis::CallbacksActiverecord do
   subject(:cop) { described_class.new }
