@@ -25,8 +25,8 @@ RUN bundle config git.allow_insecure true
 RUN mkdir -p "$APP_ROOT"
 WORKDIR $APP_ROOT
 
-COPY Gemfile $APP_ROOT
-COPY Gemfile.lock $APP_ROOT
+COPY gems.rb $APP_ROOT
+COPY gems.locked $APP_ROOT
 RUN bundle install
 
 COPY . $APP_ROOT

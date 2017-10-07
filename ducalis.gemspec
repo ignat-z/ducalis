@@ -24,7 +24,7 @@ Gem::Specification.new do |spec|
   end
 
   spec.files = `git ls-files -z`.split("\x0").reject do |f|
-    f.match(%r{^(test|spec|features|Dockerfile)/})
+    f.match(%r{^(test|spec|features|client)/})
   end
   spec.executables = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
 
@@ -32,8 +32,10 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'rubocop', '~> 0.50.0'
   spec.add_dependency 'regexp-examples', '~> 1.3', '>= 1.3.2'
   spec.add_dependency 'thor', '~> 0.20.0'
+  spec.add_dependency 'git', '~> 1.3', '>= 1.3.0'
 
   spec.add_development_dependency 'bundler', '~> 1.16.a'
   spec.add_development_dependency 'rake', '~> 12.1'
   spec.add_development_dependency 'rspec', '~> 3.0'
+  spec.add_development_dependency 'pry', '~> 0.10', '>= 0.10.0'
 end
