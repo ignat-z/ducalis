@@ -3,8 +3,10 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
+gemspec
+
 gem 'git'
-gem 'policial', github: 'volmer/policial'
+gem 'policial', '0.0.4'
 gem 'regexp-examples'
 gem 'thor'
 

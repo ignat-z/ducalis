@@ -18,7 +18,7 @@ module Ducalis
     def call
       detective = Policial::Detective.new(Utils.octokit)
       detective.brief(commit_info)
-      detective.investigate(ruby: { config_file: Ducalis::DOTFILE })
+      detective.investigate(ruby: { config_file: Ducalis::DEFAULT_FILE })
       commentator.new(config).call(detective.violations)
     end
 
@@ -32,7 +32,12 @@ module Ducalis
 
     def configure
       Octokit.auto_paginate = true
-      Policial.linters = [Policial::Linters::Ruby]
+      # Style guides were changed to linters in `policial` upstream
+      if Policial.respond_to?(:linters)
+        Policial.linters = [Policial::Linters::Ruby]
+      else
+        Policial.style_guides = [Policial::StyleGuides::Ruby]
+      end
     end
 
     def commentator
