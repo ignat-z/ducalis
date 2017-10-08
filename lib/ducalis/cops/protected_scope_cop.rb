@@ -17,8 +17,9 @@ Employee.find(params[:id])
     }.strip
 
     def on_send(node)
-      _, method_name, = *node
+      _, method_name, *args = *node
       return unless method_name == :find
+      return if args.empty?
       return unless children(node).any? { |subnode| subnode.type == :const }
       add_offense(node, :expression, OFFENSE)
     end

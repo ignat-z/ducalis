@@ -20,4 +20,18 @@ RSpec.describe Ducalis::ProtectedScopeCop do
     inspect_source('Group.includes(:some_relation).where(name: "John").find(8)')
     expect(cop).to raise_violation(/non-protected scope/)
   end
+
+  it 'ignores find method with passed block' do
+    inspect_source('MAPPING.find { |x| x == 42 }')
+    expect(cop).to_not raise_violation
+  end
+
+  it 'ignores find method with passed multiline block' do
+    inspect_source([
+                     'MAPPING.find do |x|',
+                     '  x == 42',
+                     'end'
+                   ])
+    expect(cop).to_not raise_violation
+  end
 end
