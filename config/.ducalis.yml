@@ -8,6 +8,9 @@ AllCops:
 Ducalis/CallbacksActiverecord:
   Enabled: true
 
+Ducalis/PossibleTap:
+  Enabled: true
+
 Ducalis/ProtectedScopeCop:
   Enabled: true
 

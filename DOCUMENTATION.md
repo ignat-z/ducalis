@@ -250,6 +250,111 @@ class MyController < ApplicationController
 end
 
 ```
+## Ducalis::PossibleTap
+
+Consider of using `.tap`, default ruby [method](<https://apidock.com/ruby/Object/tap>) which allows to replace intermediate variables with block, by this you are limiting scope pollution and make scope more clear. [Related article](<http://seejohncode.com/2012/01/02/ruby-tap-that/>).
+
+![](https://placehold.it/15/f03c15/000000?text=+) raises for methods with scope variable return
+```ruby
+
+def load_group
+  group = channel.groups.find(params[:group_id])
+  authorize group, :edit?
+  group
+end
+
+```
+
+![](https://placehold.it/15/f03c15/000000?text=+) raises for methods with instance variable changes and return
+```ruby
+
+def load_group
+  @group = Group.find(params[:id])
+  authorize @group
+  @group
+end
+
+```
+
+![](https://placehold.it/15/f03c15/000000?text=+) raises for methods with instance variable `||=` assign and return
+```ruby
+
+def define_roles
+  return [] unless employee
+
+  @roles ||= []
+  @roles << "primary"  if employee.primary?
+  @roles << "contract" if employee.contract?
+  @roles
+end
+
+```
+
+![](https://placehold.it/15/f03c15/000000?text=+) raises for methods which return call on scope variable
+```ruby
+
+def load_group
+  elections = @elections.group_by(&:code)
+  result = elections.map do |code, elections|
+    { code => statistic }
+  end
+  result << total_spend(@elections)
+  result.inject(:merge)
+end
+
+```
+
+![](https://placehold.it/15/f03c15/000000?text=+) raises for methods which return instance variable but have scope vars
+```ruby
+
+def generate_file(file_name)
+  @file = Tempfile.new([file_name, ".pdf"])
+  signed_pdf = some_new_stuff
+  @file.write(signed_pdf.to_pdf)
+  @file.close
+  @file
+end
+
+```
+
+![](https://placehold.it/15/2cbe4e/000000?text=+) works with empty methods
+```ruby
+
+def edit
+end
+
+```
+
+![](https://placehold.it/15/2cbe4e/000000?text=+) wroks with methods which body is just call
+```ruby
+
+def total_cost(cost_field)
+  Service.cost_sum(cost_field)
+end
+
+```
+
+![](https://placehold.it/15/2cbe4e/000000?text=+) works for methods which return some statement
+```ruby
+
+  def stop_terminated_employee
+  if current_user && current_user.terminated?
+    sign_out current_user
+    redirect_to new_user_session_path
+  end
+end
+
+
+```
+
+![](https://placehold.it/15/2cbe4e/000000?text=+) works with methods which simply returns instance var without changes
+```ruby
+
+def employee
+  @employee
+end
+
+```
 ## Ducalis::PrivateInstanceAssign
 
 Please, don't assign instance variables in controller's private methods. It's make hard to understand what variables are available in views.
