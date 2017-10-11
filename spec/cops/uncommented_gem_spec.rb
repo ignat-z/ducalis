@@ -6,7 +6,7 @@ require './lib/ducalis/cops/uncommented_gem.rb'
 RSpec.describe Ducalis::UncommentedGem do
   subject(:cop) { described_class.new }
 
-  it 'raise for gem from github without comment' do
+  it 'raises for gem from github without comment' do
     inspect_source([
                      "gem 'a' ",
                      "gem 'b', '~> 1.3.1' ",
@@ -15,7 +15,7 @@ RSpec.describe Ducalis::UncommentedGem do
     expect(cop).to raise_violation(/add comment/)
   end
 
-  it "doesn't raise for gem from github with comment" do
+  it 'ignores for gem from github with comment' do
     inspect_source([
                      "gem 'a' ",
                      "gem 'b', '~> 1.3.1' ",

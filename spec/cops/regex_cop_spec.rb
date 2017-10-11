@@ -6,7 +6,7 @@ require './lib/ducalis/cops/regex_cop'
 RSpec.describe Ducalis::RegexCop do
   subject(:cop) { described_class.new }
 
-  it 'raise if somewhere in code used regex which is not moved to const' do
+  it 'raises if somewhere in code used regex which is not moved to const' do
     inspect_source([
                      'name = "john"',
                      'puts "hi" if name =~ /john/'
@@ -16,7 +16,7 @@ RSpec.describe Ducalis::RegexCop do
     expect(cop).to raise_violation(/puts "hi" if name =~ CONST_NAME/)
   end
 
-  it 'accepts matching constants' do
+  it 'ignores matching constants' do
     inspect_source([
                      'REGEX = /john/',
                      'name = "john"',

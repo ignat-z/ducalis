@@ -1,7 +1,8 @@
 ## Ducalis::CallbacksActiverecord
 
 Please, avoid using of callbacks for models. It's better to keep models small ("dumb") and instead use "builder" classes/services: to construct new objects. You can read more [here](https://medium.com/planet-arkency/a61fd75ab2d3).
-- rejects ActiveRecord classes which contains callbacks
+
+![](https://placehold.it/15/f03c15/000000?text=+) raises on ActiveRecord classes which contains callbacks
 ```ruby
 
 class A < ActiveRecord::Base
@@ -9,7 +10,8 @@ class A < ActiveRecord::Base
 end
 
 ```
-- ignores non-ActiveRecord classes which contains callbacks
+
+![](https://placehold.it/15/2cbe4e/000000?text=+) ignores non-ActiveRecord classes which contains callbacks
 ```ruby
 
 class A < SomeBasicClass
@@ -20,7 +22,8 @@ end
 ## Ducalis::ControllersExcept
 
 Prefer to use `:only` over `:except` in controllers because it's more explicit and will be easier to maintain for new developers.
-- raises for `before_filters` with `except` method as array
+
+![](https://placehold.it/15/f03c15/000000?text=+) raises for `before_filters` with `except` method as array
 ```ruby
 
 class MyController < ApplicationController
@@ -32,7 +35,8 @@ class MyController < ApplicationController
 end
 
 ```
-- raises for filters with many actions and only one `except` method
+
+![](https://placehold.it/15/f03c15/000000?text=+) raises for filters with many actions and only one `except` method
 ```ruby
 
 class MyController < ApplicationController
@@ -45,7 +49,8 @@ class MyController < ApplicationController
 end
 
 ```
-- ignores `before_filters` without arguments
+
+![](https://placehold.it/15/2cbe4e/000000?text=+) ignores `before_filters` without arguments
 ```ruby
 
 class MyController < ApplicationController
@@ -59,30 +64,36 @@ end
 ## Ducalis::KeywordDefaults
 
 Prefer to use keyword arguments for defaults. It increases readability and reduces ambiguities.
-- rejects if method definition contains default values
+
+![](https://placehold.it/15/f03c15/000000?text=+) raises if method definition contains default values
 ```ruby
 def some_method(a, b, c = 3); end
 ```
-- rejects if class method definition contains default values
+
+![](https://placehold.it/15/f03c15/000000?text=+) raises if class method definition contains default values
 ```ruby
 def self.some_method(a, b, c = 3); end
 ```
-- works if method definition contains default values through keywords
+
+![](https://placehold.it/15/2cbe4e/000000?text=+) ignores if method definition contains default values through keywords
 ```ruby
 def some_method(a, b, c: 3); end
 ```
-- works for methods without arguments
+
+![](https://placehold.it/15/2cbe4e/000000?text=+) ignores for methods without arguments
 ```ruby
 def some_method; end
 ```
-- works for class methods without arguments
+
+![](https://placehold.it/15/2cbe4e/000000?text=+) ignores for class methods without arguments
 ```ruby
 def self.some_method; end
 ```
 ## Ducalis::ModuleLikeClass
 
 Seems like it will be better to define initialize and pass %<args>s there instead of each method.
-- raise if class doesn't contain constructor but accept the same args
+
+![](https://placehold.it/15/f03c15/000000?text=+) raises if class doesn't contain constructor but accept the same args
 ```ruby
 
 class MyClass
@@ -107,7 +118,8 @@ class MyClass
 end
 
 ```
-- raise for class with only one public method with args
+
+![](https://placehold.it/15/f03c15/000000?text=+) raises for class with only one public method with args
 ```ruby
 
 class MyClass
@@ -123,7 +135,8 @@ class MyClass
 end
 
 ```
-- ignores classes with custom includes
+
+![](https://placehold.it/15/2cbe4e/000000?text=+) ignores classes with custom includes
 ```ruby
 
 class MyClass
@@ -135,7 +148,8 @@ class MyClass
 end
 
 ```
-- ignores classes with inheritance
+
+![](https://placehold.it/15/2cbe4e/000000?text=+) ignores classes with inheritance
 ```ruby
 
 class MyClass < AnotherClass
@@ -151,7 +165,8 @@ class MyClass < AnotherClass
 end
 
 ```
-- ignores classes with one method and initializer
+
+![](https://placehold.it/15/2cbe4e/000000?text=+) ignores classes with one method and initializer
 ```ruby
 
 class MyClass
@@ -169,7 +184,8 @@ end
 
 It's better to pass already preprocessed params hash to services. Or you can use
 `arcane` gem
-- raise if user pass `params` as argument from controller
+
+![](https://placehold.it/15/f03c15/000000?text=+) raises if user pass `params` as argument from controller
 ```ruby
 
 class MyController < ApplicationController
@@ -179,7 +195,8 @@ class MyController < ApplicationController
 end
 
 ```
-- raise if user pass `params` as any argument from controller
+
+![](https://placehold.it/15/f03c15/000000?text=+) raises if user pass `params` as any argument from controller
 ```ruby
 
 class MyController < ApplicationController
@@ -189,7 +206,8 @@ class MyController < ApplicationController
 end
 
 ```
-- raise if user pass `params` as keyword argument from controller
+
+![](https://placehold.it/15/f03c15/000000?text=+) raises if user pass `params` as keyword argument from controller
 ```ruby
 
 class MyController < ApplicationController
@@ -199,7 +217,8 @@ class MyController < ApplicationController
 end
 
 ```
-- ignores passing only one `params` field
+
+![](https://placehold.it/15/2cbe4e/000000?text=+) ignores passing only one `params` field
 ```ruby
 
 class MyController < ApplicationController
@@ -209,7 +228,8 @@ class MyController < ApplicationController
 end
 
 ```
-- ignores passing processed `params`
+
+![](https://placehold.it/15/2cbe4e/000000?text=+) ignores passing processed `params`
 ```ruby
 
 class MyController < ApplicationController
@@ -219,7 +239,8 @@ class MyController < ApplicationController
 end
 
 ```
-- ignores passing `params` from `arcane` gem
+
+![](https://placehold.it/15/2cbe4e/000000?text=+) ignores passing `params` from `arcane` gem
 ```ruby
 
 class MyController < ApplicationController
@@ -232,7 +253,8 @@ end
 ## Ducalis::PrivateInstanceAssign
 
 Please, don't assign instance variables in controller's private methods. It's make hard to understand what variables are available in views.
-- raises for assigning instance variables in controllers private methods
+
+![](https://placehold.it/15/f03c15/000000?text=+) raises for assigning instance variables in controllers private methods
 ```ruby
 
 class MyController < ApplicationController
@@ -244,7 +266,8 @@ class MyController < ApplicationController
 end
 
 ```
-- raises for memoization variables in controllers private methods
+
+![](https://placehold.it/15/f03c15/000000?text=+) raises for memoization variables in controllers private methods
 ```ruby
 
 class MyController < ApplicationController
@@ -256,7 +279,8 @@ class MyController < ApplicationController
 end
 
 ```
-- ignores memoization variables in controllers private methods with _
+
+![](https://placehold.it/15/2cbe4e/000000?text=+) ignores memoization variables in controllers private methods with _
 ```ruby
 
 class MyController < ApplicationController
@@ -268,7 +292,8 @@ class MyController < ApplicationController
 end
 
 ```
-- ignores assigning instance variables in controllers public methods
+
+![](https://placehold.it/15/2cbe4e/000000?text=+) ignores assigning instance variables in controllers public methods
 ```ruby
 
 class MyController < ApplicationController
@@ -295,30 +320,50 @@ current_group.employees.find(params[:id])
 # better then
 Employee.find(params[:id])
 ```
-- raise if somewhere AR search was called on not protected scope
+
+![](https://placehold.it/15/f03c15/000000?text=+) raises if somewhere AR search was called on not protected scope
 ```ruby
 Group.find(8)
 ```
-- raise if AR search was called even for chain of calls
+
+![](https://placehold.it/15/f03c15/000000?text=+) raises if AR search was called even for chain of calls
 ```ruby
 Group.includes(:some_relation).find(8)
 ```
-- works ignores where statements and still raises error
+
+![](https://placehold.it/15/f03c15/000000?text=+) ignores where statements and still raises error
 ```ruby
 Group.includes(:some_relation).where(name: "John").find(8)
+```
+
+![](https://placehold.it/15/2cbe4e/000000?text=+) ignores find method with passed block
+```ruby
+MAPPING.find { |x| x == 42 }
+```
+
+![](https://placehold.it/15/2cbe4e/000000?text=+) ignores find method with passed multiline block
+```ruby
+
+MAPPING.find do |x|
+  x == 42
+end
+
 ```
 ## Ducalis::RaiseWithourErrorClass
 
 It's better to add exception class as raise argument. It will make easier to catch and process it later.
-- raise when `raise` called without exception class
+
+![](https://placehold.it/15/f03c15/000000?text=+) raises when `raise` called without exception class
 ```ruby
 raise "Something went wrong"
 ```
-- works when `raise` called with exception class
+
+![](https://placehold.it/15/2cbe4e/000000?text=+) ignores when `raise` called with exception class
 ```ruby
 raise StandardError, "Something went wrong"
 ```
-- works when `raise` called with exception instance
+
+![](https://placehold.it/15/2cbe4e/000000?text=+) ignores when `raise` called with exception instance
 ```ruby
 raise StandardError.new("Something went wrong")
 ```
@@ -331,14 +376,16 @@ It will allow you to reuse this regex and provide instructions for others.
 CONST_NAME = %<constant>s # "%<example>s"
 %<fixed_string>s
 ```
-- raise if somewhere in code used regex which is not moved to const
+
+![](https://placehold.it/15/f03c15/000000?text=+) raises if somewhere in code used regex which is not moved to const
 ```ruby
 
 name = "john"
 puts "hi" if name =~ /john/
 
 ```
-- accepts matching constants
+
+![](https://placehold.it/15/2cbe4e/000000?text=+) ignores matching constants
 ```ruby
 
 REGEX = /john/
@@ -346,14 +393,16 @@ name = "john"
 puts "hi" if name =~ REGEX
 
 ```
-- ignores named ruby constants
+
+![](https://placehold.it/15/2cbe4e/000000?text=+) ignores named ruby constants
 ```ruby
 
 name = "john"
 puts "hi" if name =~ /[[:alpha:]]/
 
 ```
-- ignores dynamic regexs
+
+![](https://placehold.it/15/2cbe4e/000000?text=+) ignores dynamic regexs
 ```ruby
 
 name = "john"
@@ -364,7 +413,8 @@ puts "hi" if name =~ /.{#{name.length}}/
 
 It's better for controllers to stay adherent to REST:
 http://jeromedalbert.com/how-dhh-organizes-his-rails-controllers/
-- raise for controllers with non-REST methods
+
+![](https://placehold.it/15/f03c15/000000?text=+) raises for controllers with non-REST methods
 ```ruby
 
 class MyController < ApplicationController
@@ -373,7 +423,8 @@ class MyController < ApplicationController
 end
 
 ```
-- doesn't raise for controllers with private non-REST methods
+
+![](https://placehold.it/15/2cbe4e/000000?text=+) ignores controllers with private non-REST methods
 ```ruby
 
 class MyController < ApplicationController
@@ -383,7 +434,8 @@ class MyController < ApplicationController
 end
 
 ```
-- doesn't raise for controllers with only REST methods
+
+![](https://placehold.it/15/2cbe4e/000000?text=+) ignores controllers with only REST methods
 ```ruby
 
 class MyController < ApplicationController
@@ -397,7 +449,8 @@ class MyController < ApplicationController
 end
 
 ```
-- doesn't raise for non-controllers with non-REST methods
+
+![](https://placehold.it/15/2cbe4e/000000?text=+) ignores non-controllers with non-REST methods
 ```ruby
 
 class MyClass
@@ -411,14 +464,16 @@ end
 
 Please, do not suppress RuboCop metrics, may be you can introduce some refactoring or another concept.
     
-- raises on RuboCop disable comments
+
+![](https://placehold.it/15/f03c15/000000?text=+) raises on RuboCop disable comments
 ```ruby
 
 # rubocop:disable Metrics/ParameterLists
 def some_method(a, b, c, d, e, f); end
 
 ```
-- doesnt raise on comment without RuboCop disabling
+
+![](https://placehold.it/15/2cbe4e/000000?text=+) ignores comment without RuboCop disabling
 ```ruby
 
 # some meaningful comment
@@ -430,14 +485,16 @@ def some_method(a, b, c, d, e, f); end
 Please, do not use strings as arguments for %<method_name>s argument.
 It's hard to test, grep sources, code highlighting and so on.
 Consider using of symbols or lambdas for complex expressions.
-- raise for string if argument
+
+![](https://placehold.it/15/f03c15/000000?text=+) raises for string if argument
 ```ruby
 
 before_save :set_full_name, 
  if: 'name_changed? || postfix_name_changed?'
 
 ```
-- doesnt raise for lambda if argument
+
+![](https://placehold.it/15/2cbe4e/000000?text=+) ignores lambda if argument
 ```ruby
 validates :file, if: -> { remote_url.blank? }
 ```
@@ -445,7 +502,8 @@ validates :file, if: -> { remote_url.blank? }
 
 Please, add comment why are you including non-realized gem version for %<gem>s.
 It will increase [bus-factor](<https://en.wikipedia.org/wiki/Bus_factor>).
-- raise for gem from github without comment
+
+![](https://placehold.it/15/f03c15/000000?text=+) raises for gem from github without comment
 ```ruby
 
 gem 'a' 
@@ -453,7 +511,8 @@ gem 'b', '~> 1.3.1'
 gem 'c', git: 'https://github.com/c/c'
 
 ```
-- doesn't raise for gem from github with comment
+
+![](https://placehold.it/15/2cbe4e/000000?text=+) ignores for gem from github with comment
 ```ruby
 
 gem 'a' 
@@ -475,7 +534,8 @@ def index
   do_something
 end
 ```
-- raises for `before_filters` with only one method as array
+
+![](https://placehold.it/15/f03c15/000000?text=+) raises for `before_filters` with only one method as array
 ```ruby
 
 class MyController < ApplicationController
@@ -486,7 +546,8 @@ class MyController < ApplicationController
 end
 
 ```
-- raises for `before_filters` with only one method as keyword array
+
+![](https://placehold.it/15/f03c15/000000?text=+) raises for `before_filters` with only one method as keyword array
 ```ruby
 
 class MyController < ApplicationController
@@ -497,7 +558,8 @@ class MyController < ApplicationController
 end
 
 ```
-- raises for `before_filters` with many actions and only one method
+
+![](https://placehold.it/15/f03c15/000000?text=+) raises for `before_filters` with many actions and only one method
 ```ruby
 
 class MyController < ApplicationController
@@ -509,7 +571,8 @@ class MyController < ApplicationController
 end
 
 ```
-- raises for `before_filters` with only one method as argument
+
+![](https://placehold.it/15/f03c15/000000?text=+) raises for `before_filters` with only one method as argument
 ```ruby
 
 class MyController < ApplicationController
@@ -520,7 +583,8 @@ class MyController < ApplicationController
 end
 
 ```
-- ignores `before_filters` without arguments
+
+![](https://placehold.it/15/2cbe4e/000000?text=+) ignores `before_filters` without arguments
 ```ruby
 
 class MyController < ApplicationController
@@ -531,7 +595,8 @@ class MyController < ApplicationController
 end
 
 ```
-- ignores `before_filters` with `only` and many arguments
+
+![](https://placehold.it/15/2cbe4e/000000?text=+) ignores `before_filters` with `only` and many arguments
 ```ruby
 
 class MyController < ApplicationController
@@ -543,7 +608,8 @@ class MyController < ApplicationController
 end
 
 ```
-- ignores `before_filters` with `except` and one argument
+
+![](https://placehold.it/15/2cbe4e/000000?text=+) ignores `before_filters` with `except` and one argument
 ```ruby
 
 class MyController < ApplicationController

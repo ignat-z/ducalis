@@ -6,7 +6,7 @@ require './lib/ducalis/cops/rest_only_cop.rb'
 RSpec.describe Ducalis::RestOnlyCop do
   subject(:cop) { described_class.new }
 
-  it 'raise for controllers with non-REST methods' do
+  it 'raises for controllers with non-REST methods' do
     inspect_source([
                      'class MyController < ApplicationController',
                      '  def index; end',
@@ -16,7 +16,7 @@ RSpec.describe Ducalis::RestOnlyCop do
     expect(cop).to raise_violation(/REST/)
   end
 
-  it "doesn't raise for controllers with private non-REST methods" do
+  it 'ignores controllers with private non-REST methods' do
     inspect_source([
                      'class MyController < ApplicationController',
                      '  def index; end',
@@ -27,7 +27,7 @@ RSpec.describe Ducalis::RestOnlyCop do
     expect(cop).to_not raise_violation
   end
 
-  it "doesn't raise for controllers with only REST methods" do
+  it 'ignores controllers with only REST methods' do
     inspect_source([
                      'class MyController < ApplicationController',
                      '  def index; end',
@@ -42,7 +42,7 @@ RSpec.describe Ducalis::RestOnlyCop do
     expect(cop).to_not raise_violation
   end
 
-  it "doesn't raise for non-controllers with non-REST methods" do
+  it 'ignores non-controllers with non-REST methods' do
     inspect_source([
                      'class MyClass',
                      '  def index; end',

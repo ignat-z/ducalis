@@ -6,7 +6,7 @@ require './lib/ducalis/cops/params_passing'
 RSpec.describe Ducalis::ParamsPassing do
   subject(:cop) { described_class.new }
 
-  it 'raise if user pass `params` as argument from controller' do
+  it 'raises if user pass `params` as argument from controller' do
     inspect_source([
                      'class MyController < ApplicationController',
                      '  def index',
@@ -17,7 +17,7 @@ RSpec.describe Ducalis::ParamsPassing do
     expect(cop).to raise_violation(/preprocessed params/)
   end
 
-  it 'raise if user pass `params` as any argument from controller' do
+  it 'raises if user pass `params` as any argument from controller' do
     inspect_source([
                      'class MyController < ApplicationController',
                      '  def index',
@@ -28,7 +28,7 @@ RSpec.describe Ducalis::ParamsPassing do
     expect(cop).to raise_violation(/preprocessed params/)
   end
 
-  it 'raise if user pass `params` as keyword argument from controller' do
+  it 'raises if user pass `params` as keyword argument from controller' do
     inspect_source([
                      'class MyController < ApplicationController',
                      '  def index',

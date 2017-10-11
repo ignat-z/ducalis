@@ -69,10 +69,18 @@ class Documentation
     ] +
       specs.map do |(it, code)|
         [
-          "- #{it}",                                      # case description
-          "```ruby\n#{code.join("\n")}\n```"              # code example
+          "\n#{color(it)} #{it}",                       # case description
+          "```ruby\n#{code.join("\n")}\n```"            # code example
         ]
       end
+  end
+
+  def color(it)
+    if it.include?('raises')
+      '![](https://placehold.it/15/f03c15/000000?text=+)'
+    else
+      '![](https://placehold.it/15/2cbe4e/000000?text=+)'
+    end
   end
 
   def spec_cases_for(f)

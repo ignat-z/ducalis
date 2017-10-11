@@ -14,7 +14,7 @@ RSpec.describe Ducalis::RubocopDisable do
     expect(cop).to raise_violation(/RuboCop/)
   end
 
-  it 'doesnt raise on comment without RuboCop disabling' do
+  it 'ignores comment without RuboCop disabling' do
     inspect_source([
                      '# some meaningful comment',
                      'def some_method(a, b, c, d, e, f); end'
