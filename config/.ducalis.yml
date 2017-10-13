@@ -45,6 +45,8 @@ Ducalis/UncommentedGem:
 
 Ducalis/ParamsPassing:
   Enabled: true
+  Exclude:
+    - 'spec/**/*.rb'
 
 Ducalis/ControllersExcept:
   Enabled: true
