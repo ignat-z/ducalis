@@ -32,6 +32,7 @@ require 'ducalis/patched_rubocop/git_turget_finder'
 require 'ducalis/patched_rubocop/rubo_cop'
 
 require 'ducalis/cops/callbacks_activerecord'
+require 'ducalis/cops/case_mapping'
 require 'ducalis/cops/controllers_except'
 require 'ducalis/cops/keyword_defaults'
 require 'ducalis/cops/module_like_class'

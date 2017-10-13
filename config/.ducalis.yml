@@ -5,6 +5,9 @@ AllCops:
     - 'node_modules/**/*'
     - 'vendor/bundle/**/*'
 
+Ducalis/CaseMapping:
+  Enabled: true
+
 Ducalis/CallbacksActiverecord:
   Enabled: true
 
