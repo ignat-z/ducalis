@@ -4,6 +4,7 @@ module Ducalis
   module Commentators
     class Github
       STATUS = 'COMMENT'
+      SIMILARITY_THRESHOLD = 0.8
 
       def initialize(config)
         @config = config
@@ -26,11 +27,14 @@ module Ducalis
           [
             violation.filename == commented_violation[:path],
             violation.line.patch_position == commented_violation[:position],
-            Utils.similarity(
-              violation.message, commented_violation[:body]
-            ) > 0.9
+            similar_messages?(violation.message, commented_violation[:body])
           ].all?
         end
+      end
+
+      def similar_messages?(message, body)
+        body.include?(message) ||
+          Utils.similarity(message, body) > SIMILARITY_THRESHOLD
       end
 
       def commented_violations
