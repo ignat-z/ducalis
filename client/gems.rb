@@ -2,6 +2,6 @@
 
 source 'https://rubygems.org'
 
-gem 'ducalis', '0.2.0'
+gem 'ducalis', '0.3.0'
 gem 'puma'
 gem 'sinatra'
