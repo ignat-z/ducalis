@@ -9,7 +9,7 @@ module Ducalis
               '/services: to construct new objects. You can read more [here]'\
               '(https://medium.com/planet-arkency/a61fd75ab2d3).'
     MODELS_CLASS_NAMES = ['ApplicationRecord', 'ActiveRecord::Base'].freeze
-    METHODS_BLACK_LIST = %i[
+    METHODS_BLACK_LIST = %i(
       after_commit
       after_create
       after_destroy
@@ -26,7 +26,7 @@ module Ducalis
       before_save
       before_update
       before_validation
-    ].freeze
+    ).freeze
 
     def on_class(node)
       _classdef_node, superclass, _body = *node

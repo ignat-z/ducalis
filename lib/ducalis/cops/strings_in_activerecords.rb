@@ -11,10 +11,10 @@ It's hard to test, grep sources, code highlighting and so on.
 Consider using of symbols or lambdas for complex expressions.
     ).strip
     VALIDATEBLE_METHODS =
-      ::Ducalis::CallbacksActiverecord::METHODS_BLACK_LIST + %i[
+      ::Ducalis::CallbacksActiverecord::METHODS_BLACK_LIST + %i(
         validates
         validate
-      ]
+      )
 
     def on_send(node)
       _, method_name, *args = *node
@@ -31,7 +31,7 @@ Consider using of symbols or lambdas for complex expressions.
     def skip_node?(current_node)
       key, value = *current_node
       return true unless current_node.type == :pair
-      return true unless %w[if unless].include?(key.source)
+      return true unless %w(if unless).include?(key.source)
       return true unless value.type == :str
       false
     end

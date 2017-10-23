@@ -7,7 +7,7 @@ RSpec.describe Ducalis::RegexCop do
   subject(:cop) { described_class.new }
 
   it 'raises if somewhere in code used regex which is not moved to const' do
-    inspect_source([
+    inspect_source(cop, [
                      'name = "john"',
                      'puts "hi" if name =~ /john/'
                    ])
@@ -17,7 +17,7 @@ RSpec.describe Ducalis::RegexCop do
   end
 
   it 'ignores matching constants' do
-    inspect_source([
+    inspect_source(cop, [
                      'REGEX = /john/',
                      'name = "john"',
                      'puts "hi" if name =~ REGEX'
@@ -26,7 +26,7 @@ RSpec.describe Ducalis::RegexCop do
   end
 
   it 'ignores named ruby constants' do
-    inspect_source([
+    inspect_source(cop, [
                      'name = "john"',
                      'puts "hi" if name =~ /[[:alpha:]]/'
                    ])
@@ -34,7 +34,7 @@ RSpec.describe Ducalis::RegexCop do
   end
 
   it 'ignores dynamic regexs' do
-    inspect_source([
+    inspect_source(cop, [
                      'name = "john"',
                      'puts "hi" if name =~ /.{#{name.length}}/'
                    ])

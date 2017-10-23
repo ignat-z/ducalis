@@ -31,7 +31,7 @@ start: `@_name`.
 
     def check_memo(node)
       return if node.to_a.first.to_s.start_with?('@_')
-      add_offense(node, :expression, OFFENSE + ADD_OFFENSE)
+      add_offense(node, :expression, [OFFENSE, ADD_OFFENSE].join(' '))
     end
 
     attr_reader :triggered

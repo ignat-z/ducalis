@@ -5,8 +5,8 @@ require 'rubocop'
 module Ducalis
   class UselessOnly < RuboCop::Cop::Cop
     include RuboCop::Cop::DefNode
-    FILTERS = %i[before_filter after_filter around_filter
-                 before_action after_action around_action].freeze
+    FILTERS = %i(before_filter after_filter around_filter
+                 before_action after_action around_action).freeze
     OFFENSE = %(
 Seems like there is no any reason to keep before filter only for one action. \
 Maybe it will be better to inline it?

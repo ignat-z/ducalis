@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'parser/current'
+require 'rubocop'
 
 class SpecsProcessor < Parser::AST::Processor
   attr_reader :cases

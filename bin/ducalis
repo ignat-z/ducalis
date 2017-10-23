@@ -21,7 +21,7 @@ Env `GITHUB_TOKEN` should be available to receive PRs files."
 end
 
 if Ducalis::PassedArgs.ci_mode?
-  Ducalis::CLI.start(ARGV - %w[--ci])
+  Ducalis::CLI.start(ARGV - %w(--ci))
 else
   Ducalis::PassedArgs.process_args!
 

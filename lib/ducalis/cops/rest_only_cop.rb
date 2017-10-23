@@ -5,7 +5,7 @@ require 'rubocop'
 module Ducalis
   class RestOnlyCop < RuboCop::Cop::Cop
     include RuboCop::Cop::DefNode
-    WHITELIST = %i[index show new edit create update destroy].freeze
+    WHITELIST = %i(index show new edit create update destroy).freeze
     OFFENSE = %(
 It's better for controllers to stay adherent to REST:
 http://jeromedalbert.com/how-dhh-organizes-his-rails-controllers/

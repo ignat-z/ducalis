@@ -7,7 +7,7 @@ RSpec.describe Ducalis::PossibleTap do
   subject(:cop) { described_class.new }
 
   it 'raises for methods with scope variable return' do
-    inspect_source([
+    inspect_source(cop, [
                      'def load_group',
                      '  group = channel.groups.find(params[:group_id])',
                      '  authorize group, :edit?',
@@ -18,7 +18,7 @@ RSpec.describe Ducalis::PossibleTap do
   end
 
   it 'raises for methods with instance variable changes and return' do
-    inspect_source([
+    inspect_source(cop, [
                      'def load_group',
                      '  @group = Group.find(params[:id])',
                      '  authorize @group',
@@ -29,7 +29,7 @@ RSpec.describe Ducalis::PossibleTap do
   end
 
   it 'raises for methods with instance variable `||=` assign and return' do
-    inspect_source([
+    inspect_source(cop, [
                      'def define_roles',
                      '  return [] unless employee',
                      '',
@@ -43,7 +43,7 @@ RSpec.describe Ducalis::PossibleTap do
   end
 
   it 'raises for methods which return call on scope variable' do
-    inspect_source([
+    inspect_source(cop, [
                      'def load_group',
                      '  elections = @elections.group_by(&:code)',
                      '  result = elections.map do |code, elections|',
@@ -57,7 +57,7 @@ RSpec.describe Ducalis::PossibleTap do
   end
 
   it 'raises for methods which return instance variable but have scope vars' do
-    inspect_source([
+    inspect_source(cop, [
                      'def generate_file(file_name)',
                      '  @file = Tempfile.new([file_name, ".pdf"])',
                      '  signed_pdf = some_new_stuff',
@@ -70,7 +70,7 @@ RSpec.describe Ducalis::PossibleTap do
   end
 
   it 'ignores empty methods' do
-    inspect_source([
+    inspect_source(cop, [
                      'def edit',
                      'end'
                    ])
@@ -78,7 +78,7 @@ RSpec.describe Ducalis::PossibleTap do
   end
 
   it 'ignores methods which body is just call' do
-    inspect_source([
+    inspect_source(cop, [
                      'def total_cost(cost_field)',
                      '  Service.cost_sum(cost_field)',
                      'end'
@@ -87,7 +87,7 @@ RSpec.describe Ducalis::PossibleTap do
   end
 
   it 'ignores methods which return some statement' do
-    inspect_source([
+    inspect_source(cop, [
                      '  def stop_terminated_employee',
                      '  if current_user && current_user.terminated?',
                      '    sign_out current_user',
@@ -100,7 +100,7 @@ RSpec.describe Ducalis::PossibleTap do
   end
 
   it 'ignores methods which simply returns instance var without changes' do
-    inspect_source([
+    inspect_source(cop, [
                      'def employee',
                      '  @employee',
                      'end'

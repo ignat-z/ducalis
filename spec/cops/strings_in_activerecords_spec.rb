@@ -7,7 +7,7 @@ RSpec.describe Ducalis::StringsInActiverecords do
   subject(:cop) { described_class.new }
 
   it 'raises for string if argument' do
-    inspect_source([
+    inspect_source(cop, [
                      'before_save :set_full_name, ',
                      " if: 'name_changed? || postfix_name_changed?'"
                    ])
@@ -15,7 +15,7 @@ RSpec.describe Ducalis::StringsInActiverecords do
   end
 
   it 'ignores lambda if argument' do
-    inspect_source('validates :file, if: -> { remote_url.blank? }')
+    inspect_source(cop, 'validates :file, if: -> { remote_url.blank? }')
     expect(cop).to_not raise_violation
   end
 end

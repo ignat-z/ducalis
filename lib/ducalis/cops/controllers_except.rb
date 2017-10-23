@@ -5,8 +5,8 @@ require 'rubocop'
 module Ducalis
   class ControllersExcept < ::RuboCop::Cop::Cop
     include RuboCop::Cop::DefNode
-    FILTERS = %i[before_filter after_filter around_filter
-                 before_action after_action around_action].freeze
+    FILTERS = %i(before_filter after_filter around_filter
+                 before_action after_action around_action).freeze
     OFFENSE = %(
 Prefer to use `:only` over `:except` in controllers because it's more explicit \
 and will be easier to maintain for new developers.
