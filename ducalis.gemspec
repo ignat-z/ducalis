@@ -31,6 +31,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'git', '~> 1.3', '>= 1.3.0'
   spec.add_dependency 'policial', '0.0.4'
   spec.add_dependency 'regexp-examples', '~> 1.3', '>= 1.3.2'
-  spec.add_dependency 'rubocop', '~> 0.50'
+  spec.add_dependency 'rubocop', '= 0.50'
   spec.add_dependency 'thor', '~> 0.20.0'
 end
