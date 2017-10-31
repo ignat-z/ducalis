@@ -15,6 +15,7 @@ module Ducalis
           next if commented?(violation)
           generate_comment(violation)
         end.compact
+        return if comments.empty?
         Utils.octokit
              .create_pull_request_review(@config.repo, @config.id,
                                          event: STATUS, comments: comments)
