@@ -7,11 +7,11 @@ module Ducalis
         @repo ||= ENV.fetch('CIRCLE_REPOSITORY_URL')
                      .sub('https://github.com/', '')
                      .sub('git@github.com:', '')
+                     .sub('.git', '')
       end
 
       def id
-        @id ||= ENV.fetch('CI_PULL_REQUEST')
-                   .sub("#{ENV.fetch('CIRCLE_REPOSITORY_URL')}/pull/", '')
+        @id ||= ENV.fetch('CI_PULL_REQUEST').split("/").last
       end
 
       def sha
