@@ -6,6 +6,7 @@ module Ducalis
       def repo
         @repo ||= ENV.fetch('CIRCLE_REPOSITORY_URL')
                      .sub('https://github.com/', '')
+                     .sub('git@github.com:', '')
       end
 
       def id
