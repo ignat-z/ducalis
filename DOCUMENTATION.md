@@ -451,6 +451,15 @@ def employee
 end
 
 ```
+## Ducalis::PreferableMethods
+
+Prefer to use %<alternative>s method instead of %<original>s because of
+%<reason>s.
+
+![](https://placehold.it/15/f03c15/000000?text=+) raises for `delete` method calling
+```ruby
+User.where(id: 7).delete
+```
 ## Ducalis::PrivateInstanceAssign
 
 Please, don't assign instance variables in controller's private methods. It's make hard to understand what variables are available in views.

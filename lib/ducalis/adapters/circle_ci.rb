@@ -11,7 +11,7 @@ module Ducalis
       end
 
       def id
-        @id ||= ENV.fetch('CI_PULL_REQUEST').split("/").last
+        @id ||= ENV.fetch('CI_PULL_REQUEST').split('/').last
       end
 
       def sha
