@@ -7,16 +7,22 @@ module Ducalis
 Prefer to use %<alternative>s method instead of %<original>s because of
 %<reason>s.
     ).strip
+    ALWAYS_TRUE = ->(_who, _what, _args) { true }
+    DELETE_CHECK = lambda do |who, _what, args|
+      !%i(sym str).include?(args.first&.type) &&
+        args.count <= 1 && who.to_s !~ /file/
+    end
     DESCRIPTION = {
-      # Method => [Alternative, Reason]
-      delete_all: [:destroy_all, 'it is not invoking callbacks'],
-      delete: [:destroy, 'it is not invoking callbacks']
+      # Method => [Alternative, Reason, Callable condition]
+      delete_all: [:destroy_all, 'it is not invoking callbacks', ALWAYS_TRUE],
+      delete: [:destroy, 'it is not invoking callbacks', DELETE_CHECK]
     }.freeze
 
     def on_send(node)
-      _who, what, *_args = *node
+      who, what, *args = *node
       return unless DESCRIPTION.keys.include?(what)
-      alternative, reason = DESCRIPTION.fetch(what)
+      alternative, reason, condition = DESCRIPTION.fetch(what)
+      return unless condition.call(who, what, args)
       add_offense(node, :expression, format(OFFENSE, original: what,
                                                      alternative: alternative,
                                                      reason: reason))

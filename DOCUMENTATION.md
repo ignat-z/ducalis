@@ -460,6 +460,26 @@ Prefer to use %<alternative>s method instead of %<original>s because of
 ```ruby
 User.where(id: 7).delete
 ```
+
+![](https://placehold.it/15/2cbe4e/000000?text=+) ignores calling `delete` with symbol
+```ruby
+params.delete(:code)
+```
+
+![](https://placehold.it/15/2cbe4e/000000?text=+) ignores calling `delete` with string
+```ruby
+string.delete("-")
+```
+
+![](https://placehold.it/15/2cbe4e/000000?text=+) ignores calling `delete` with multiple args
+```ruby
+some.delete(1, header: [])
+```
+
+![](https://placehold.it/15/2cbe4e/000000?text=+) ignores calling `delete` on files-like variables
+```ruby
+tempfile.delete
+```
 ## Ducalis::PrivateInstanceAssign
 
 Please, don't assign instance variables in controller's private methods. It's make hard to understand what variables are available in views.
