@@ -58,3 +58,15 @@ rack application. All related files are located in the `client/` directory.
 In CLI modes you can provide yours `.ducalis.yml` file based on
 [default](https://github.com/ignat-z/ducalis/blob/master/config/.ducalis.yml) by
 `-c` flag or simply putting it in your project directory.
+
+## Contribution
+
+To pass your code through the all checks you simply need to run:
+
+```
+bundle exec rake
+```
+
+Please, do not edit
+[DOCUMENTATION.md](<https://github.com/ignat-z/ducalis/blob/master/DOCUMENTATION.md>),
+this file is generating by `bundle exec rake documentation` command.
