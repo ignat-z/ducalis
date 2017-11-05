@@ -2,7 +2,7 @@
 
 [![Gem Version](https://badge.fury.io/rb/ducalis.svg)](https://badge.fury.io/rb/ducalis)
 [![Build Status](https://travis-ci.org/ignat-z/ducalis.svg?branch=master)](https://travis-ci.org/ignat-z/ducalis)
-[![Code Climate](https://codeclimate.com/github/ignat-z/ducalis/badges/gpa.svg)](https://codeclimate.com/github/ignat-z/ducalis)
+[![Maintainability](https://api.codeclimate.com/v1/badges/d03d4e567e8728d2c58b/maintainability)](https://codeclimate.com/github/ignat-z/ducalis/maintainability)
 
 __Ducalis__ is RuboCop-based static code analyzer for enterprise Rails applications.
 As __Ducalis__ isn't style checker and could sometimes be false-positive it's not
