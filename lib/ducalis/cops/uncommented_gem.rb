@@ -3,11 +3,12 @@
 require 'rubocop'
 
 module Ducalis
-  class UncommentedGem < ::RuboCop::Cop::Cop
-    OFFENSE = %(
-Please, add comment why are you including non-realized gem version for %<gem>s.
-It will increase [bus-factor](<https://en.wikipedia.org/wiki/Bus_factor>).
-    ).strip
+  class UncommentedGem < RuboCop::Cop::Cop
+    OFFENSE = <<-MESSAGE.gsub(/^ +\|/, '').strip
+      | Please, add comment why are you including non-realized gem version for
+      | %<gem>s. It will increase
+      | [bus-factor](<https://en.wikipedia.org/wiki/Bus_factor>).
+    MESSAGE
 
     def investigate(processed_source)
       return unless processed_source.ast

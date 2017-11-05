@@ -4,20 +4,19 @@ require 'rubocop'
 
 module Ducalis
   class PossibleTap < RuboCop::Cop::Cop
-    include RuboCop::Cop::DefNode
-
-    OFFENSE = %(
-Consider of using `.tap`, default ruby \
-[method](<https://apidock.com/ruby/Object/tap>) which allows to replace \
-intermediate variables with block, by this you are limiting scope pollution \
-and make scope more clear. \
-[Related article](<http://seejohncode.com/2012/01/02/ruby-tap-that/>).
-    ).strip
+    OFFENSE = <<-MESSAGE.gsub(/^ +\|/, '').strip
+      | Consider of using `.tap`, default ruby
+      | [method](<https://apidock.com/ruby/Object/tap>)
+      | which allows to replace intermediate variables with block, by this you
+      | are limiting scope pollution and make scope more clear.
+      | [Related article](<http://seejohncode.com/2012/01/02/ruby-tap-that/>).
+    MESSAGE
 
     PAIRS = {
       lvar: :lvasgn,
       ivar: :ivasgn
     }.freeze
+
     ASSIGNS = PAIRS.keys
 
     def on_def(node)

@@ -3,14 +3,14 @@
 require 'rubocop'
 
 module Ducalis
-  class ControllersExcept < ::RuboCop::Cop::Cop
-    include RuboCop::Cop::DefNode
+  class ControllersExcept < RuboCop::Cop::Cop
+    OFFENSE = <<-MESSAGE.gsub(/^ +\|/, '').strip
+      | Prefer to use `:only` over `:except` in controllers because it's more
+      | explicit and will be easier to maintain for new developers.
+    MESSAGE
+
     FILTERS = %i(before_filter after_filter around_filter
                  before_action after_action around_action).freeze
-    OFFENSE = %(
-Prefer to use `:only` over `:except` in controllers because it's more explicit \
-and will be easier to maintain for new developers.
-    ).strip
 
     def on_class(node)
       _classdef_node, superclass, _body = *node

@@ -16,7 +16,7 @@ RSpec.describe Ducalis::PrivateInstanceAssign do
                      '  end',
                      'end'
                    ])
-    expect(cop).to raise_violation(/private/)
+    expect(cop).to raise_violation(/instance/)
   end
 
   it 'raises for memoization variables in controllers private methods' do

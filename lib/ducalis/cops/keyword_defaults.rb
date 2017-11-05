@@ -4,11 +4,10 @@ require 'rubocop'
 
 module Ducalis
   class KeywordDefaults < RuboCop::Cop::Cop
-    include RuboCop::Cop::DefNode
-    OFFENSE = %(
-Prefer to use keyword arguments for defaults. \
-It increases readability and reduces ambiguities.
-    ).strip
+    OFFENSE = <<-MESSAGE.gsub(/^ +\|/, '').strip
+      | Prefer to use keyword arguments for defaults. It increases readability
+      | and reduces ambiguities.
+    MESSAGE
 
     def on_def(node)
       args = node.type == :defs ? node.to_a[2] : node.to_a[1]

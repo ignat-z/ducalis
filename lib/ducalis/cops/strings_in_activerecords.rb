@@ -4,12 +4,13 @@ require 'rubocop'
 require_relative './callbacks_activerecord'
 
 module Ducalis
-  class StringsInActiverecords < ::RuboCop::Cop::Cop
-    OFFENSE = %(
-Please, do not use strings as arguments for %<method_name>s argument.
-It's hard to test, grep sources, code highlighting and so on.
-Consider using of symbols or lambdas for complex expressions.
-    ).strip
+  class StringsInActiverecords < RuboCop::Cop::Cop
+    OFFENSE = <<-MESSAGE.gsub(/^ +\|/, '').strip
+      | Please, do not use strings as arguments for %<method_name>s argument.
+      | It's hard to test, grep sources, code highlighting and so on.
+      | Consider using of symbols or lambdas for complex expressions.
+    MESSAGE
+
     VALIDATEBLE_METHODS =
       ::Ducalis::CallbacksActiverecord::METHODS_BLACK_LIST + %i(
         validates

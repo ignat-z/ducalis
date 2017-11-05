@@ -4,11 +4,18 @@ require 'rubocop'
 
 module Ducalis
   class CallbacksActiverecord < RuboCop::Cop::Cop
-    OFFENSE = "Please, avoid using of callbacks for models. It's better to "\
-              'keep models small ("dumb") and instead use "builder" classes'\
-              '/services: to construct new objects. You can read more [here]'\
-              '(https://medium.com/planet-arkency/a61fd75ab2d3).'
-    MODELS_CLASS_NAMES = ['ApplicationRecord', 'ActiveRecord::Base'].freeze
+    OFFENSE = <<-MESSAGE.gsub(/^ +\|/, '').strip
+      | Please, avoid using of callbacks for models. It's better to
+      | keep models small ("dumb") and instead use "builder" classes
+      | / services: to construct new objects. You can read more
+      | [here](https://medium.com/planet-arkency/a61fd75ab2d3).
+    MESSAGE
+
+    MODELS_CLASS_NAMES = [
+      'ApplicationRecord',
+      'ActiveRecord::Base'
+    ].freeze
+
     METHODS_BLACK_LIST = %i(
       after_commit
       after_create

@@ -4,24 +4,24 @@ require 'rubocop'
 
 module Ducalis
   class UselessOnly < RuboCop::Cop::Cop
-    include RuboCop::Cop::DefNode
+    OFFENSE = <<-MESSAGE.gsub(/^ +\|/, '').strip
+      | Seems like there is no any reason to keep before filter only for one
+      | action. Maybe it will be better to inline it?
+      |
+      | ```ruby
+      | before_filter :do_something, only: %i[index]
+      | def index; end
+      |
+      | # to
+      |
+      | def index
+      |   do_something
+      | end
+      | ```
+    MESSAGE
+
     FILTERS = %i(before_filter after_filter around_filter
                  before_action after_action around_action).freeze
-    OFFENSE = %(
-Seems like there is no any reason to keep before filter only for one action. \
-Maybe it will be better to inline it?
-
-```ruby
-before_filter :do_something, only: %i[index]
-def index; end
-
-# to
-
-def index
-  do_something
-end
-```
-    ).strip
 
     def on_class(node)
       _classdef_node, superclass, _body = *node

@@ -1,6 +1,9 @@
 ## Ducalis::CallbacksActiverecord
 
-Please, avoid using of callbacks for models. It's better to keep models small ("dumb") and instead use "builder" classes/services: to construct new objects. You can read more [here](https://medium.com/planet-arkency/a61fd75ab2d3).
+Please, avoid using of callbacks for models. It's better to
+ keep models small ("dumb") and instead use "builder" classes
+ / services: to construct new objects. You can read more
+ [here](https://medium.com/planet-arkency/a61fd75ab2d3).
 
 ![](https://placehold.it/10/f03c15/000000?text=+) raises on ActiveRecord classes which contains callbacks
 ```ruby
@@ -21,11 +24,11 @@ end
 ```
 ## Ducalis::CaseMapping
 
-Try to avoid `case when` statements. You can replace it with a sequence of
-`if... elsif... elsif... else`. For cases where you need to choose from a
-large number of possibilities, you can create a dictionary mapping case values
-to functions to call by `call`. It's nice to have prefix for the method
-names, i.e.: `visit_`.
+Try to avoid `case when` statements. You can replace it with a sequence
+ of `if... elsif... elsif... else`. For cases where you need to choose
+ from a large number of possibilities, you can create a dictionary
+ mapping case values to functions to call by `call`. It's nice to have
+ prefix for the method names, i.e.: `visit_`.
 Usually `case when` statements are using for the next reasons:
 
 I. Mapping between different values.
@@ -115,7 +118,8 @@ end
 ```
 ## Ducalis::ControllersExcept
 
-Prefer to use `:only` over `:except` in controllers because it's more explicit and will be easier to maintain for new developers.
+Prefer to use `:only` over `:except` in controllers because it's more
+ explicit and will be easier to maintain for new developers.
 
 ![](https://placehold.it/10/f03c15/000000?text=+) raises for `before_filters` with `except` method as array
 ```ruby
@@ -166,7 +170,8 @@ end
 ```
 ## Ducalis::KeywordDefaults
 
-Prefer to use keyword arguments for defaults. It increases readability and reduces ambiguities.
+Prefer to use keyword arguments for defaults. It increases readability
+ and reduces ambiguities.
 
 ![](https://placehold.it/10/f03c15/000000?text=+) raises if method definition contains default values
 ```ruby
@@ -194,7 +199,8 @@ def self.calculate_amount; end
 ```
 ## Ducalis::ModuleLikeClass
 
-Seems like it will be better to define initialize and pass %<args>s there instead of each method.
+Seems like it will be better to define initialize and pass %<args>s
+ there instead of each method.
 
 ![](https://placehold.it/10/f03c15/000000?text=+) raises if class doesn't contain constructor but accept the same args
 ```ruby
@@ -284,8 +290,8 @@ end
 ```
 ## Ducalis::ParamsPassing
 
-It's better to pass already preprocessed params hash to services. Or you can use
-`arcane` gem
+It's better to pass already preprocessed params hash to services. Or
+ you can use `arcane` gem.
 
 ![](https://placehold.it/10/f03c15/000000?text=+) raises if user pass `params` as argument from controller
 ```ruby
@@ -354,7 +360,11 @@ end
 ```
 ## Ducalis::PossibleTap
 
-Consider of using `.tap`, default ruby [method](<https://apidock.com/ruby/Object/tap>) which allows to replace intermediate variables with block, by this you are limiting scope pollution and make scope more clear. [Related article](<http://seejohncode.com/2012/01/02/ruby-tap-that/>).
+Consider of using `.tap`, default ruby
+ [method](<https://apidock.com/ruby/Object/tap>)
+ which allows to replace intermediate variables with block, by this you
+ are limiting scope pollution and make scope more clear.
+ [Related article](<http://seejohncode.com/2012/01/02/ruby-tap-that/>).
 
 ![](https://placehold.it/10/f03c15/000000?text=+) raises for methods with scope variable return
 ```ruby
@@ -460,7 +470,7 @@ end
 ## Ducalis::PreferableMethods
 
 Prefer to use %<alternative>s method instead of %<original>s because of
-%<reason>s.
+ %<reason>s.
 Dangerous methods are:
 `delete_all`, `delete`.
 
@@ -490,7 +500,12 @@ tempfile.delete
 ```
 ## Ducalis::PrivateInstanceAssign
 
-Don't use filters for setting instance variables, use them only for changing   application flow, such as redirecting if a user is not authenticated.          Controller instance variables are forming contract between controller and view . Keeping instance variables defined in one place makes it easier to: reason,  refactor and remove old views, test controllers and views, extract actions to  new controllers, etc.
+Don't use filters for setting instance variables, use them only for
+ changing application flow, such as redirecting if a user is not
+ authenticated. Controller instance variables are forming contract
+ between controller and view. Keeping instance variables defined in one
+ place makes it easier to: reason, refactor and remove old views, test
+ controllers and views, extract actions to new controllers, etc.
 If you want to memoize variable, please, add underscore to the variable name start: `@_name`.
 
 ![](https://placehold.it/10/f03c15/000000?text=+) raises for assigning instance variables in controllers private methods
@@ -550,15 +565,15 @@ end
 ```
 ## Ducalis::ProtectedScopeCop
 
-Seems like you are using `find` on non-protected scope. Potentially it could
-lead to unauthorized access. It's better to call `find` on authorized resources
-scopes. Example:
+Seems like you are using `find` on non-protected scope. Potentially it
+ could lead to unauthorized access. It's better to call `find` on
+ authorized resources scopes. Example:
 
-```ruby
-current_group.employees.find(params[:id])
-# better then
-Employee.find(params[:id])
-```
+ ```ruby
+ current_group.employees.find(params[:id])
+ # better then
+ Employee.find(params[:id])
+ ```
 
 ![](https://placehold.it/10/f03c15/000000?text=+) raises if somewhere AR search was called on not protected scope
 ```ruby
@@ -590,7 +605,8 @@ end
 ```
 ## Ducalis::RaiseWithourErrorClass
 
-It's better to add exception class as raise argument. It will make easier to catch and process it later.
+It's better to add exception class as raise argument. It will make
+ easier to catch and process it later.
 
 ![](https://placehold.it/10/f03c15/000000?text=+) raises when `raise` called without exception class
 ```ruby
@@ -608,8 +624,9 @@ raise StandardError.new("Something went wrong")
 ```
 ## Ducalis::RegexCop
 
-It's better to move regex to constants with example instead of direct using it.
-It will allow you to reuse this regex and provide instructions for others.
+It's better to move regex to constants with example instead of direct
+ using it. It will allow you to reuse this regex and provide instructions
+ for others.
 
 ```ruby
 CONST_NAME = %<constant>s # "%<example>s"
@@ -653,7 +670,7 @@ puts "hi" if name =~ /.{#{name.length}}/
 ## Ducalis::RestOnlyCop
 
 It's better for controllers to stay adherent to REST:
-http://jeromedalbert.com/how-dhh-organizes-his-rails-controllers/
+ http://jeromedalbert.com/how-dhh-organizes-his-rails-controllers/
 
 ![](https://placehold.it/10/f03c15/000000?text=+) raises for controllers with non-REST methods
 ```ruby
@@ -704,9 +721,8 @@ end
 ```
 ## Ducalis::RubocopDisable
 
-
-Please, do not suppress RuboCop metrics, may be you can introduce some refactoring or another concept.
-    
+Please, do not suppress RuboCop metrics, may be you can introduce some
+ refactoring or another concept.
 
 ![](https://placehold.it/10/f03c15/000000?text=+) raises on RuboCop disable comments
 ```ruby
@@ -726,8 +742,8 @@ def calculate(five, args, at, one, list); end
 ## Ducalis::StringsInActiverecords
 
 Please, do not use strings as arguments for %<method_name>s argument.
-It's hard to test, grep sources, code highlighting and so on.
-Consider using of symbols or lambdas for complex expressions.
+ It's hard to test, grep sources, code highlighting and so on.
+ Consider using of symbols or lambdas for complex expressions.
 
 ![](https://placehold.it/10/f03c15/000000?text=+) raises for string if argument
 ```ruby
@@ -743,8 +759,9 @@ validates :file, if: -> { remote_url.blank? }
 ```
 ## Ducalis::UncommentedGem
 
-Please, add comment why are you including non-realized gem version for %<gem>s.
-It will increase [bus-factor](<https://en.wikipedia.org/wiki/Bus_factor>).
+Please, add comment why are you including non-realized gem version for
+ %<gem>s. It will increase
+ [bus-factor](<https://en.wikipedia.org/wiki/Bus_factor>).
 
 ![](https://placehold.it/10/f03c15/000000?text=+) raises for gem from github without comment
 ```ruby
@@ -765,18 +782,19 @@ gem 'rspec', github: 'rspec/rspec' # new non released API
 ```
 ## Ducalis::UselessOnly
 
-Seems like there is no any reason to keep before filter only for one action. Maybe it will be better to inline it?
+Seems like there is no any reason to keep before filter only for one
+ action. Maybe it will be better to inline it?
 
-```ruby
-before_filter :do_something, only: %i[index]
-def index; end
+ ```ruby
+ before_filter :do_something, only: %i[index]
+ def index; end
 
-# to
+ # to
 
-def index
-  do_something
-end
-```
+ def index
+   do_something
+ end
+ ```
 
 ![](https://placehold.it/10/f03c15/000000?text=+) raises for `before_filters` with only one method as array
 ```ruby

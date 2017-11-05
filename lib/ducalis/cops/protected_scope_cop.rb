@@ -4,17 +4,17 @@ require 'rubocop'
 
 module Ducalis
   class ProtectedScopeCop < RuboCop::Cop::Cop
-    OFFENSE = %{
-Seems like you are using `find` on non-protected scope. Potentially it could
-lead to unauthorized access. It's better to call `find` on authorized resources
-scopes. Example:
-
-```ruby
-current_group.employees.find(params[:id])
-# better then
-Employee.find(params[:id])
-```
-    }.strip
+    OFFENSE = <<-MESSAGE.gsub(/^ +\|/, '').strip
+      | Seems like you are using `find` on non-protected scope. Potentially it
+      | could lead to unauthorized access. It's better to call `find` on
+      | authorized resources scopes. Example:
+      |
+      | ```ruby
+      | current_group.employees.find(params[:id])
+      | # better then
+      | Employee.find(params[:id])
+      | ```
+    MESSAGE
 
     def on_send(node)
       _, method_name, *args = *node

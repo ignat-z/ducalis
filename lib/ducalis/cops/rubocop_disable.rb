@@ -4,10 +4,11 @@ require 'rubocop'
 
 module Ducalis
   class RubocopDisable < RuboCop::Cop::Cop
-    OFFENSE = %(
-Please, do not suppress RuboCop metrics, may be you can introduce some \
-refactoring or another concept.
-    )
+    OFFENSE = <<-MESSAGE.gsub(/^ +\|/, '').strip
+      | Please, do not suppress RuboCop metrics, may be you can introduce some
+      | refactoring or another concept.
+    MESSAGE
+
     def investigate(processed_source)
       return unless processed_source.ast
       processed_source.comments.each do |comment_node|

@@ -29,7 +29,7 @@ RSpec.describe Ducalis::ModuleLikeClass do
                      '  end',
                      'end'
                    ])
-    expect(cop).to raise_violation(/pass `task`, `estimate` there/)
+    expect(cop).to raise_violation(/pass `task`, `estimate`/)
   end
 
   it 'raises for class with only one public method with args' do
@@ -46,7 +46,7 @@ RSpec.describe Ducalis::ModuleLikeClass do
                      '  end',
                      'end'
                    ])
-    expect(cop).to raise_violation(/pass `task` there/)
+    expect(cop).to raise_violation(/pass `task`/)
   end
 
   it 'ignores classes with custom includes' do
