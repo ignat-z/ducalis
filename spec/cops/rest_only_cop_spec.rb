@@ -8,9 +8,9 @@ RSpec.describe Ducalis::RestOnlyCop do
 
   it 'raises for controllers with non-REST methods' do
     inspect_source(cop, [
-                     'class MyController < ApplicationController',
+                     'class ProductsController < ApplicationController',
                      '  def index; end',
-                     '  def non_rest_method; end',
+                     '  def recalculate; end',
                      'end'
                    ])
     expect(cop).to raise_violation(/REST/)
@@ -18,10 +18,12 @@ RSpec.describe Ducalis::RestOnlyCop do
 
   it 'ignores controllers with private non-REST methods' do
     inspect_source(cop, [
-                     'class MyController < ApplicationController',
+                     'class ProductsController < ApplicationController',
                      '  def index; end',
+                     '',
                      '  private',
-                     '  def non_rest_method; end',
+                     '',
+                     '  def recalculate; end',
                      'end'
                    ])
     expect(cop).to_not raise_violation
@@ -29,7 +31,7 @@ RSpec.describe Ducalis::RestOnlyCop do
 
   it 'ignores controllers with only REST methods' do
     inspect_source(cop, [
-                     'class MyController < ApplicationController',
+                     'class ProductsController < ApplicationController',
                      '  def index; end',
                      '  def show; end',
                      '  def new; end',
@@ -44,9 +46,9 @@ RSpec.describe Ducalis::RestOnlyCop do
 
   it 'ignores non-controllers with non-REST methods' do
     inspect_source(cop, [
-                     'class MyClass',
+                     'class PriceStore',
                      '  def index; end',
-                     '  def non_rest_method; end',
+                     '  def recalculate; end',
                      'end'
                    ])
     expect(cop).to_not raise_violation

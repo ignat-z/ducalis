@@ -17,6 +17,8 @@ Prefer to use %<alternative>s method instead of %<original>s because of
       delete_all: [:destroy_all, 'it is not invoking callbacks', ALWAYS_TRUE],
       delete: [:destroy, 'it is not invoking callbacks', DELETE_CHECK]
     }.freeze
+    DETAILS = "Dangerous methods are:
+#{DESCRIPTION.keys.map { |name| "`#{name}`" }.join(', ')}."
 
     def on_send(node)
       who, what, *args = *node

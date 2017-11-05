@@ -10,8 +10,8 @@ Try to avoid `case when` statements. You can replace it with a sequence of
 large number of possibilities, you can create a dictionary mapping case values
 to functions to call by `call`. It's nice to have prefix for the method
 names, i.e.: `visit_`.
-
-<details>
+    ).strip
+    DETAILS = %(
 Usually `case when` statements are using for the next reasons:
 
 I. Mapping between different values.

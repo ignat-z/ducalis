@@ -9,23 +9,22 @@ RSpec.describe Ducalis::ModuleLikeClass do
 
   it 'raises if class doesn\'t contain constructor but accept the same args' do
     inspect_source(cop, [
-                     'class MyClass',
-                     '',
+                     'class TaskJournal',
                      '  def initialize(customer)',
                      '    # ...',
                      '  end',
                      '',
-                     '  def approve(task, estimate, some_args_1)',
+                     '  def approve(task, estimate, options)',
                      '    # ...',
                      '  end',
                      '',
-                     '  def decline(user, task, estimate, some_args_2)',
+                     '  def decline(user, task, estimate, details)',
                      '    # ...',
                      '  end',
                      '',
                      '  private',
                      '',
-                     '  def anything_you_want(args)',
+                     '  def log(record)',
                      '    # ...',
                      '  end',
                      'end'
@@ -35,14 +34,14 @@ RSpec.describe Ducalis::ModuleLikeClass do
 
   it 'raises for class with only one public method with args' do
     inspect_source(cop, [
-                     'class MyClass',
+                     'class TaskJournal',
                      '  def approve(task)',
                      '    # ...',
                      '  end',
                      '',
                      '  private',
                      '',
-                     '  def anything_you_want(args)',
+                     '  def log(record)',
                      '    # ...',
                      '  end',
                      'end'
@@ -53,7 +52,7 @@ RSpec.describe Ducalis::ModuleLikeClass do
   it 'ignores classes with custom includes' do
     allow(cop).to receive(:cop_config).and_return(cop_config)
     inspect_source(cop, [
-                     'class MyClass',
+                     'class TaskJournal',
                      '  include Singleton',
                      '',
                      '  def approve(task)',
@@ -66,14 +65,14 @@ RSpec.describe Ducalis::ModuleLikeClass do
 
   it 'ignores classes with inheritance' do
     inspect_source(cop, [
-                     'class MyClass < AnotherClass',
+                     'class TaskJournal < BasicJournal',
                      '  def approve(task)',
                      '    # ...',
                      '  end',
                      '',
                      '  private',
                      '',
-                     '  def anything_you_want(args)',
+                     '  def log(record)',
                      '    # ...',
                      '  end',
                      'end'
@@ -83,7 +82,7 @@ RSpec.describe Ducalis::ModuleLikeClass do
 
   it 'ignores classes with one method and initializer' do
     inspect_source(cop, [
-                     'class MyClass',
+                     'class TaskJournal',
                      '  def initialize(task)',
                      '    # ...',
                      '  end',

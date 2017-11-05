@@ -8,9 +8,9 @@ RSpec.describe Ducalis::ParamsPassing do
 
   it 'raises if user pass `params` as argument from controller' do
     inspect_source(cop, [
-                     'class MyController < ApplicationController',
+                     'class ProductsController < ApplicationController',
                      '  def index',
-                     '    MyService.new(params).call',
+                     '    Record.new(params).log',
                      '  end',
                      'end'
                    ])
@@ -19,9 +19,9 @@ RSpec.describe Ducalis::ParamsPassing do
 
   it 'raises if user pass `params` as any argument from controller' do
     inspect_source(cop, [
-                     'class MyController < ApplicationController',
+                     'class ProductsController < ApplicationController',
                      '  def index',
-                     '    MyService.new(first_arg, params).call',
+                     '    Record.new(first_arg, params).log',
                      '  end',
                      'end'
                    ])
@@ -30,9 +30,9 @@ RSpec.describe Ducalis::ParamsPassing do
 
   it 'raises if user pass `params` as keyword argument from controller' do
     inspect_source(cop, [
-                     'class MyController < ApplicationController',
+                     'class ProductsController < ApplicationController',
                      '  def index',
-                     '    MyService.new(first_arg, any_name: params).call',
+                     '    Record.new(first_arg, any_name: params).log',
                      '  end',
                      'end'
                    ])
@@ -41,9 +41,9 @@ RSpec.describe Ducalis::ParamsPassing do
 
   it 'ignores passing only one `params` field' do
     inspect_source(cop, [
-                     'class MyController < ApplicationController',
+                     'class ProductsController < ApplicationController',
                      '  def index',
-                     '    MyService.new(first_arg, params[:id]).call',
+                     '    Record.new(first_arg, params[:id]).log',
                      '  end',
                      'end'
                    ])
@@ -52,9 +52,9 @@ RSpec.describe Ducalis::ParamsPassing do
 
   it 'ignores passing processed `params`' do
     inspect_source(cop, [
-                     'class MyController < ApplicationController',
+                     'class ProductsController < ApplicationController',
                      '  def index',
-                     '    MyService.new(first_arg, params.slice(:name)).call',
+                     '    Record.new(first_arg, params.slice(:name)).log',
                      '  end',
                      'end'
                    ])
@@ -63,9 +63,9 @@ RSpec.describe Ducalis::ParamsPassing do
 
   it 'ignores passing `params` from `arcane` gem' do
     inspect_source(cop, [
-                     'class MyController < ApplicationController',
+                     'class ProductsController < ApplicationController',
                      '  def index',
-                     '    MyService.new(params.for(Log).as(user).refine).call',
+                     '    Record.new(params.for(Log).as(user).refine).log',
                      '  end',
                      'end'
                    ])

@@ -9,7 +9,7 @@ RSpec.describe Ducalis::RubocopDisable do
   it 'raises on RuboCop disable comments' do
     inspect_source(cop, [
                      '# rubocop:disable Metrics/ParameterLists',
-                     'def some_method(a, b, c, d, e, f); end'
+                     'def calculate(five, args, at, one, list); end'
                    ])
     expect(cop).to raise_violation(/RuboCop/)
   end
@@ -17,7 +17,7 @@ RSpec.describe Ducalis::RubocopDisable do
   it 'ignores comment without RuboCop disabling' do
     inspect_source(cop, [
                      '# some meaningful comment',
-                     'def some_method(a, b, c, d, e, f); end'
+                     'def calculate(five, args, at, one, list); end'
                    ])
     expect(cop).to_not raise_violation
   end

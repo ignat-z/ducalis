@@ -8,7 +8,7 @@ RSpec.describe Ducalis::PrivateInstanceAssign do
 
   it 'raises for assigning instance variables in controllers private methods' do
     inspect_source(cop, [
-                     'class MyController < ApplicationController',
+                     'class EmployeesController < ApplicationController',
                      '  private',
                      '',
                      '  def load_employee',
@@ -21,11 +21,11 @@ RSpec.describe Ducalis::PrivateInstanceAssign do
 
   it 'raises for memoization variables in controllers private methods' do
     inspect_source(cop, [
-                     'class MyController < ApplicationController',
+                     'class EmployeesController < ApplicationController',
                      '  private',
                      '',
-                     '  def service',
-                     '    @service ||= Service.new',
+                     '  def catalog',
+                     '    @catalog ||= Catalog.new',
                      '  end',
                      'end'
                    ])
@@ -34,11 +34,11 @@ RSpec.describe Ducalis::PrivateInstanceAssign do
 
   it 'ignores memoization variables in controllers private methods with _' do
     inspect_source(cop, [
-                     'class MyController < ApplicationController',
+                     'class EmployeesController < ApplicationController',
                      '  private',
                      '',
-                     '  def service',
-                     '    @_service ||= Service.new',
+                     '  def catalog',
+                     '    @_catalog ||= Catalog.new',
                      '  end',
                      'end'
                    ])
@@ -47,7 +47,7 @@ RSpec.describe Ducalis::PrivateInstanceAssign do
 
   it 'ignores assigning instance variables in controllers public methods' do
     inspect_source(cop, [
-                     'class MyController < ApplicationController',
+                     'class EmployeesController < ApplicationController',
                      '  def index',
                      '    @employee = load_employee',
                      '  end',

@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 require 'parser/current'
-require 'rubocop'
 
+# This class could be used to dynamically generate documentation from cops spec.
+# It recognizes bad and good examples by signal words like `raises`. Additional
+# information for documentation could be passed by setting `DETAILS` constant.
 class SpecsProcessor < Parser::AST::Processor
   attr_reader :cases
 
@@ -55,6 +57,10 @@ class SpecsProcessor < Parser::AST::Processor
 end
 
 class Documentation
+  RED_SQUARE = '![](https://placehold.it/10/f03c15/000000?text=+)'
+  GREEN_SQUARE = '![](https://placehold.it/10/2cbe4e/000000?text=+)'
+  SIGNAL_WORD = 'raises'
+
   def call
     Dir['./lib/ducalis/cops/*.rb'].map do |f|
       present_cop(klass_const_for(f), spec_cases_for(f))
@@ -66,7 +72,7 @@ class Documentation
   def present_cop(klass, specs)
     [
       "## #{klass}\n",                                  # header
-      klass.const_get(:OFFENSE)                         # description
+      message(klass)                                    # description
     ] +
       specs.map do |(it, code)|
         [
@@ -77,11 +83,14 @@ class Documentation
   end
 
   def color(it)
-    if it.include?('raises')
-      '![](https://placehold.it/15/f03c15/000000?text=+)'
-    else
-      '![](https://placehold.it/15/2cbe4e/000000?text=+)'
-    end
+    it.include?(SIGNAL_WORD) ? RED_SQUARE : GREEN_SQUARE
+  end
+
+  def message(klass)
+    [
+      klass.const_get(:OFFENSE),
+      *(klass.const_get(:DETAILS) if klass.const_defined?(:DETAILS))
+    ].join("\n")
   end
 
   def spec_cases_for(f)

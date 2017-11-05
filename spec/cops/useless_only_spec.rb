@@ -8,11 +8,14 @@ RSpec.describe Ducalis::UselessOnly do
 
   it 'raises for `before_filters` with only one method as array' do
     inspect_source(cop, [
-                     'class MyController < ApplicationController',
-                     '  before_filter :do_something, only: [:index]',
+                     'class ProductsController < ApplicationController',
+                     '  before_filter :update_cost, only: [:index]',
+                     '',
                      '  def index; end',
+                     '',
                      '  private',
-                     '  def do_something; end',
+                     '',
+                     '  def update_cost; end',
                      'end'
                    ])
     expect(cop).to raise_violation(/inline/)
@@ -20,11 +23,14 @@ RSpec.describe Ducalis::UselessOnly do
 
   it 'raises for `before_filters` with only one method as keyword array' do
     inspect_source(cop, [
-                     'class MyController < ApplicationController',
-                     '  before_filter :do_something, only: %i[index]',
+                     'class ProductsController < ApplicationController',
+                     '  before_filter :update_cost, only: %i[index]',
+                     '',
                      '  def index; end',
+                     '',
                      '  private',
-                     '  def do_something; end',
+                     '',
+                     '  def update_cost; end',
                      'end'
                    ])
     expect(cop).to raise_violation(/inline/)
@@ -32,11 +38,14 @@ RSpec.describe Ducalis::UselessOnly do
 
   it 'raises for `before_filters` with many actions and only one method' do
     inspect_source(cop, [
-                     'class MyController < ApplicationController',
-                     '  before_filter :do_something, :load_me, only: %i[index]',
+                     'class ProductsController < ApplicationController',
+                     '  before_filter :update_cost, :load_me, only: %i[index]',
+                     '',
                      '  def index; end',
+                     '',
                      '  private',
-                     '  def do_something; end',
+                     '',
+                     '  def update_cost; end',
                      '  def load_me; end',
                      'end'
                    ])
@@ -45,11 +54,14 @@ RSpec.describe Ducalis::UselessOnly do
 
   it 'raises for `before_filters` with only one method as argument' do
     inspect_source(cop, [
-                     'class MyController < ApplicationController',
-                     '  before_filter :do_something, only: :index',
+                     'class ProductsController < ApplicationController',
+                     '  before_filter :update_cost, only: :index',
+                     '',
                      '  def index; end',
+                     '',
                      '  private',
-                     '  def do_something; end',
+                     '',
+                     '  def update_cost; end',
                      'end'
                    ])
     expect(cop).to raise_violation(/inline/)
@@ -57,11 +69,14 @@ RSpec.describe Ducalis::UselessOnly do
 
   it 'ignores `before_filters` without arguments' do
     inspect_source(cop, [
-                     'class MyController < ApplicationController',
-                     '  before_filter :do_something',
+                     'class ProductsController < ApplicationController',
+                     '  before_filter :update_cost',
+                     '',
                      '  def index; end',
+                     '',
                      '  private',
-                     '  def do_something; end',
+                     '',
+                     '  def update_cost; end',
                      'end'
                    ])
     expect(cop).to_not raise_violation
@@ -69,12 +84,15 @@ RSpec.describe Ducalis::UselessOnly do
 
   it 'ignores `before_filters` with `only` and many arguments' do
     inspect_source(cop, [
-                     'class MyController < ApplicationController',
-                     '  before_filter :do_something, only: %i[index show]',
+                     'class ProductsController < ApplicationController',
+                     '  before_filter :update_cost, only: %i[index show]',
+                     '',
                      '  def index; end',
                      '  def show; end',
+                     '',
                      '  private',
-                     '  def do_something; end',
+                     '',
+                     '  def update_cost; end',
                      'end'
                    ])
     expect(cop).to_not raise_violation
@@ -82,11 +100,14 @@ RSpec.describe Ducalis::UselessOnly do
 
   it 'ignores `before_filters` with `except` and one argument' do
     inspect_source(cop, [
-                     'class MyController < ApplicationController',
-                     '  before_filter :do_something, except: %i[index]',
+                     'class ProductsController < ApplicationController',
+                     '  before_filter :update_cost, except: %i[index]',
+                     '',
                      '  def index; end',
+                     '',
                      '  private',
-                     '  def do_something; end',
+                     '',
+                     '  def update_cost; end',
                      'end'
                    ])
     expect(cop).to_not raise_violation

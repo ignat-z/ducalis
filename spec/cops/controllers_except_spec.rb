@@ -8,12 +8,15 @@ RSpec.describe Ducalis::ControllersExcept do
 
   it 'raises for `before_filters` with `except` method as array' do
     inspect_source(cop, [
-                     'class MyController < ApplicationController',
-                     '  before_filter :something, except: [:index]',
+                     'class ProductsController < ApplicationController',
+                     '  before_filter :update_cost, except: [:index]',
+                     '',
                      '  def index; end',
                      '  def edit; end',
+                     '',
                      '  private',
-                     '  def something; end',
+                     '',
+                     '  def update_cost; end',
                      'end'
                    ])
     expect(cop).to raise_violation(/explicit/)
@@ -21,12 +24,15 @@ RSpec.describe Ducalis::ControllersExcept do
 
   it 'raises for filters with many actions and only one `except` method' do
     inspect_source(cop, [
-                     'class MyController < ApplicationController',
-                     '  before_filter :something, :load_me, except: %i[edit]',
+                     'class ProductsController < ApplicationController',
+                     '  before_filter :update_cost, :load_me, except: %i[edit]',
+                     '',
                      '  def index; end',
                      '  def edit; end',
+                     '',
                      '  private',
-                     '  def something; end',
+                     '',
+                     '  def update_cost; end',
                      '  def load_me; end',
                      'end'
                    ])
@@ -35,11 +41,14 @@ RSpec.describe Ducalis::ControllersExcept do
 
   it 'ignores `before_filters` without arguments' do
     inspect_source(cop, [
-                     'class MyController < ApplicationController',
-                     '  before_filter :something',
+                     'class ProductsController < ApplicationController',
+                     '  before_filter :update_cost',
+                     '',
                      '  def index; end',
+                     '',
                      '  private',
-                     '  def something; end',
+                     '',
+                     '  def update_cost; end',
                      'end'
                    ])
     expect(cop).to_not raise_violation

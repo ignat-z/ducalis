@@ -31,6 +31,9 @@ CONST_NAME = %<constant>s # "%<example>s"
       /[[:ascii:]]/
     ).freeze
 
+    DETAILS = "Available regexes are:
+      #{SELF_DESCRIPTIVE.map { |name| "`#{name}`" }.join(', ')}"
+
     def on_regexp(node)
       return if node.parent.type == :casgn
       return if SELF_DESCRIPTIVE.include?(node.source)

@@ -8,18 +8,19 @@ RSpec.describe Ducalis::UncommentedGem do
 
   it 'raises for gem from github without comment' do
     inspect_source(cop, [
-                     "gem 'a' ",
-                     "gem 'b', '~> 1.3.1' ",
-                     "gem 'c', git: 'https://github.com/c/c'"
+                     "gem 'pry', '~> 0.10', '>= 0.10.0'",
+                     "gem 'rake', '~> 12.1'",
+                     "gem 'rspec', git: 'https://github.com/rspec/rspec'"
                    ])
     expect(cop).to raise_violation(/add comment/)
   end
 
   it 'ignores for gem from github with comment' do
-    inspect_source(cop, [
-                     "gem 'a' ",
-                     "gem 'b', '~> 1.3.1' ",
-                     "gem 'c', git: 'https://github.com/c/c' # some description"
+    inspect_source(cop,
+                   [
+                     "gem 'pry', '~> 0.10', '>= 0.10.0'",
+                     "gem 'rake', '~> 12.1'",
+                     "gem 'rspec', github: 'rspec/rspec' # new non released API"
                    ])
     expect(cop).to_not raise_violation
   end

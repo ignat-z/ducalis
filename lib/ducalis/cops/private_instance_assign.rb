@@ -14,6 +14,7 @@ make hard to understand what variables are available in views.
 If you want to memoize variable, please, add underscore to the variable name \
 start: `@_name`.
 ).strip
+    DETAILS = ADD_OFFENSE
     def on_class(node)
       _classdef_node, superclass, _body = *node
       return if superclass.nil?

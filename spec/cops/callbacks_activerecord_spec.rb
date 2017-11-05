@@ -8,7 +8,7 @@ RSpec.describe Ducalis::CallbacksActiverecord do
 
   it 'raises on ActiveRecord classes which contains callbacks' do
     inspect_source(cop, [
-                     'class A < ActiveRecord::Base',
+                     'class Product < ActiveRecord::Base',
                      '  before_create :generate_code',
                      'end'
                    ])
@@ -17,7 +17,7 @@ RSpec.describe Ducalis::CallbacksActiverecord do
 
   it 'ignores non-ActiveRecord classes which contains callbacks' do
     inspect_source(cop, [
-                     'class A < SomeBasicClass',
+                     'class Product < BasicProduct',
                      '  before_create :generate_code',
                      'end'
                    ])

@@ -2,19 +2,19 @@
 
 Please, avoid using of callbacks for models. It's better to keep models small ("dumb") and instead use "builder" classes/services: to construct new objects. You can read more [here](https://medium.com/planet-arkency/a61fd75ab2d3).
 
-![](https://placehold.it/15/f03c15/000000?text=+) raises on ActiveRecord classes which contains callbacks
+![](https://placehold.it/10/f03c15/000000?text=+) raises on ActiveRecord classes which contains callbacks
 ```ruby
 
-class A < ActiveRecord::Base
+class Product < ActiveRecord::Base
   before_create :generate_code
 end
 
 ```
 
-![](https://placehold.it/15/2cbe4e/000000?text=+) ignores non-ActiveRecord classes which contains callbacks
+![](https://placehold.it/10/2cbe4e/000000?text=+) ignores non-ActiveRecord classes which contains callbacks
 ```ruby
 
-class A < SomeBasicClass
+class Product < BasicProduct
   before_create :generate_code
 end
 
@@ -26,8 +26,6 @@ Try to avoid `case when` statements. You can replace it with a sequence of
 large number of possibilities, you can create a dictionary mapping case values
 to functions to call by `call`. It's nice to have prefix for the method
 names, i.e.: `visit_`.
-
-<details>
 Usually `case when` statements are using for the next reasons:
 
 I. Mapping between different values.
@@ -100,7 +98,7 @@ more complex, table-driven code is simpler than complicated logic, easier to
 modify and more efficient.
 </details>
 
-![](https://placehold.it/15/f03c15/000000?text=+) raises on case statements
+![](https://placehold.it/10/f03c15/000000?text=+) raises on case statements
 ```ruby
 
 case grade
@@ -119,41 +117,50 @@ end
 
 Prefer to use `:only` over `:except` in controllers because it's more explicit and will be easier to maintain for new developers.
 
-![](https://placehold.it/15/f03c15/000000?text=+) raises for `before_filters` with `except` method as array
+![](https://placehold.it/10/f03c15/000000?text=+) raises for `before_filters` with `except` method as array
 ```ruby
 
-class MyController < ApplicationController
-  before_filter :something, except: [:index]
+class ProductsController < ApplicationController
+  before_filter :update_cost, except: [:index]
+
   def index; end
   def edit; end
+
   private
-  def something; end
+
+  def update_cost; end
 end
 
 ```
 
-![](https://placehold.it/15/f03c15/000000?text=+) raises for filters with many actions and only one `except` method
+![](https://placehold.it/10/f03c15/000000?text=+) raises for filters with many actions and only one `except` method
 ```ruby
 
-class MyController < ApplicationController
-  before_filter :something, :load_me, except: %i[edit]
+class ProductsController < ApplicationController
+  before_filter :update_cost, :load_me, except: %i[edit]
+
   def index; end
   def edit; end
+
   private
-  def something; end
+
+  def update_cost; end
   def load_me; end
 end
 
 ```
 
-![](https://placehold.it/15/2cbe4e/000000?text=+) ignores `before_filters` without arguments
+![](https://placehold.it/10/2cbe4e/000000?text=+) ignores `before_filters` without arguments
 ```ruby
 
-class MyController < ApplicationController
-  before_filter :something
+class ProductsController < ApplicationController
+  before_filter :update_cost
+
   def index; end
+
   private
-  def something; end
+
+  def update_cost; end
 end
 
 ```
@@ -161,81 +168,80 @@ end
 
 Prefer to use keyword arguments for defaults. It increases readability and reduces ambiguities.
 
-![](https://placehold.it/15/f03c15/000000?text=+) raises if method definition contains default values
+![](https://placehold.it/10/f03c15/000000?text=+) raises if method definition contains default values
 ```ruby
-def some_method(a, b, c = 3); end
+def calculate(step, index, dry = true); end
 ```
 
-![](https://placehold.it/15/f03c15/000000?text=+) raises if class method definition contains default values
+![](https://placehold.it/10/f03c15/000000?text=+) raises if class method definition contains default values
 ```ruby
-def self.some_method(a, b, c = 3); end
+def self.calculate(step, index, dry = true); end
 ```
 
-![](https://placehold.it/15/2cbe4e/000000?text=+) ignores if method definition contains default values through keywords
+![](https://placehold.it/10/2cbe4e/000000?text=+) ignores if method definition contains default values through keywords
 ```ruby
-def some_method(a, b, c: 3); end
+def calculate(step, index, dry: true); end
 ```
 
-![](https://placehold.it/15/2cbe4e/000000?text=+) ignores for methods without arguments
+![](https://placehold.it/10/2cbe4e/000000?text=+) ignores for methods without arguments
 ```ruby
-def some_method; end
+def calculate_amount; end
 ```
 
-![](https://placehold.it/15/2cbe4e/000000?text=+) ignores for class methods without arguments
+![](https://placehold.it/10/2cbe4e/000000?text=+) ignores for class methods without arguments
 ```ruby
-def self.some_method; end
+def self.calculate_amount; end
 ```
 ## Ducalis::ModuleLikeClass
 
 Seems like it will be better to define initialize and pass %<args>s there instead of each method.
 
-![](https://placehold.it/15/f03c15/000000?text=+) raises if class doesn't contain constructor but accept the same args
+![](https://placehold.it/10/f03c15/000000?text=+) raises if class doesn't contain constructor but accept the same args
 ```ruby
 
-class MyClass
-
+class TaskJournal
   def initialize(customer)
     # ...
   end
 
-  def approve(task, estimate, some_args_1)
+  def approve(task, estimate, options)
     # ...
   end
 
-  def decline(user, task, estimate, some_args_2)
+  def decline(user, task, estimate, details)
     # ...
   end
 
   private
 
-  def anything_you_want(args)
+  def log(record)
     # ...
   end
 end
 
 ```
 
-![](https://placehold.it/15/f03c15/000000?text=+) raises for class with only one public method with args
+![](https://placehold.it/10/f03c15/000000?text=+) raises for class with only one public method with args
 ```ruby
 
-class MyClass
+class TaskJournal
   def approve(task)
     # ...
   end
 
   private
 
-  def anything_you_want(args)
+  def log(record)
     # ...
   end
 end
 
 ```
 
-![](https://placehold.it/15/2cbe4e/000000?text=+) ignores classes with custom includes
+![](https://placehold.it/10/2cbe4e/000000?text=+) ignores classes with custom includes
 ```ruby
 
-class MyClass
+class TaskJournal
   include Singleton
 
   def approve(task)
@@ -245,27 +251,27 @@ end
 
 ```
 
-![](https://placehold.it/15/2cbe4e/000000?text=+) ignores classes with inheritance
+![](https://placehold.it/10/2cbe4e/000000?text=+) ignores classes with inheritance
 ```ruby
 
-class MyClass < AnotherClass
+class TaskJournal < BasicJournal
   def approve(task)
     # ...
   end
 
   private
 
-  def anything_you_want(args)
+  def log(record)
     # ...
   end
 end
 
 ```
 
-![](https://placehold.it/15/2cbe4e/000000?text=+) ignores classes with one method and initializer
+![](https://placehold.it/10/2cbe4e/000000?text=+) ignores classes with one method and initializer
 ```ruby
 
-class MyClass
+class TaskJournal
   def initialize(task)
     # ...
   end
@@ -281,67 +287,67 @@ end
 It's better to pass already preprocessed params hash to services. Or you can use
 `arcane` gem
 
-![](https://placehold.it/15/f03c15/000000?text=+) raises if user pass `params` as argument from controller
+![](https://placehold.it/10/f03c15/000000?text=+) raises if user pass `params` as argument from controller
 ```ruby
 
-class MyController < ApplicationController
+class ProductsController < ApplicationController
   def index
-    MyService.new(params).call
+    Record.new(params).log
   end
 end
 
 ```
 
-![](https://placehold.it/15/f03c15/000000?text=+) raises if user pass `params` as any argument from controller
+![](https://placehold.it/10/f03c15/000000?text=+) raises if user pass `params` as any argument from controller
 ```ruby
 
-class MyController < ApplicationController
+class ProductsController < ApplicationController
   def index
-    MyService.new(first_arg, params).call
+    Record.new(first_arg, params).log
   end
 end
 
 ```
 
-![](https://placehold.it/15/f03c15/000000?text=+) raises if user pass `params` as keyword argument from controller
+![](https://placehold.it/10/f03c15/000000?text=+) raises if user pass `params` as keyword argument from controller
 ```ruby
 
-class MyController < ApplicationController
+class ProductsController < ApplicationController
   def index
-    MyService.new(first_arg, any_name: params).call
+    Record.new(first_arg, any_name: params).log
   end
 end
 
 ```
 
-![](https://placehold.it/15/2cbe4e/000000?text=+) ignores passing only one `params` field
+![](https://placehold.it/10/2cbe4e/000000?text=+) ignores passing only one `params` field
 ```ruby
 
-class MyController < ApplicationController
+class ProductsController < ApplicationController
   def index
-    MyService.new(first_arg, params[:id]).call
+    Record.new(first_arg, params[:id]).log
   end
 end
 
 ```
 
-![](https://placehold.it/15/2cbe4e/000000?text=+) ignores passing processed `params`
+![](https://placehold.it/10/2cbe4e/000000?text=+) ignores passing processed `params`
 ```ruby
 
-class MyController < ApplicationController
+class ProductsController < ApplicationController
   def index
-    MyService.new(first_arg, params.slice(:name)).call
+    Record.new(first_arg, params.slice(:name)).log
   end
 end
 
 ```
 
-![](https://placehold.it/15/2cbe4e/000000?text=+) ignores passing `params` from `arcane` gem
+![](https://placehold.it/10/2cbe4e/000000?text=+) ignores passing `params` from `arcane` gem
 ```ruby
 
-class MyController < ApplicationController
+class ProductsController < ApplicationController
   def index
-    MyService.new(params.for(Log).as(user).refine).call
+    Record.new(params.for(Log).as(user).refine).log
   end
 end
 
@@ -350,7 +356,7 @@ end
 
 Consider of using `.tap`, default ruby [method](<https://apidock.com/ruby/Object/tap>) which allows to replace intermediate variables with block, by this you are limiting scope pollution and make scope more clear. [Related article](<http://seejohncode.com/2012/01/02/ruby-tap-that/>).
 
-![](https://placehold.it/15/f03c15/000000?text=+) raises for methods with scope variable return
+![](https://placehold.it/10/f03c15/000000?text=+) raises for methods with scope variable return
 ```ruby
 
 def load_group
@@ -361,7 +367,7 @@ end
 
 ```
 
-![](https://placehold.it/15/f03c15/000000?text=+) raises for methods with instance variable changes and return
+![](https://placehold.it/10/f03c15/000000?text=+) raises for methods with instance variable changes and return
 ```ruby
 
 def load_group
@@ -372,7 +378,7 @@ end
 
 ```
 
-![](https://placehold.it/15/f03c15/000000?text=+) raises for methods with instance variable `||=` assign and return
+![](https://placehold.it/10/f03c15/000000?text=+) raises for methods with instance variable `||=` assign and return
 ```ruby
 
 def define_roles
@@ -386,7 +392,7 @@ end
 
 ```
 
-![](https://placehold.it/15/f03c15/000000?text=+) raises for methods which return call on scope variable
+![](https://placehold.it/10/f03c15/000000?text=+) raises for methods which return call on scope variable
 ```ruby
 
 def load_group
@@ -400,7 +406,7 @@ end
 
 ```
 
-![](https://placehold.it/15/f03c15/000000?text=+) raises for methods which return instance variable but have scope vars
+![](https://placehold.it/10/f03c15/000000?text=+) raises for methods which return instance variable but have scope vars
 ```ruby
 
 def generate_file(file_name)
@@ -413,7 +419,7 @@ end
 
 ```
 
-![](https://placehold.it/15/2cbe4e/000000?text=+) ignores empty methods
+![](https://placehold.it/10/2cbe4e/000000?text=+) ignores empty methods
 ```ruby
 
 def edit
@@ -421,7 +427,7 @@ end
 
 ```
 
-![](https://placehold.it/15/2cbe4e/000000?text=+) ignores methods which body is just call
+![](https://placehold.it/10/2cbe4e/000000?text=+) ignores methods which body is just call
 ```ruby
 
 def total_cost(cost_field)
@@ -430,7 +436,7 @@ end
 
 ```
 
-![](https://placehold.it/15/2cbe4e/000000?text=+) ignores methods which return some statement
+![](https://placehold.it/10/2cbe4e/000000?text=+) ignores methods which return some statement
 ```ruby
 
   def stop_terminated_employee
@@ -443,7 +449,7 @@ end
 
 ```
 
-![](https://placehold.it/15/2cbe4e/000000?text=+) ignores methods which simply returns instance var without changes
+![](https://placehold.it/10/2cbe4e/000000?text=+) ignores methods which simply returns instance var without changes
 ```ruby
 
 def employee
@@ -455,39 +461,42 @@ end
 
 Prefer to use %<alternative>s method instead of %<original>s because of
 %<reason>s.
+Dangerous methods are:
+`delete_all`, `delete`.
 
-![](https://placehold.it/15/f03c15/000000?text=+) raises for `delete` method calling
+![](https://placehold.it/10/f03c15/000000?text=+) raises for `delete` method calling
 ```ruby
 User.where(id: 7).delete
 ```
 
-![](https://placehold.it/15/2cbe4e/000000?text=+) ignores calling `delete` with symbol
+![](https://placehold.it/10/2cbe4e/000000?text=+) ignores calling `delete` with symbol
 ```ruby
 params.delete(:code)
 ```
 
-![](https://placehold.it/15/2cbe4e/000000?text=+) ignores calling `delete` with string
+![](https://placehold.it/10/2cbe4e/000000?text=+) ignores calling `delete` with string
 ```ruby
 string.delete("-")
 ```
 
-![](https://placehold.it/15/2cbe4e/000000?text=+) ignores calling `delete` with multiple args
+![](https://placehold.it/10/2cbe4e/000000?text=+) ignores calling `delete` with multiple args
 ```ruby
 some.delete(1, header: [])
 ```
 
-![](https://placehold.it/15/2cbe4e/000000?text=+) ignores calling `delete` on files-like variables
+![](https://placehold.it/10/2cbe4e/000000?text=+) ignores calling `delete` on files-like variables
 ```ruby
 tempfile.delete
 ```
 ## Ducalis::PrivateInstanceAssign
 
 Please, don't assign instance variables in controller's private methods. It's make hard to understand what variables are available in views.
+If you want to memoize variable, please, add underscore to the variable name start: `@_name`.
 
-![](https://placehold.it/15/f03c15/000000?text=+) raises for assigning instance variables in controllers private methods
+![](https://placehold.it/10/f03c15/000000?text=+) raises for assigning instance variables in controllers private methods
 ```ruby
 
-class MyController < ApplicationController
+class EmployeesController < ApplicationController
   private
 
   def load_employee
@@ -497,36 +506,36 @@ end
 
 ```
 
-![](https://placehold.it/15/f03c15/000000?text=+) raises for memoization variables in controllers private methods
+![](https://placehold.it/10/f03c15/000000?text=+) raises for memoization variables in controllers private methods
 ```ruby
 
-class MyController < ApplicationController
+class EmployeesController < ApplicationController
   private
 
-  def service
-    @service ||= Service.new
+  def catalog
+    @catalog ||= Catalog.new
   end
 end
 
 ```
 
-![](https://placehold.it/15/2cbe4e/000000?text=+) ignores memoization variables in controllers private methods with _
+![](https://placehold.it/10/2cbe4e/000000?text=+) ignores memoization variables in controllers private methods with _
 ```ruby
 
-class MyController < ApplicationController
+class EmployeesController < ApplicationController
   private
 
-  def service
-    @_service ||= Service.new
+  def catalog
+    @_catalog ||= Catalog.new
   end
 end
 
 ```
 
-![](https://placehold.it/15/2cbe4e/000000?text=+) ignores assigning instance variables in controllers public methods
+![](https://placehold.it/10/2cbe4e/000000?text=+) ignores assigning instance variables in controllers public methods
 ```ruby
 
-class MyController < ApplicationController
+class EmployeesController < ApplicationController
   def index
     @employee = load_employee
   end
@@ -551,27 +560,27 @@ current_group.employees.find(params[:id])
 Employee.find(params[:id])
 ```
 
-![](https://placehold.it/15/f03c15/000000?text=+) raises if somewhere AR search was called on not protected scope
+![](https://placehold.it/10/f03c15/000000?text=+) raises if somewhere AR search was called on not protected scope
 ```ruby
 Group.find(8)
 ```
 
-![](https://placehold.it/15/f03c15/000000?text=+) raises if AR search was called even for chain of calls
+![](https://placehold.it/10/f03c15/000000?text=+) raises if AR search was called even for chain of calls
 ```ruby
-Group.includes(:some_relation).find(8)
+Group.includes(:profiles).find(8)
 ```
 
-![](https://placehold.it/15/f03c15/000000?text=+) ignores where statements and still raises error
+![](https://placehold.it/10/f03c15/000000?text=+) ignores where statements and still raises error
 ```ruby
-Group.includes(:some_relation).where(name: "John").find(8)
+Group.includes(:profiles).where(name: "John").find(8)
 ```
 
-![](https://placehold.it/15/2cbe4e/000000?text=+) ignores find method with passed block
+![](https://placehold.it/10/2cbe4e/000000?text=+) ignores find method with passed block
 ```ruby
 MAPPING.find { |x| x == 42 }
 ```
 
-![](https://placehold.it/15/2cbe4e/000000?text=+) ignores find method with passed multiline block
+![](https://placehold.it/10/2cbe4e/000000?text=+) ignores find method with passed multiline block
 ```ruby
 
 MAPPING.find do |x|
@@ -583,17 +592,17 @@ end
 
 It's better to add exception class as raise argument. It will make easier to catch and process it later.
 
-![](https://placehold.it/15/f03c15/000000?text=+) raises when `raise` called without exception class
+![](https://placehold.it/10/f03c15/000000?text=+) raises when `raise` called without exception class
 ```ruby
 raise "Something went wrong"
 ```
 
-![](https://placehold.it/15/2cbe4e/000000?text=+) ignores when `raise` called with exception class
+![](https://placehold.it/10/2cbe4e/000000?text=+) ignores when `raise` called with exception class
 ```ruby
 raise StandardError, "Something went wrong"
 ```
 
-![](https://placehold.it/15/2cbe4e/000000?text=+) ignores when `raise` called with exception instance
+![](https://placehold.it/10/2cbe4e/000000?text=+) ignores when `raise` called with exception instance
 ```ruby
 raise StandardError.new("Something went wrong")
 ```
@@ -606,8 +615,10 @@ It will allow you to reuse this regex and provide instructions for others.
 CONST_NAME = %<constant>s # "%<example>s"
 %<fixed_string>s
 ```
+Available regexes are:
+      `/[[:alnum:]]/`, `/[[:alpha:]]/`, `/[[:blank:]]/`, `/[[:cntrl:]]/`, `/[[:digit:]]/`, `/[[:graph:]]/`, `/[[:lower:]]/`, `/[[:print:]]/`, `/[[:punct:]]/`, `/[[:space:]]/`, `/[[:upper:]]/`, `/[[:xdigit:]]/`, `/[[:word:]]/`, `/[[:ascii:]]/`
 
-![](https://placehold.it/15/f03c15/000000?text=+) raises if somewhere in code used regex which is not moved to const
+![](https://placehold.it/10/f03c15/000000?text=+) raises if somewhere in code used regex which is not moved to const
 ```ruby
 
 name = "john"
@@ -615,7 +626,7 @@ puts "hi" if name =~ /john/
 
 ```
 
-![](https://placehold.it/15/2cbe4e/000000?text=+) ignores matching constants
+![](https://placehold.it/10/2cbe4e/000000?text=+) ignores matching constants
 ```ruby
 
 REGEX = /john/
@@ -624,7 +635,7 @@ puts "hi" if name =~ REGEX
 
 ```
 
-![](https://placehold.it/15/2cbe4e/000000?text=+) ignores named ruby constants
+![](https://placehold.it/10/2cbe4e/000000?text=+) ignores named ruby constants
 ```ruby
 
 name = "john"
@@ -632,7 +643,7 @@ puts "hi" if name =~ /[[:alpha:]]/
 
 ```
 
-![](https://placehold.it/15/2cbe4e/000000?text=+) ignores dynamic regexs
+![](https://placehold.it/10/2cbe4e/000000?text=+) ignores dynamic regexs
 ```ruby
 
 name = "john"
@@ -644,31 +655,33 @@ puts "hi" if name =~ /.{#{name.length}}/
 It's better for controllers to stay adherent to REST:
 http://jeromedalbert.com/how-dhh-organizes-his-rails-controllers/
 
-![](https://placehold.it/15/f03c15/000000?text=+) raises for controllers with non-REST methods
+![](https://placehold.it/10/f03c15/000000?text=+) raises for controllers with non-REST methods
 ```ruby
 
-class MyController < ApplicationController
+class ProductsController < ApplicationController
   def index; end
-  def non_rest_method; end
+  def recalculate; end
 end
 
 ```
 
-![](https://placehold.it/15/2cbe4e/000000?text=+) ignores controllers with private non-REST methods
+![](https://placehold.it/10/2cbe4e/000000?text=+) ignores controllers with private non-REST methods
 ```ruby
 
-class MyController < ApplicationController
+class ProductsController < ApplicationController
   def index; end
+
   private
-  def non_rest_method; end
+
+  def recalculate; end
 end
 
 ```
 
-![](https://placehold.it/15/2cbe4e/000000?text=+) ignores controllers with only REST methods
+![](https://placehold.it/10/2cbe4e/000000?text=+) ignores controllers with only REST methods
 ```ruby
 
-class MyController < ApplicationController
+class ProductsController < ApplicationController
   def index; end
   def show; end
   def new; end
@@ -680,12 +693,12 @@ end
 
 ```
 
-![](https://placehold.it/15/2cbe4e/000000?text=+) ignores non-controllers with non-REST methods
+![](https://placehold.it/10/2cbe4e/000000?text=+) ignores non-controllers with non-REST methods
 ```ruby
 
-class MyClass
+class PriceStore
   def index; end
-  def non_rest_method; end
+  def recalculate; end
 end
 
 ```
@@ -695,19 +708,19 @@ end
 Please, do not suppress RuboCop metrics, may be you can introduce some refactoring or another concept.
     
 
-![](https://placehold.it/15/f03c15/000000?text=+) raises on RuboCop disable comments
+![](https://placehold.it/10/f03c15/000000?text=+) raises on RuboCop disable comments
 ```ruby
 
 # rubocop:disable Metrics/ParameterLists
-def some_method(a, b, c, d, e, f); end
+def calculate(five, args, at, one, list); end
 
 ```
 
-![](https://placehold.it/15/2cbe4e/000000?text=+) ignores comment without RuboCop disabling
+![](https://placehold.it/10/2cbe4e/000000?text=+) ignores comment without RuboCop disabling
 ```ruby
 
 # some meaningful comment
-def some_method(a, b, c, d, e, f); end
+def calculate(five, args, at, one, list); end
 
 ```
 ## Ducalis::StringsInActiverecords
@@ -716,7 +729,7 @@ Please, do not use strings as arguments for %<method_name>s argument.
 It's hard to test, grep sources, code highlighting and so on.
 Consider using of symbols or lambdas for complex expressions.
 
-![](https://placehold.it/15/f03c15/000000?text=+) raises for string if argument
+![](https://placehold.it/10/f03c15/000000?text=+) raises for string if argument
 ```ruby
 
 before_save :set_full_name, 
@@ -724,7 +737,7 @@ before_save :set_full_name,
 
 ```
 
-![](https://placehold.it/15/2cbe4e/000000?text=+) ignores lambda if argument
+![](https://placehold.it/10/2cbe4e/000000?text=+) ignores lambda if argument
 ```ruby
 validates :file, if: -> { remote_url.blank? }
 ```
@@ -733,21 +746,21 @@ validates :file, if: -> { remote_url.blank? }
 Please, add comment why are you including non-realized gem version for %<gem>s.
 It will increase [bus-factor](<https://en.wikipedia.org/wiki/Bus_factor>).
 
-![](https://placehold.it/15/f03c15/000000?text=+) raises for gem from github without comment
+![](https://placehold.it/10/f03c15/000000?text=+) raises for gem from github without comment
 ```ruby
 
-gem 'a' 
-gem 'b', '~> 1.3.1' 
-gem 'c', git: 'https://github.com/c/c'
+gem 'pry', '~> 0.10', '>= 0.10.0'
+gem 'rake', '~> 12.1'
+gem 'rspec', git: 'https://github.com/rspec/rspec'
 
 ```
 
-![](https://placehold.it/15/2cbe4e/000000?text=+) ignores for gem from github with comment
+![](https://placehold.it/10/2cbe4e/000000?text=+) ignores for gem from github with comment
 ```ruby
 
-gem 'a' 
-gem 'b', '~> 1.3.1' 
-gem 'c', git: 'https://github.com/c/c' # some description
+gem 'pry', '~> 0.10', '>= 0.10.0'
+gem 'rake', '~> 12.1'
+gem 'rspec', github: 'rspec/rspec' # new non released API
 
 ```
 ## Ducalis::UselessOnly
@@ -765,88 +778,109 @@ def index
 end
 ```
 
-![](https://placehold.it/15/f03c15/000000?text=+) raises for `before_filters` with only one method as array
+![](https://placehold.it/10/f03c15/000000?text=+) raises for `before_filters` with only one method as array
 ```ruby
 
-class MyController < ApplicationController
-  before_filter :do_something, only: [:index]
+class ProductsController < ApplicationController
+  before_filter :update_cost, only: [:index]
+
   def index; end
+
   private
-  def do_something; end
+
+  def update_cost; end
 end
 
 ```
 
-![](https://placehold.it/15/f03c15/000000?text=+) raises for `before_filters` with only one method as keyword array
+![](https://placehold.it/10/f03c15/000000?text=+) raises for `before_filters` with only one method as keyword array
 ```ruby
 
-class MyController < ApplicationController
-  before_filter :do_something, only: %i[index]
+class ProductsController < ApplicationController
+  before_filter :update_cost, only: %i[index]
+
   def index; end
+
   private
-  def do_something; end
+
+  def update_cost; end
 end
 
 ```
 
-![](https://placehold.it/15/f03c15/000000?text=+) raises for `before_filters` with many actions and only one method
+![](https://placehold.it/10/f03c15/000000?text=+) raises for `before_filters` with many actions and only one method
 ```ruby
 
-class MyController < ApplicationController
-  before_filter :do_something, :load_me, only: %i[index]
+class ProductsController < ApplicationController
+  before_filter :update_cost, :load_me, only: %i[index]
+
   def index; end
+
   private
-  def do_something; end
+
+  def update_cost; end
   def load_me; end
 end
 
 ```
 
-![](https://placehold.it/15/f03c15/000000?text=+) raises for `before_filters` with only one method as argument
+![](https://placehold.it/10/f03c15/000000?text=+) raises for `before_filters` with only one method as argument
 ```ruby
 
-class MyController < ApplicationController
-  before_filter :do_something, only: :index
+class ProductsController < ApplicationController
+  before_filter :update_cost, only: :index
+
   def index; end
+
   private
-  def do_something; end
+
+  def update_cost; end
 end
 
 ```
 
-![](https://placehold.it/15/2cbe4e/000000?text=+) ignores `before_filters` without arguments
+![](https://placehold.it/10/2cbe4e/000000?text=+) ignores `before_filters` without arguments
 ```ruby
 
-class MyController < ApplicationController
-  before_filter :do_something
+class ProductsController < ApplicationController
+  before_filter :update_cost
+
   def index; end
+
   private
-  def do_something; end
+
+  def update_cost; end
 end
 
 ```
 
-![](https://placehold.it/15/2cbe4e/000000?text=+) ignores `before_filters` with `only` and many arguments
+![](https://placehold.it/10/2cbe4e/000000?text=+) ignores `before_filters` with `only` and many arguments
 ```ruby
 
-class MyController < ApplicationController
-  before_filter :do_something, only: %i[index show]
+class ProductsController < ApplicationController
+  before_filter :update_cost, only: %i[index show]
+
   def index; end
   def show; end
+
   private
-  def do_something; end
+
+  def update_cost; end
 end
 
 ```
 
-![](https://placehold.it/15/2cbe4e/000000?text=+) ignores `before_filters` with `except` and one argument
+![](https://placehold.it/10/2cbe4e/000000?text=+) ignores `before_filters` with `except` and one argument
 ```ruby
 
-class MyController < ApplicationController
-  before_filter :do_something, except: %i[index]
+class ProductsController < ApplicationController
+  before_filter :update_cost, except: %i[index]
+
   def index; end
+
   private
-  def do_something; end
+
+  def update_cost; end
 end
 
 ```
