@@ -490,7 +490,7 @@ tempfile.delete
 ```
 ## Ducalis::PrivateInstanceAssign
 
-Please, don't assign instance variables in controller's private methods. It's make hard to understand what variables are available in views.
+Don't use filters for setting instance variables, use them only for changing   application flow, such as redirecting if a user is not authenticated.          Controller instance variables are forming contract between controller and view . Keeping instance variables defined in one place makes it easier to: reason,  refactor and remove old views, test controllers and views, extract actions to  new controllers, etc.
 If you want to memoize variable, please, add underscore to the variable name start: `@_name`.
 
 ![](https://placehold.it/10/f03c15/000000?text=+) raises for assigning instance variables in controllers private methods
