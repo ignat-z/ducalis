@@ -30,7 +30,7 @@ Ducalis/CallbacksActiverecord:
   Enabled: true
 
 Ducalis/PossibleTap:
-  Enabled: true
+  Enabled: false
 
 Ducalis/ProtectedScopeCop:
   Enabled: true
