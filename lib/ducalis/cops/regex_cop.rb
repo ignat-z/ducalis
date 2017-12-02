@@ -5,15 +5,13 @@ require 'regexp-examples'
 
 module Ducalis
   class RegexCop < RuboCop::Cop::Cop
-    OFFENSE = <<-MESSAGE.gsub(/^ +\|/, '').strip
-      | It's better to move regex to constants with example instead of direct
-      | using it. It will allow you to reuse this regex and provide instructions
-      | for others.
-      |
-      |```ruby
-      |CONST_NAME = %<constant>s # "%<example>s"
-      |%<fixed_string>s
-      |```
+    OFFENSE = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
+      | It's better to move regex to constants with example instead of direct using it. It will allow you to reuse this regex and provide instructions for others.
+
+      | ```ruby
+      | CONST_NAME = %<constant>s # "%<example>s"
+      | %<fixed_string>s
+      | ```
     MESSAGE
 
     SELF_DESCRIPTIVE = %w(

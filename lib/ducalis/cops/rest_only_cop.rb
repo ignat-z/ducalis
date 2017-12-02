@@ -5,12 +5,12 @@ require 'rubocop'
 module Ducalis
   class RestOnlyCop < RuboCop::Cop::Cop
     include RuboCop::Cop::DefNode
-    OFFENSE = <<-MESSAGE.gsub(/^ +\|/, '').strip
+    OFFENSE = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
       | It's better for controllers to stay adherent to REST:
       | http://jeromedalbert.com/how-dhh-organizes-his-rails-controllers/.
     MESSAGE
 
-    DETAILS = <<-MESSAGE.gsub(/^ +\|/, '').strip
+    DETAILS = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
       | [About RESTful architecture](<https://confreaks.tv/videos/railsconf2017-in-relentless-pursuit-of-rest>)
     MESSAGE
 

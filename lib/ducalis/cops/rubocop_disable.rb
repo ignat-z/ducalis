@@ -4,9 +4,8 @@ require 'rubocop'
 
 module Ducalis
   class RubocopDisable < RuboCop::Cop::Cop
-    OFFENSE = <<-MESSAGE.gsub(/^ +\|/, '').strip
-      | Please, do not suppress RuboCop metrics, may be you can introduce some
-      | refactoring or another concept.
+    OFFENSE = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
+      | Please, do not suppress RuboCop metrics, may be you can introduce some refactoring or another concept.
     MESSAGE
 
     def investigate(processed_source)

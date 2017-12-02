@@ -4,9 +4,8 @@ require 'rubocop'
 
 module Ducalis
   class RaiseWithoutErrorClass < RuboCop::Cop::Cop
-    OFFENSE = <<-MESSAGE.gsub(/^ +\|/, '').strip
-      | It's better to add exception class as raise argument. It will make
-      | easier to catch and process it later.
+    OFFENSE = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
+      | It's better to add exception class as raise argument. It will make easier to catch and process it later.
     MESSAGE
 
     def on_send(node)

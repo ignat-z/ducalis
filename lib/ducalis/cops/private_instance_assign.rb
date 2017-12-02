@@ -5,19 +5,13 @@ require 'rubocop'
 module Ducalis
   class PrivateInstanceAssign < RuboCop::Cop::Cop
     include RuboCop::Cop::DefNode
-    OFFENSE = <<-MESSAGE.gsub(/^ +\|/, '').strip
-      | Don't use controller's filter methods for setting instance variables, use
-      | them only for changing application flow, such as redirecting if a user
-      | is not authenticated. Controller instance variables are forming contract
-      | between controller and view. Keeping instance variables defined in one
-      | place makes it easier to: reason, refactor and remove old views, test
-      | controllers and views, extract actions to new controllers, etc.
+    OFFENSE = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
+      | Don't use controller's filter methods for setting instance variables, use them only for changing application flow, such as redirecting if a user is not authenticated. Controller instance variables are forming contract between controller and view. Keeping instance variables defined in one place makes it easier to: reason, refactor and remove old views, test controllers and views, extract actions to new controllers, etc.
     MESSAGE
 
-    ADD_OFFENSE = %(
-If you want to memoize variable, please, add underscore to the variable name \
-start: `@_name`.
-).strip
+    ADD_OFFENSE = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
+      If you want to memoize variable, please, add underscore to the variable name start: `@_name`.
+    MESSAGE
 
     DETAILS = ADD_OFFENSE
 

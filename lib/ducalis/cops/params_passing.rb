@@ -4,9 +4,8 @@ require 'rubocop'
 
 module Ducalis
   class ParamsPassing < RuboCop::Cop::Cop
-    OFFENSE = <<-MESSAGE.gsub(/^ +\|/, '').strip
-      | It's better to pass already preprocessed params hash to services. Or
-      | you can use `arcane` gem.
+    OFFENSE = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
+      | It's better to pass already preprocessed params hash to services. Or you can use `arcane` gem.
     MESSAGE
 
     PARAMS_CALL = s(:send, nil, :params)

@@ -4,11 +4,9 @@ require 'rubocop'
 
 module Ducalis
   class CallbacksActiverecord < RuboCop::Cop::Cop
-    OFFENSE = <<-MESSAGE.gsub(/^ +\|/, '').strip
-      | Please, avoid using of callbacks for models. It's better to
-      | keep models small ("dumb") and instead use "builder" classes
-      | / services: to construct new objects. You can read more
-      | [here](https://medium.com/planet-arkency/a61fd75ab2d3).
+    OFFENSE = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
+      | Please, avoid using of callbacks for models. It's better to keep models small ("dumb") and instead use "builder" classes/services: to construct new objects.
+      | You can read more [here](https://medium.com/planet-arkency/a61fd75ab2d3).
     MESSAGE
 
     MODELS_CLASS_NAMES = [

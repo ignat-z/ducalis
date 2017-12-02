@@ -6,11 +6,9 @@ module Ducalis
   class TooLongWorkers < RuboCop::Cop::Cop
     include RuboCop::Cop::ClassishLength
 
-    OFFENSE = <<-MESSAGE.gsub(/^ +\|/, '').strip
-      | Seems like your worker is doing too much work, consider of moving business
-      | logic to service object. As rule, workers should have only two responsibilities:
-      | - __Model materialization__: As async jobs working with serialized attributes
-      | it's nescessary to cast them into actual objects.
+    OFFENSE = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
+      | Seems like your worker is doing too much work, consider of moving business logic to service object. As rule, workers should have only two responsibilities:
+      | - __Model materialization__: As async jobs working with serialized attributes it's nescessary to cast them into actual objects.
       | - __Errors handling__: Rescue errors and figure out what to do with them.
     MESSAGE
 

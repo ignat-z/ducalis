@@ -4,9 +4,8 @@ require 'rubocop'
 
 module Ducalis
   class ControllersExcept < RuboCop::Cop::Cop
-    OFFENSE = <<-MESSAGE.gsub(/^ +\|/, '').strip
-      | Prefer to use `:only` over `:except` in controllers because it's more
-      | explicit and will be easier to maintain for new developers.
+    OFFENSE = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
+      | Prefer to use `:only` over `:except` in controllers because it's more explicit and will be easier to maintain for new developers.
     MESSAGE
 
     FILTERS = %i(before_filter after_filter around_filter

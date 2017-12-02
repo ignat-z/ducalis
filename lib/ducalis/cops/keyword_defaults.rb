@@ -4,9 +4,8 @@ require 'rubocop'
 
 module Ducalis
   class KeywordDefaults < RuboCop::Cop::Cop
-    OFFENSE = <<-MESSAGE.gsub(/^ +\|/, '').strip
-      | Prefer to use keyword arguments for defaults. It increases readability
-      | and reduces ambiguities.
+    OFFENSE = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
+      | Prefer to use keyword arguments for defaults. It increases readability and reduces ambiguities.
     MESSAGE
 
     def on_def(node)

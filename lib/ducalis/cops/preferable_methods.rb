@@ -3,9 +3,8 @@ require 'rubocop'
 
 module Ducalis
   class PreferableMethods < RuboCop::Cop::Cop
-    OFFENSE = <<-MESSAGE.gsub(/^ +\|/, '').strip
-      | Prefer to use %<alternative>s method instead of %<original>s because of
-      | %<reason>s.
+    OFFENSE = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
+      | Prefer to use %<alternative>s method instead of %<original>s because of %<reason>s.
     MESSAGE
 
     ALWAYS_TRUE = ->(_who, _what, _args) { true }

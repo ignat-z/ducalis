@@ -4,16 +4,15 @@ require 'rubocop'
 
 module Ducalis
   class UselessOnly < RuboCop::Cop::Cop
-    OFFENSE = <<-MESSAGE.gsub(/^ +\|/, '').strip
-      | Seems like there is no any reason to keep before filter only for one
-      | action. Maybe it will be better to inline it?
-      |
+    OFFENSE = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
+      | Seems like there is no any reason to keep before filter only for one action. Maybe it will be better to inline it?
+
       | ```ruby
       | before_filter :do_something, only: %i[index]
       | def index; end
-      |
+
       | # to
-      |
+
       | def index
       |   do_something
       | end
