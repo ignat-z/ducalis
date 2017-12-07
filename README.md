@@ -59,6 +59,17 @@ In CLI modes you can provide yours `.ducalis.yml` file based on
 [default](https://github.com/ignat-z/ducalis/blob/master/config/.ducalis.yml) by
 `-c` flag or simply putting it in your project directory.
 
+## Configuration
+
+One or more individual cops can be disabled locally in a section of a file by adding a comment such as
+
+```ruby
+# ducalis:disable Ducalis/PreferableMethods Use `delete_all` because of performance reasons
+def remove_audits
+  AuditLog.where(user_id: user_id).delete_all
+end
+```
+
 ## Contribution
 
 To pass your code through the all checks you simply need to run:
