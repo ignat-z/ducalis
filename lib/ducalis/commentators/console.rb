@@ -5,7 +5,7 @@ require 'logger'
 module Ducalis
   module Commentators
     class Console
-      DOCUMENTATION_PATH = 'https://github.com/ignat-zakrevsky/ducalis/blob/master/DOCUMENTATION.md'
+      DOCUMENTATION_PATH = 'https://ducalis-rb.github.io/'
 
       def initialize(config)
         @config = config
