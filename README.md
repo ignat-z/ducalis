@@ -5,25 +5,20 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/d03d4e567e8728d2c58b/maintainability)](https://codeclimate.com/github/ignat-z/ducalis/maintainability)
 
 __Ducalis__ is RuboCop-based static code analyzer for enterprise Rails applications.
-As __Ducalis__ isn't style checker and could sometimes be false-positive it's not
+
+Documentation available at https://ducalis-rb.github.io/.
+
+__Ducalis__ isn't style checker and could sometimes be false-positive it's not
 necessary to follow all it rules, the main purpose of __Ducalis__ is help to find
 possible weak code parts.
 
-[Documentation](<https://ducalis-rb.github.io/>)
+## Installation and Usage
 
-## Installation
-
-Add this line to your application's Gemfile:
+Add this line to your application's `Gemfile`:
 
 ```ruby
 gem 'ducalis'
 ```
-
-## License
-
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
-
-## Usage
 
 There are a lot of variants how you can use __Ducalis__:
 
@@ -72,9 +67,13 @@ def remove_audits
 end
 ```
 
+## License
+
+The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+
 ## Contribution
 
-To pass your code through the all checks you simply need to run:
+Contributions are welcome! To pass your code through the all checks you simply need to run:
 
 ```
 bundle exec rake
