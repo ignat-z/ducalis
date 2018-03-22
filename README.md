@@ -67,6 +67,12 @@ def remove_audits
 end
 ```
 
+The main behavior of Ducalis can be controlled via the
+[.ducalis.yml](<https://github.com/ignat-z/ducalis/blob/master/config/.ducalis.yml>).
+It makes it possible to enable/disable certain cops (checks) and to alter their
+behavior if they accept any parameters. List of all available cops could be
+found in the [documentation](<https://ducalis-rb.github.io/>).
+
 ## License
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
