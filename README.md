@@ -6,7 +6,7 @@
 
 __Ducalis__ is RuboCop-based static code analyzer for enterprise Rails applications.
 
-Documentation available at https://ducalis-rb.github.io/.
+Documentation available at https://ducalis-rb.github.io/. Changelog at https://ducalis-rb.github.io/log.
 
 __Ducalis__ isn't style checker and could sometimes be false-positive it's not
 necessary to follow all it rules, the main purpose of __Ducalis__ is help to find
