@@ -29,10 +29,8 @@ module Ducalis
 
     def on_def(body)
       multiple = [
-        date_today(body),
-        date_current(body),
-        time_current(body),
-        time_now(body)
+        date_today(body), date_current(body), date_yesterday(body),
+        time_current(body), time_now(body)
       ].map(&:to_a).compact.flatten.to_a
       return if multiple.count < 2
       multiple.each do |time_node|
@@ -44,6 +42,7 @@ module Ducalis
 
     def_node_search :date_today, '(send (const _ :Date) :today)'
     def_node_search :date_current, '(send (const _ :Date) :current)'
+    def_node_search :date_yesterday, '(send (const _ :Date) :yesterday)'
     def_node_search :time_current, '(send (const _ :Time) :current)'
     def_node_search :time_now, '(send (const _ :Time) :now)'
   end

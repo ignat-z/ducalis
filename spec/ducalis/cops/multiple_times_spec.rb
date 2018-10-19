@@ -57,4 +57,24 @@ RSpec.describe Ducalis::MultipleTimes do
                    ])
     expect(cop).to raise_violation(/multiple/, count: 2)
   end
+
+  it 'raises if method contains more then one Date.yesterday calling' do
+    inspect_source([
+                     'def range_to_change',
+                     '  [Date.yesterday - RATE_CHANGES_DAYS,',
+                     '   Date.yesterday + RATE_CHANGES_DAYS]',
+                     'end'
+                   ])
+    expect(cop).to raise_violation(/multiple/, count: 2)
+  end
+
+  it 'raises if block contains more then one Date.yesterday calling' do
+    inspect_source([
+                     'validates :day,',
+                     '  inclusion: {',
+                     '    in: Date.yesterday - 1..Date.yesterday + 2',
+                     '  }'
+                   ])
+    expect(cop).to raise_violation(/multiple/, count: 2)
+  end
 end
