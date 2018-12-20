@@ -19,7 +19,7 @@ module Ducalis
 
         return if comments.empty?
 
-        Utils.octokit
+        Utils.ochokit
              .create_pull_request_review(@repo, @id,
                                          event: STATUS, comments: comments)
       end
@@ -30,9 +30,9 @@ module Ducalis
         current_offence = present_offense(offense)
         commented_offenses.find do |commented_offense|
           [
-            current_offence[:path] == commented_offense[:path],
-            current_offence[:position] == commented_offense[:position],
-            similar_messages?(current_offence[:body], commented_offense[:body])
+            current_offence[:path] == commented_offense['path'],
+            current_offence[:position] == commented_offense['position'],
+            similar_messages?(current_offence[:body], commented_offense['body'])
           ].all?
         end
       end
@@ -55,7 +55,8 @@ module Ducalis
       end
 
       def commented_offenses
-        @commented_offenses ||= Utils.octokit.pull_request_comments(@repo, @id)
+        @commented_offenses ||= Utils.ochokit
+                                     .pull_request_comments(@repo, @id).to_a
       end
     end
   end

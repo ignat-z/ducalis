@@ -8,14 +8,17 @@ require './lib/ducalis/commentators/github'
 RSpec.describe Ducalis::Commentators::Github do
   subject { described_class.new('repo', 42) }
 
-  before { stub_const('Ducalis::Utils', double(:utils, octokit: octokit)) }
+  before { stub_const('Ducalis::Utils', double(:utils, ochokit: ochokit)) }
 
-  let(:octokit)  { instance_double(Octokit::Client) }
+  let(:ochokit)  { instance_double(OchoKit) }
 
   let(:path)     { 'app/controllers/books_controller.rb' }
   let(:message)  { 'actual cop message with description' }
   let(:position) { 60 }
-  let(:existing_comment) { { path: path, position: position, body: message } }
+
+  let(:existing_comment) do
+    { "path" => path, "position" => position, "body" => message }
+  end
 
   let(:buffer) { instance_double(Parser::Source::Buffer, name: path) }
   let(:range)  { instance_double(Parser::Source::Range, source_buffer: buffer) }
@@ -32,12 +35,12 @@ RSpec.describe Ducalis::Commentators::Github do
     before do
       expect(Ducalis::Commentators::Message).to receive(:new).with(offense)
         .twice.and_return(message_extension)
-      expect(octokit).to receive(:pull_request_comments).and_return([])
+      expect(ochokit).to receive(:pull_request_comments).and_return([])
       expect(Dir).to receive(:pwd).exactly(8).times.and_return('')
     end
 
     it 'comments offenses' do
-      expect(octokit).to receive(:create_pull_request_review)
+      expect(ochokit).to receive(:create_pull_request_review)
       subject.call([offense])
     end
   end
@@ -50,12 +53,12 @@ RSpec.describe Ducalis::Commentators::Github do
         .twice.and_return(message_extension)
       expect(GitAccess.instance).to receive(:for)
         .with(path).exactly(4).times.and_return(nil_diff)
-      expect(octokit).to receive(:pull_request_comments)
+      expect(ochokit).to receive(:pull_request_comments)
         .and_return([existing_comment])
     end
 
     it 'comments missed offenses' do
-      expect(octokit).to receive(:create_pull_request_review)
+      expect(ochokit).to receive(:create_pull_request_review)
       subject.call([offense])
     end
   end
@@ -68,12 +71,12 @@ RSpec.describe Ducalis::Commentators::Github do
         .with(offense).and_return(message_extension)
       expect(GitAccess.instance).to receive(:for)
         .with(path).twice.and_return(git_diff)
-      expect(octokit).to receive(:pull_request_comments)
+      expect(ochokit).to receive(:pull_request_comments)
         .and_return([existing_comment])
     end
 
     it "doesn't re-comment this PR" do
-      expect(octokit).not_to receive(:create_pull_request_review)
+      expect(ochokit).not_to receive(:create_pull_request_review)
       subject.call([offense])
     end
   end

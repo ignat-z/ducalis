@@ -1,17 +1,15 @@
 # frozen_string_literal: true
 
-require 'octokit'
+require 'ducalis/commentators/ocho_kit'
 
 module Ducalis
   module Utils
     module_function
 
-    def octokit
-      @octokit ||= begin
+    def ochokit
+      @ochokit ||= begin
         token = ENV.fetch('GITHUB_TOKEN') { raise MissingToken }
-        Octokit::Client.new(access_token: token).tap do |client|
-          client.auto_paginate = true
-        end
+        OchoKit.new(access_token: token)
       end
     end
 

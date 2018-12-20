@@ -6,21 +6,20 @@ require 'spec_helper'
 require './lib/ducalis/errors'
 
 RSpec.describe Ducalis::Utils do
-  describe '#octokit' do
+  describe '#ochokit' do
     let(:token) { '7103donotforgettoremovemefromgit' }
-    let(:client) { instance_double(Octokit::Client) }
+    let(:client) { instance_double(OchoKit) }
 
     it 'raises missing token error when there is no key in ENV' do
       stub_const('ENV', {})
-      expect { described_class.octokit }.to raise_error(Ducalis::MissingToken)
+      expect { described_class.ochokit }.to raise_error(Ducalis::MissingToken)
     end
 
-    it 'returns configured octokit version' do
+    it 'returns configured ochokit version' do
       stub_const('ENV', 'GITHUB_TOKEN' => token)
-      expect(Octokit::Client).to receive(:new).with(access_token: token)
+      expect(OchoKit).to receive(:new).with(access_token: token)
                                               .and_return(client)
-      expect(client).to receive(:auto_paginate=).with(true)
-      described_class.octokit
+      described_class.ochokit
     end
   end
 
