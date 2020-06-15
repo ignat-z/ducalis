@@ -2,7 +2,6 @@ AllCops:
   TargetRubyVersion: 2.4
   UseCache: false
   Exclude:
-    - 'client/vendor/bundle/**/*'
     - 'vendor/bundle/**/*'
 
 Metrics/BlockLength:
