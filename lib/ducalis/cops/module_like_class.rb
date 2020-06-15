@@ -6,7 +6,7 @@ module Ducalis
   class ModuleLikeClass < RuboCop::Cop::Cop
     include RuboCop::Cop::DefNode
 
-    OFFENSE = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
+    MSG = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
       | Seems like it will be better to define initialize and pass %<args>s there instead of each method.
     MESSAGE
 
@@ -17,9 +17,7 @@ module Ducalis
       matched = matched_args(body)
       return if matched.empty?
 
-      add_offense(node, :expression,
-                  format(OFFENSE, args:
-                      matched.map { |arg| "`#{arg}`" }.join(', ')))
+      add_offense(node, message: format(MSG, args: matched.map { |arg| "`#{arg}`" }.join(', ')))
     end
 
     private

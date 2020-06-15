@@ -6,7 +6,7 @@ module Ducalis
   class ComplexStatements < RuboCop::Cop::Cop
     include RuboCop::Cop::DefNode
 
-    OFFENSE = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
+    MSG = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
       | Please, refactor this complex statement to a method with a meaningful name.
     MESSAGE
     MAXIMUM_OPERATORS = 2
@@ -14,7 +14,7 @@ module Ducalis
     def on_if(node)
       return if bool_operator(node).count < MAXIMUM_OPERATORS
 
-      add_offense(node, :expression, OFFENSE)
+      add_offense(node)
     end
 
     def_node_search :bool_operator, '({and or} ...)'

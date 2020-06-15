@@ -4,7 +4,7 @@ require 'rubocop'
 
 module Ducalis
   class RaiseWithoutErrorClass < RuboCop::Cop::Cop
-    OFFENSE = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
+    MSG = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
       | It's better to add exception class as raise argument. It will make easier to catch and process it later.
     MESSAGE
 
@@ -13,7 +13,7 @@ module Ducalis
       return if what != :raise
       return if args.first && args.first.type != :str
 
-      add_offense(node, :expression, OFFENSE)
+      add_offense(node)
     end
   end
 end

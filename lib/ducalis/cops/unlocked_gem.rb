@@ -4,7 +4,7 @@ require 'rubocop'
 
 module Ducalis
   class UnlockedGem < RuboCop::Cop::Cop
-    OFFENSE = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
+    MSG = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
       | It's better to lock gem versions explicitly with pessimistic operator (~>).
     MESSAGE
 
@@ -13,8 +13,7 @@ module Ducalis
 
       gem_declarations(processed_source.ast).select do |node|
         _, _, gemname, _args = *node
-        add_offense(node, :selector,
-                    format(OFFENSE, gem: gemname.loc.expression.source))
+        add_offense(node, message: format(MSG, gem: gemname.loc.expression.source))
       end
     end
 

@@ -47,10 +47,10 @@ RSpec.describe Ducalis::ProtectedScopeCop do
 
   it 'ignores find method with passed multiline block' do
     inspect_source([
-                     'MAPPING.find do |x|',
-                     '  x == 42',
-                     'end'
-                   ])
+      'MAPPING.find do |x|',
+      '  x == 42',
+      'end'
+    ].join("\n"))
     expect(cop).not_to raise_violation
   end
 end

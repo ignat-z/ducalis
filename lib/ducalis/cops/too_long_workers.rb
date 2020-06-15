@@ -8,7 +8,7 @@ module Ducalis
     include RuboCop::Cop::ClassishLength
     prepend TypeResolving
 
-    OFFENSE = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
+    MSG = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
       | Seems like your worker is doing too much work, consider of moving business logic to service object. As rule, workers should have only two responsibilities:
       | - __Model materialization__: As async jobs working with serialized attributes it's nescessary to cast them into actual objects.
       | - __Errors handling__: Rescue errors and figure out what to do with them.
@@ -20,7 +20,7 @@ module Ducalis
       length = code_length(node)
       return unless length > max_length
 
-      add_offense(node, :expression, "#{OFFENSE} [#{length}/#{max_length}]")
+      add_offense(node, message: "#{MSG} [#{length}/#{max_length}]")
     end
   end
 end

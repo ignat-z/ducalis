@@ -4,7 +4,7 @@ require 'rubocop'
 
 module Ducalis
   class CaseMapping < RuboCop::Cop::Cop
-    OFFENSE = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
+    MSG = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
       | Try to avoid `case when` statements. You can replace it with a sequence of `if... elsif... elsif... else`.
       | For cases where you need to choose from a large number of possibilities, you can create a dictionary mapping case values to functions to call by `call`. It's nice to have prefix for the method names, i.e.: `visit_`.
     MESSAGE
@@ -74,7 +74,7 @@ module Ducalis
     MESSAGE
 
     def on_case(node)
-      add_offense(node, :expression, OFFENSE)
+      add_offense(node)
     end
   end
 end

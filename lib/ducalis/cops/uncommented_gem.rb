@@ -4,7 +4,7 @@ require 'rubocop'
 
 module Ducalis
   class UncommentedGem < RuboCop::Cop::Cop
-    OFFENSE = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
+    MSG = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
       | Please, add comment why are you including non-realized gem version for %<gem>s.
     MESSAGE
 
@@ -21,8 +21,7 @@ module Ducalis
         _, _, gemname, _args = *node
         next if commented?(processed_source, node)
 
-        add_offense(node, :selector,
-                    format(OFFENSE, gem: gemname.loc.expression.source))
+        add_offense(node, message: format(MSG, gem: gemname.loc.expression.source))
       end
     end
 

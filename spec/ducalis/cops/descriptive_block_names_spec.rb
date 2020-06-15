@@ -12,27 +12,27 @@ RSpec.describe Ducalis::DescriptiveBlockNames do
 
   it '[rule] raises for blocks with one/two chars names' do
     inspect_source([
-                     'employees.map { |e| e.call(some, word) }',
-                     'cards.each    { |c| c.date = dates[c.id] }',
-                     'Tempfile.new("name.pdf").tap do |f|',
-                     '  f.binmode',
-                     '  f.write(code)',
-                     '  f.close',
-                     'end'
-                   ])
+      'employees.map { |e| e.call(some, word) }',
+      'cards.each    { |c| c.date = dates[c.id] }',
+      'Tempfile.new("name.pdf").tap do |f|',
+      '  f.binmode',
+      '  f.write(code)',
+      '  f.close',
+      'end'
+    ].join("\n"))
     expect(cop).to raise_violation(/descriptive names/, count: 3)
   end
 
   it '[rule] better to use descriptive names' do
     inspect_source([
-                     'employees.map { |employee| employee.call(some, word) }',
-                     'cards.each    { |card| card.date = dates[card.id] }',
-                     'Tempfile.new("name.pdf").tap do |file|',
-                     '  file.binmode',
-                     '  file.write(code)',
-                     '  file.close',
-                     'end'
-                   ])
+      'employees.map { |employee| employee.call(some, word) }',
+      'cards.each    { |card| card.date = dates[card.id] }',
+      'Tempfile.new("name.pdf").tap do |file|',
+      '  file.binmode',
+      '  file.write(code)',
+      '  file.close',
+      'end'
+    ].join("\n"))
     expect(cop).not_to raise_violation
   end
 

@@ -10,65 +10,65 @@ RSpec.describe Ducalis::ControllersExcept do
 
   it '[rule] raises for `before_filters` with `except` method as array' do
     inspect_source([
-                     'class ProductsController < ApplicationController',
-                     '  before_filter :update_cost, except: [:index]',
-                     '',
-                     '  def index; end',
-                     '  def edit; end',
-                     '',
-                     '  private',
-                     '',
-                     '  def update_cost; end',
-                     'end'
-                   ])
+      'class ProductsController < ApplicationController',
+      '  before_filter :update_cost, except: [:index]',
+      '',
+      '  def index; end',
+      '  def edit; end',
+      '',
+      '  private',
+      '',
+      '  def update_cost; end',
+      'end'
+    ].join("\n"))
     expect(cop).to raise_violation(/explicit/)
   end
 
   it '[rule] better use `only` for `before_filters`' do
     inspect_source([
-                     'class ProductsController < ApplicationController',
-                     '  before_filter :update_cost, only: [:edit]',
-                     '',
-                     '  def index; end',
-                     '  def edit; end',
-                     '',
-                     '  private',
-                     '',
-                     '  def update_cost; end',
-                     'end'
-                   ])
+      'class ProductsController < ApplicationController',
+      '  before_filter :update_cost, only: [:edit]',
+      '',
+      '  def index; end',
+      '  def edit; end',
+      '',
+      '  private',
+      '',
+      '  def update_cost; end',
+      'end'
+    ].join("\n"))
     expect(cop).not_to raise_violation
   end
 
   it 'raises for filters with many actions and only one `except` method' do
     inspect_source([
-                     'class ProductsController < ApplicationController',
-                     '  before_filter :update_cost, :load_me, except: %i[edit]',
-                     '',
-                     '  def index; end',
-                     '  def edit; end',
-                     '',
-                     '  private',
-                     '',
-                     '  def update_cost; end',
-                     '  def load_me; end',
-                     'end'
-                   ])
+      'class ProductsController < ApplicationController',
+      '  before_filter :update_cost, :load_me, except: %i[edit]',
+      '',
+      '  def index; end',
+      '  def edit; end',
+      '',
+      '  private',
+      '',
+      '  def update_cost; end',
+      '  def load_me; end',
+      'end'
+    ].join("\n"))
     expect(cop).to raise_violation(/explicit/)
   end
 
   it 'ignores `before_filters` without arguments' do
     inspect_source([
-                     'class ProductsController < ApplicationController',
-                     '  before_filter :update_cost',
-                     '',
-                     '  def index; end',
-                     '',
-                     '  private',
-                     '',
-                     '  def update_cost; end',
-                     'end'
-                   ])
+      'class ProductsController < ApplicationController',
+      '  before_filter :update_cost',
+      '',
+      '  def index; end',
+      '',
+      '  private',
+      '',
+      '  def update_cost; end',
+      'end'
+    ].join("\n"))
     expect(cop).not_to raise_violation
   end
 end

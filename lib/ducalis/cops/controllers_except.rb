@@ -4,7 +4,7 @@ require 'rubocop'
 
 module Ducalis
   class ControllersExcept < RuboCop::Cop::Cop
-    OFFENSE = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
+    MSG = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
       | Prefer to use `:only` over `:except` in controllers because it's more explicit and will be easier to maintain for new developers.
     MESSAGE
 
@@ -19,7 +19,7 @@ module Ducalis
       type, _method_names = decomposite_hash(hash_node)
       return unless type == s(:sym, :except)
 
-      add_offense(node, :selector, OFFENSE)
+      add_offense(node)
     end
 
     private

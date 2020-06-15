@@ -24,7 +24,7 @@ module ComplexCases
     private
 
     def called_with_stringlike?
-      %i[sym str].include?(@args.first && @args.first.type)
+      %i[sym str].include?(@args.first&.type)
     end
 
     def many_args?

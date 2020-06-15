@@ -8,7 +8,7 @@ module Ducalis
     include RuboCop::Cop::DefNode
     prepend TypeResolving
 
-    OFFENSE = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
+    MSG = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
       | It's a good practice to move code related to serialization/deserialization out of the controller. Consider of creating Data Access Object to separate the data access parts from the application logic. It will eliminate problems related to refactoring and testing.
     MESSAGE
 
@@ -23,7 +23,7 @@ module Ducalis
       return unless in_controller?
       return unless NODE_EXPRESSIONS.include?(node.to_a.first)
 
-      add_offense(node, :expression, OFFENSE)
+      add_offense(node)
     end
   end
 end

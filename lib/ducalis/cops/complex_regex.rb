@@ -7,7 +7,7 @@ module Ducalis
   class ComplexRegex < RuboCop::Cop::Cop
     include RuboCop::Cop::DefNode
 
-    OFFENSE = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
+    MSG = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
       | It seems like this regex is a little bit complex. It's better to increase code readability by using long form with "\\x".
     MESSAGE
     DEFAULT_COST = 0
@@ -22,7 +22,7 @@ module Ducalis
       regex_using(node).each do |regex_desc|
         next if formatted?(regex_desc) || simple?(regex_desc.first)
 
-        add_offense(regex_desc.first, :expression, OFFENSE)
+        add_offense(regex_desc.first)
       end
     end
 

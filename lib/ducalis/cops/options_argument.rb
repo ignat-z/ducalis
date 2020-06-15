@@ -4,7 +4,7 @@ require 'rubocop'
 
 module Ducalis
   class OptionsArgument < RuboCop::Cop::Cop
-    OFFENSE = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
+    MSG = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
       | Default `options` (or `args`) argument isn't good idea. It's better to explicitly pass which keys are you interested in as keyword arguments. You can use split operator to support hash arguments.
     MESSAGE
 
@@ -40,7 +40,7 @@ module Ducalis
     def on_def(node)
       return unless options_like_arg?(node)
 
-      add_offense(node, :expression, OFFENSE)
+      add_offense(node)
     end
 
     def_node_search :options_like_arg?, '(${arg optarg}  ${:options :args} ...)'

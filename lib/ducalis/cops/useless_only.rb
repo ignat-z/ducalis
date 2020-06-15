@@ -4,7 +4,7 @@ require 'rubocop'
 
 module Ducalis
   class UselessOnly < RuboCop::Cop::Cop
-    OFFENSE = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
+    MSG = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
       | Seems like there is no any reason to keep before filter only for one action. Maybe it will be better to inline it?
     MESSAGE
 
@@ -37,7 +37,7 @@ module Ducalis
       return unless type == s(:sym, :only)
       return unless method_names.children.count == 1
 
-      add_offense(node, :selector, OFFENSE)
+      add_offense(node)
     end
 
     private

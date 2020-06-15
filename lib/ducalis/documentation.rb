@@ -65,9 +65,9 @@ class SpecsProcessor < Parser::AST::Processor
 end
 
 class Documentation
-  SIGNAL_WORD = 'raises'.freeze
-  PREFER_WORD = 'better'.freeze
-  RULE_WORD = '[rule]'.freeze
+  SIGNAL_WORD = 'raises'
+  PREFER_WORD = 'better'
+  RULE_WORD = '[rule]'
 
   def cop_rules
     cops.map do |file|

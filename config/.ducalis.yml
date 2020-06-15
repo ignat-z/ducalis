@@ -25,9 +25,6 @@ Ducalis/EnforceNamespace:
   Enabled: true
   ServicePath: 'app/services'
 
-Ducalis/PreferableMethods:
-  Enabled: true
-
 Ducalis/Recursion:
   Enabled: true
 
@@ -47,9 +44,6 @@ Ducalis/CallbacksActiverecord:
 
 Ducalis/DataAccessObjects:
   Enabled: true
-
-Ducalis/PossibleTap:
-  Enabled: false
 
 Ducalis/PublicSend:
   Enabled: true

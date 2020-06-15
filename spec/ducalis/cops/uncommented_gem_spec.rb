@@ -10,19 +10,19 @@ RSpec.describe Ducalis::UncommentedGem do
 
   it '[rule] raises for gem from github without comment' do
     inspect_source([
-                     "gem 'pry', '~> 0.10', '>= 0.10.0'",
-                     "gem 'rake', '~> 12.1'",
-                     "gem 'rspec', git: 'https://github.com/rspec/rspec'"
-                   ])
+      "gem 'pry', '~> 0.10', '>= 0.10.0'",
+      "gem 'rake', '~> 12.1'",
+      "gem 'rspec', git: 'https://github.com/rspec/rspec'"
+    ].join("\n"))
     expect(cop).to raise_violation(/add comment/)
   end
 
   it '[rule] better to add gems from github with explanatory comment' do
     inspect_source([
-                     "gem 'pry', '~> 0.10', '>= 0.10.0'",
-                     "gem 'rake', '~> 12.1'",
-                     "gem 'rspec', github: 'rspec/rspec' # new non released API"
-                   ])
+      "gem 'pry', '~> 0.10', '>= 0.10.0'",
+      "gem 'rake', '~> 12.1'",
+      "gem 'rspec', github: 'rspec/rspec' # new non released API"
+    ].join("\n"))
     expect(cop).not_to raise_violation
   end
 
@@ -32,7 +32,7 @@ RSpec.describe Ducalis::UncommentedGem do
         "gem 'pry', '~> 0.10', '>= 0.10.0'",
         "gem 'rake', '~> 12.1'",
         "gem 'rest-client', require: 'rest_client'"
-      ]
+      ].join("\n")
     )
     expect(cop).not_to raise_violation
   end
@@ -42,7 +42,7 @@ RSpec.describe Ducalis::UncommentedGem do
       [
         "gem 'rake', '~> 12.1'",
         "gem 'wirble', group: :development"
-      ]
+      ].join("\n")
     )
     expect(cop).not_to raise_violation
   end
@@ -52,16 +52,16 @@ RSpec.describe Ducalis::UncommentedGem do
       [
         "gem 'rake', '~> 12.1'",
         "gem 'wirble', :group => :development"
-      ]
+      ].join("\n")
     )
     expect(cop).not_to raise_violation
   end
 
   it 'works for gems without version' do
     inspect_source([
-                     "gem 'rake'",
-                     "gem 'rake'"
-                   ])
+      "gem 'rake'",
+      "gem 'rake'"
+    ].join("\n"))
     expect(cop).not_to raise_violation
   end
 

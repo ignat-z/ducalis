@@ -16,11 +16,11 @@ RSpec.describe Ducalis::EnforceNamespace do
 
   it '[rule] better to add a namespace for classes' do
     inspect_source([
-                     'module Namespace',
-                     '  class MyService',
-                     '  end',
-                     'end'
-                   ])
+      'module Namespace',
+      '  class MyService',
+      '  end',
+      'end'
+    ].join("\n"))
     expect(cop).not_to raise_violation
   end
 

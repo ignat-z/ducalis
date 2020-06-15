@@ -4,14 +4,14 @@ require 'rubocop'
 
 module Ducalis
   class DescriptiveBlockNames < RuboCop::Cop::Cop
-    OFFENSE = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
+    MSG = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
       | Please, use descriptive names as block arguments. There is no any sense to save on letters.
     MESSAGE
 
     def on_block(node)
       _send, args, _inner = *node
       block_arguments(args).each do |violation_node|
-        add_offense(violation_node, :expression, OFFENSE)
+        add_offense(violation_node)
       end
     end
 

@@ -10,19 +10,19 @@ RSpec.describe Ducalis::StandardMethods do
 
   it '[rule] raises if use redefines default ruby methods' do
     inspect_source([
-                     'def to_s',
-                     '  "my version"',
-                     'end'
-                   ])
+      'def to_s',
+      '  "my version"',
+      'end'
+    ].join("\n"))
     expect(cop).to raise_violation(/redefine standard/)
   end
 
   it '[rule] better to define non-default ruby methods' do
     inspect_source([
-                     'def present',
-                     '  "my version"',
-                     'end'
-                   ])
+      'def present',
+      '  "my version"',
+      'end'
+    ].join("\n"))
     expect(cop).not_to raise_violation
   end
 end

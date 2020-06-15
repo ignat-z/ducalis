@@ -7,7 +7,7 @@ module Ducalis
   class RegexCop < RuboCop::Cop::Cop
     include RuboCop::Cop::DefNode
 
-    OFFENSE = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
+    MSG = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
       | It's better to move regex to constants with example instead of direct using it. It will allow you to reuse this regex and provide instructions for others.
 
       | Example:
@@ -37,15 +37,15 @@ module Ducalis
     ).freeze
 
     DETAILS = "Available regexes are:
-      #{SELF_DESCRIPTIVE.map { |name| "`#{name}`" }.join(', ')}".freeze
+      #{SELF_DESCRIPTIVE.map { |name| "`#{name}`" }.join(', ')}"
 
-    DEFAULT_EXAMPLE = 'some_example'.freeze
+    DEFAULT_EXAMPLE = 'some_example'
 
     def on_begin(node)
       not_defined_regexes(node).each do |regex|
         next if SELF_DESCRIPTIVE.include?(regex.source) || const_dynamic?(regex)
 
-        add_offense(regex, :expression, format(OFFENSE, present_node(regex)))
+        add_offense(regex, message: format(MSG, present_node(regex)))
       end
     end
 

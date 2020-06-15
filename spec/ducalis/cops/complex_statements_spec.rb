@@ -10,10 +10,10 @@ RSpec.describe Ducalis::ComplexStatements do
 
   it '[rule] raises on complex or statements' do
     inspect_source([
-                     'if divisible(4) && (divisible(400) || !divisible(100))',
-                     '  puts "This is a leap year!"',
-                     'end'
-                   ])
+      'if divisible(4) && (divisible(400) || !divisible(100))',
+      '  puts "This is a leap year!"',
+      'end'
+    ].join("\n"))
     expect(cop).to raise_violation(/complex/)
   end
 
@@ -24,16 +24,16 @@ RSpec.describe Ducalis::ComplexStatements do
 
   it '[rule] better to move a complex statements to method' do
     inspect_source([
-                     'if leap_year?',
-                     '  puts "This is a leap year!"',
-                     'end',
-                     '',
-                     'private',
-                     '',
-                     'def leap_year?',
-                     '  divisible(4) && (divisible(400) || !divisible(100))',
-                     'end'
-                   ])
+      'if leap_year?',
+      '  puts "This is a leap year!"',
+      'end',
+      '',
+      'private',
+      '',
+      'def leap_year?',
+      '  divisible(4) && (divisible(400) || !divisible(100))',
+      'end'
+    ].join("\n"))
     expect(cop).not_to raise_violation
   end
 end

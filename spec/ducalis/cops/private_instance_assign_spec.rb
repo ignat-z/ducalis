@@ -10,87 +10,87 @@ RSpec.describe Ducalis::PrivateInstanceAssign do
 
   it '[rule] raises for instance variables in controllers private methods' do
     inspect_source([
-                     'class EmployeesController < ApplicationController',
-                     '  private',
-                     '',
-                     '  def load_employee',
-                     '    @employee = Employee.find(params[:id])',
-                     '  end',
-                     'end'
-                   ])
+      'class EmployeesController < ApplicationController',
+      '  private',
+      '',
+      '  def load_employee',
+      '    @employee = Employee.find(params[:id])',
+      '  end',
+      'end'
+    ].join("\n"))
     expect(cop).to raise_violation(/instance/)
   end
 
   it '[rule] better to implicitly assign variables in public methods' do
     inspect_source([
-                     'class EmployeesController < ApplicationController',
-                     '  def index',
-                     '    @employee = load_employee',
-                     '  end',
-                     '',
-                     '  private',
-                     '',
-                     '  def load_employee',
-                     '    Employee.find(params[:id])',
-                     '  end',
-                     'end'
-                   ])
+      'class EmployeesController < ApplicationController',
+      '  def index',
+      '    @employee = load_employee',
+      '  end',
+      '',
+      '  private',
+      '',
+      '  def load_employee',
+      '    Employee.find(params[:id])',
+      '  end',
+      'end'
+    ].join("\n"))
     expect(cop).not_to raise_violation
   end
 
   it '[rule] raises for memoization variables in controllers private methods' do
     inspect_source([
-                     'class EmployeesController < ApplicationController',
-                     '  private',
-                     '',
-                     '  def catalog',
-                     '    @catalog ||= Catalog.new',
-                     '  end',
-                     'end'
-                   ])
+      'class EmployeesController < ApplicationController',
+      '  private',
+      '',
+      '  def catalog',
+      '    @catalog ||= Catalog.new',
+      '  end',
+      'end'
+    ].join("\n"))
     expect(cop).to raise_violation(/underscore/)
   end
 
   it '[rule] better to mark private methods memo variables with "_"' do
     inspect_source([
-                     'class EmployeesController < ApplicationController',
-                     '  private',
-                     '',
-                     '  def catalog',
-                     '    @_catalog ||= Catalog.new',
-                     '  end',
-                     'end'
-                   ])
+      'class EmployeesController < ApplicationController',
+      '  private',
+      '',
+      '  def catalog',
+      '    @_catalog ||= Catalog.new',
+      '  end',
+      'end'
+    ].join("\n"))
     expect(cop).not_to raise_violation
   end
 
   it 'ignores non-controller methods' do
     inspect_source([
-                     'class CatalogCollection',
-                     '  private',
-                     '',
-                     '  def catalog',
-                     '    @catalog = Catalog.new',
-                     '  end',
-                     'end'
-                   ])
+      'class CatalogCollection',
+      '  private',
+      '',
+      '  def catalog',
+      '    @catalog = Catalog.new',
+      '  end',
+      'end'
+    ].join("\n"))
     expect(cop).to_not raise_violation
   end
 
   it 'ignores assigning instance variables in controllers public methods' do
     inspect_source([
-                     'class EmployeesController < ApplicationController',
-                     '  def index',
-                     '    @employee = load_employee',
-                     '  end',
-                     '',
-                     '  private',
-                     '',
-                     '  def load_employee',
-                     '    Employee.find(params[:id])',
-                     '  end',
-                     'end'
-                   ])
+      'class EmployeesController < ApplicationController',
+      '  def index',
+      '    @employee = load_employee',
+      '  end',
+      '',
+      '  private',
+      '',
+      '  def load_employee',
+      '    Employee.find(params[:id])',
+      '  end',
+      'end'
+    ].join("\n"))
     expect(cop).not_to raise_violation
   end
 end

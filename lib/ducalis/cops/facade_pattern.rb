@@ -8,7 +8,7 @@ module Ducalis
     include RuboCop::Cop::DefNode
     prepend TypeResolving
 
-    OFFENSE = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
+    MSG = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
       | There are too many instance variables for one controller action. It's beetter to refactor it with Facade pattern to simplify the controller.
     MESSAGE
 
@@ -23,7 +23,7 @@ module Ducalis
       assigns = instance_variables_matches(node)
       return if assigns.count < max_instance_variables
 
-      assigns.each { |assign| add_offense(assign, :expression, OFFENSE) }
+      assigns.each { |assign| add_offense(assign) }
     end
 
     private

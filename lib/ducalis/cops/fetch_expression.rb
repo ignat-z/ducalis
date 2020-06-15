@@ -6,13 +6,8 @@ module Ducalis
   class FetchExpression < RuboCop::Cop::Cop
     HASH_CALLING_REGEX = /\:\[\]/.freeze # params[:key]
 
-    OFFENSE = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
-      | You can use `fetch` instead:
-
-      | ```ruby
-      | %<source>s
-      | ```
-
+    MSG = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
+      | You can use `fetch` instead.
       | If your hash contains `nil` or `false` values and you want to treat them not like an actual values you should preliminarily remove this values from hash.
       | You can use `compact` (in case if you do not want to ignore `false` values) or `keep_if { |key, value| value }` (if you want to ignore all `false` and `nil` values).
     MESSAGE
@@ -21,8 +16,7 @@ module Ducalis
       return unless processed_source.ast
 
       matching_nodes(processed_source.ast).each do |node|
-        add_offense(node, :expression, format(OFFENSE,
-                                              source: correct_variant(node)))
+        add_offense(node)
       end
     end
 
@@ -52,32 +46,6 @@ module Ducalis
     def nil_matching?(node)
       source, _, result = *node
       (source.to_a.first == result && result.to_s =~ HASH_CALLING_REGEX)
-    end
-
-    def correct_variant(node)
-      if nil_matching?(node)
-        nil_correct(node)
-      else
-        present_correct(node)
-      end
-    end
-
-    def nil_correct(node)
-      hash, _, key = *node.to_a.last.to_a
-      construct_fetch(hash, key, node.to_a[1])
-    end
-
-    def present_correct(node)
-      hash, _, key = *node.to_a.first.to_a
-      construct_fetch(hash, key, node.to_a.last)
-    end
-
-    def construct_fetch(hash, key, default)
-      [source(hash), ".fetch(#{source(key)})", " { #{source(default)} }"].join
-    end
-
-    def source(node)
-      node.loc.expression.source
     end
   end
 end

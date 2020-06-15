@@ -15,11 +15,11 @@ RSpec.describe Ducalis::UnlockedGem do
 
   it '[rule] better to lock gem versions' do
     inspect_source([
-                     "gem 'pry', '~> 0.10', '>= 0.10.0'",
-                     "gem 'rake', '~> 12.1'",
-                     "gem 'thor', '= 0.20.0'",
-                     "gem 'rspec', github: 'rspec/rspec'"
-                   ])
+      "gem 'pry', '~> 0.10', '>= 0.10.0'",
+      "gem 'rake', '~> 12.1'",
+      "gem 'thor', '= 0.20.0'",
+      "gem 'rspec', github: 'rspec/rspec'"
+    ].join("\n"))
     expect(cop).not_to raise_violation
   end
 

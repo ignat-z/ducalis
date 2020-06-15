@@ -1,19 +1,8 @@
 # frozen_string_literal: true
 
-require 'octokit'
-
 module Ducalis
   module Utils
     module_function
-
-    def octokit
-      @octokit ||= begin
-        token = ENV.fetch('GITHUB_TOKEN') { raise MissingToken }
-        Octokit::Client.new(access_token: token).tap do |client|
-          client.auto_paginate = true
-        end
-      end
-    end
 
     def similarity(string1, string2)
       longer = [string1.size, string2.size].max

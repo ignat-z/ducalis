@@ -4,7 +4,7 @@ require 'rubocop'
 
 module Ducalis
   class RubocopDisable < RuboCop::Cop::Cop
-    OFFENSE = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
+    MSG = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
       | Please, do not suppress RuboCop metrics, may be you can introduce some refactoring or another concept.
     MESSAGE
 
@@ -14,7 +14,7 @@ module Ducalis
       processed_source.comments.each do |comment_node|
         next unless comment_node.loc.expression.source =~ /rubocop:disable/
 
-        add_offense(comment_node, :expression, OFFENSE)
+        add_offense(comment_node)
       end
     end
   end

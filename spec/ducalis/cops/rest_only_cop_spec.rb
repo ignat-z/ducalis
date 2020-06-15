@@ -10,62 +10,62 @@ RSpec.describe Ducalis::RestOnlyCop do
 
   it '[rule] raises for controllers with non-REST methods' do
     inspect_source([
-                     'class ProductsController < ApplicationController',
-                     '  def index; end',
-                     '  def order; end',
-                     'end'
-                   ])
+      'class ProductsController < ApplicationController',
+      '  def index; end',
+      '  def order; end',
+      'end'
+    ].join("\n"))
     expect(cop).to raise_violation(/REST/)
   end
 
   it '[rule] better to use only REST methods and create new controllers' do
     inspect_source([
-                     'class ProductsController < ApplicationController',
-                     '  def index; end',
-                     'end',
-                     '',
-                     'class OrdersController < ApplicationController',
-                     '  def create; end',
-                     'end'
-                   ])
+      'class ProductsController < ApplicationController',
+      '  def index; end',
+      'end',
+      '',
+      'class OrdersController < ApplicationController',
+      '  def create; end',
+      'end'
+    ].join("\n"))
     expect(cop).not_to raise_violation
   end
 
   it 'ignores controllers with private non-REST methods' do
     inspect_source([
-                     'class ProductsController < ApplicationController',
-                     '  def index; end',
-                     '',
-                     '  private',
-                     '',
-                     '  def recalculate; end',
-                     'end'
-                   ])
+      'class ProductsController < ApplicationController',
+      '  def index; end',
+      '',
+      '  private',
+      '',
+      '  def recalculate; end',
+      'end'
+    ].join("\n"))
     expect(cop).not_to raise_violation
   end
 
   it 'ignores controllers with only REST methods' do
     inspect_source([
-                     'class ProductsController < ApplicationController',
-                     '  def index; end',
-                     '  def show; end',
-                     '  def new; end',
-                     '  def edit; end',
-                     '  def create; end',
-                     '  def update; end',
-                     '  def destroy; end',
-                     'end'
-                   ])
+      'class ProductsController < ApplicationController',
+      '  def index; end',
+      '  def show; end',
+      '  def new; end',
+      '  def edit; end',
+      '  def create; end',
+      '  def update; end',
+      '  def destroy; end',
+      'end'
+    ].join("\n"))
     expect(cop).not_to raise_violation
   end
 
   it 'ignores non-controllers with non-REST methods' do
     inspect_source([
-                     'class PriceStore',
-                     '  def index; end',
-                     '  def recalculate; end',
-                     'end'
-                   ])
+      'class PriceStore',
+      '  def index; end',
+      '  def recalculate; end',
+      'end'
+    ].join("\n"))
     expect(cop).not_to raise_violation
   end
 end

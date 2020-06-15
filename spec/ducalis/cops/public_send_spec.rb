@@ -15,13 +15,13 @@ RSpec.describe Ducalis::PublicSend do
 
   it '[rule] better to use mappings for multiple actions' do
     inspect_source([
-                     '{',
-                     '  bark: ->(animal) { animal.bark },',
-                     '  meow: ->(animal) { animal.meow }',
-                     '}.fetch(actions)',
-                     '# or ever better',
-                     'animal.voice'
-                   ])
+      '{',
+      '  bark: ->(animal) { animal.bark },',
+      '  meow: ->(animal) { animal.meow }',
+      '}.fetch(actions)',
+      '# or ever better',
+      'animal.voice'
+    ].join("\n"))
     expect(cop).not_to raise_violation
   end
 end

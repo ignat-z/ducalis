@@ -6,7 +6,7 @@ module Ducalis
   class MultipleTimes < RuboCop::Cop::Cop
     include RuboCop::Cop::DefNode
 
-    OFFENSE = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
+    MSG = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
       | You should avoid multiple time-related calls to prevent bugs during the period junctions (like Time.now.day called twice in the same scope could return different values if you called it near 23:59:59). You can pass it as default keyword argument or assign to a local variable.
     MESSAGE
 
@@ -30,7 +30,7 @@ module Ducalis
       return if multiple.count < 2
 
       multiple.each do |time_node|
-        add_offense(time_node, :expression, OFFENSE)
+        add_offense(time_node)
       end
     end
     alias on_defs on_def

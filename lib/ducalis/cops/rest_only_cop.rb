@@ -8,7 +8,7 @@ module Ducalis
     include RuboCop::Cop::DefNode
     prepend TypeResolving
 
-    OFFENSE = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
+    MSG = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
       | It's better for controllers to stay adherent to REST:
       | http://jeromedalbert.com/how-dhh-organizes-his-rails-controllers/.
     MESSAGE
@@ -26,7 +26,7 @@ module Ducalis
       method_name, = *node
       return if WHITELIST.include?(method_name)
 
-      add_offense(node, :expression, OFFENSE)
+      add_offense(node)
     end
     alias on_defs on_def
   end

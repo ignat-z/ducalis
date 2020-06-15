@@ -15,7 +15,7 @@ RSpec.describe Ducalis::Recursion do
         '  password = SecureRandom.urlsafe_base64(PASSWORD_LENGTH)',
         '  return set_rand_password unless password.match(PASSWORD_REGEX)',
         'end'
-      ]
+      ].join("\n")
     )
     expect(cop).to raise_violation(/recursion/)
   end
@@ -27,7 +27,7 @@ RSpec.describe Ducalis::Recursion do
         '  password = SecureRandom.urlsafe_base64(PASSWORD_LENGTH)',
         '  return self.set_rand_password unless password.match(PASSWORD_REGEX)',
         'end'
-      ]
+      ].join("\n")
     )
     expect(cop).to raise_violation(/recursion/)
   end
@@ -37,7 +37,7 @@ RSpec.describe Ducalis::Recursion do
       [
         'def set_rand_password',
         'end'
-      ]
+      ].join("\n")
     )
     expect(cop).to_not raise_violation
   end
@@ -49,7 +49,7 @@ RSpec.describe Ducalis::Recursion do
         '  password = SecureRandom.urlsafe_base64(PASSWORD_LENGTH)',
         '  generate_password',
         'end'
-      ]
+      ].join("\n")
     )
     expect(cop).to_not raise_violation
   end
@@ -65,7 +65,7 @@ RSpec.describe Ducalis::Recursion do
         '',
         'repeatedly { SecureRandom.urlsafe_base64(PASSWORD_LENGTH) }',
         '     .find { |password| password.match(PASSWORD_REGEX) }'
-      ]
+      ].join("\n")
     )
     expect(cop).to_not raise_violation
   end

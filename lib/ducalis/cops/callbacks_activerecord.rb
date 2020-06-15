@@ -7,7 +7,7 @@ module Ducalis
   class CallbacksActiverecord < RuboCop::Cop::Cop
     prepend TypeResolving
 
-    OFFENSE = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
+    MSG = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
       | Please, avoid using of callbacks for models. It's better to keep models small ("dumb") and instead use "builder" classes/services: to construct new objects.
     MESSAGE
 
@@ -41,7 +41,7 @@ module Ducalis
       return unless in_model?
       return unless METHODS_BLACK_LIST.include?(node.method_name)
 
-      add_offense(node, :selector, OFFENSE)
+      add_offense(node)
     end
   end
 end

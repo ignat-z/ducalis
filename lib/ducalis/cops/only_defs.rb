@@ -6,7 +6,7 @@ module Ducalis
   class OnlyDefs < RuboCop::Cop::Cop
     include RuboCop::Cop::DefNode
 
-    OFFENSE = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
+    MSG = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
       | Prefer object instances to class methods because class methods resist refactoring. Begin with an object instance, even if it doesn’t have state or multiple methods right away. If you come back to change it later, you will be more likely to refactor. If it never changes, the difference between the class method approach and the instance is negligible, and you certainly won’t be any worse off.
     MESSAGE
 
@@ -20,7 +20,7 @@ module Ducalis
       return unless !instance_methods_definitions?(body) &&
                     class_methods_defintions?(body)
 
-      add_offense(node, :expression, OFFENSE)
+      add_offense(node)
     end
 
     private

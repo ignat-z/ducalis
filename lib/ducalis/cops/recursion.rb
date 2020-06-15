@@ -4,7 +4,7 @@ require 'rubocop'
 
 module Ducalis
   class Recursion < RuboCop::Cop::Cop
-    OFFENSE = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
+    MSG = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
       It seems like you are using recursion in your code. In common, it is not a bad idea, but try to keep your business logic layer free from refursion code.
     MESSAGE
 
@@ -13,7 +13,7 @@ module Ducalis
       return unless body
       return unless send_call?(body) || send_self_call?(body)
 
-      add_offense(node, :expression, OFFENSE)
+      add_offense(node)
     end
 
     private

@@ -8,7 +8,7 @@ module Ducalis
     include RuboCop::Cop::DefNode
     prepend TypeResolving
 
-    OFFENSE = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
+    MSG = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
       | Don't use controller's filter methods for setting instance variables, use them only for changing application flow, such as redirecting if a user is not authenticated. Controller instance variables are forming contract between controller and view. Keeping instance variables defined in one place makes it easier to: reason, refactor and remove old views, test controllers and views, extract actions to new controllers, etc.
     MESSAGE
 
@@ -23,7 +23,7 @@ module Ducalis
       return unless non_public?(node)
       return check_memo(node) if node.parent.type == :or_asgn
 
-      add_offense(node, :expression, OFFENSE)
+      add_offense(node)
     end
 
     private
@@ -31,7 +31,7 @@ module Ducalis
     def check_memo(node)
       return if node.to_a.first.to_s.start_with?('@_')
 
-      add_offense(node, :expression, [OFFENSE, ADD_OFFENSE].join(' '))
+      add_offense(node, message: [MSG, DETAILS].join(' '))
     end
   end
 end

@@ -10,9 +10,9 @@ RSpec.describe Ducalis::StringsInActiverecords do
 
   it '[rule] raises for string if argument' do
     inspect_source([
-                     'before_save :set_full_name, ',
-                     " if: 'name_changed? || postfix_name_changed?'"
-                   ])
+      'before_save :set_full_name, ',
+      " if: 'name_changed? || postfix_name_changed?'"
+    ].join("\n"))
     expect(cop).to raise_violation(/before_save/)
   end
 

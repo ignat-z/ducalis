@@ -3,8 +3,8 @@
 module Ducalis
   module Commentators
     class Message
-      LINK_FORMAT = '[%<cop_name>s](<%<link>s>)'.freeze
-      SITE = 'https://ducalis-rb.github.io'.freeze
+      LINK_FORMAT = '[%<cop_name>s](<%<link>s>)'
+      SITE = 'https://ducalis-rb.github.io'
 
       def initialize(offense)
         @message = offense.message

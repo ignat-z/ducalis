@@ -12,35 +12,35 @@ RSpec.describe Ducalis::TooLongWorkers do
 
   it '[rule] raises for a class with more than 5 lines' do
     inspect_source([
-                     'class UserOnboardingWorker',
-                     '  def perform(user_id, group_id)',
-                     '    user = User.find_by(id: user_id)',
-                     '    group = Group.find(id: group_id)',
-                     '',
-                     '    return if user.nil? || group.nil?',
-                     '',
-                     '    GroupOnboard.new(user).process',
-                     '    OnboardingMailer.new(user).dliver_later',
-                     '    GroupNotifications.new(group).onboard(user)',
-                     '  end',
-                     'end'
-                   ])
+      'class UserOnboardingWorker',
+      '  def perform(user_id, group_id)',
+      '    user = User.find_by(id: user_id)',
+      '    group = Group.find(id: group_id)',
+      '',
+      '    return if user.nil? || group.nil?',
+      '',
+      '    GroupOnboard.new(user).process',
+      '    OnboardingMailer.new(user).dliver_later',
+      '    GroupNotifications.new(group).onboard(user)',
+      '  end',
+      'end'
+    ].join("\n"))
     expect(cop).to raise_violation(/too much work/)
   end
 
   it '[rule] better to use workers only as async primitive and use services' do
     inspect_source([
-                     'class UserOnboardingWorker',
-                     '  def perform(user_id, group_id)',
-                     '    user = User.find_by(id: user_id)',
-                     '    group = Group.find(id: group_id)',
-                     '',
-                     '    return if user.nil? || group.nil?',
-                     '',
-                     '    OnboardingProcessing.new(user).call',
-                     '  end',
-                     'end'
-                   ])
+      'class UserOnboardingWorker',
+      '  def perform(user_id, group_id)',
+      '    user = User.find_by(id: user_id)',
+      '    group = Group.find(id: group_id)',
+      '',
+      '    return if user.nil? || group.nil?',
+      '',
+      '    OnboardingProcessing.new(user).call',
+      '  end',
+      'end'
+    ].join("\n"))
     expect(cop).not_to raise_violation
   end
 
@@ -53,7 +53,7 @@ RSpec.describe Ducalis::TooLongWorkers do
                     '  a = 5',
                     '  a = 6',
                     '  a = 7',
-                    'end'])
+                    'end'].join("\n"))
     expect(cop).not_to raise_violation
   end
 
@@ -65,7 +65,7 @@ RSpec.describe Ducalis::TooLongWorkers do
                     '  a = 4',
                     '  a = 5',
                     '  a = 6',
-                    'end'])
+                    'end'].join("\n"))
     expect(cop).not_to raise_violation
   end
 
@@ -76,13 +76,13 @@ RSpec.describe Ducalis::TooLongWorkers do
                     '  a = 3',
                     '  a = 4',
                     '  a = 5',
-                    'end'])
+                    'end'].join("\n"))
     expect(cop).not_to raise_violation
   end
 
   it 'accepts empty classes' do
     inspect_source(['class TestWorker',
-                    'end'])
+                    'end'].join("\n"))
     expect(cop).not_to raise_violation
   end
 
@@ -98,7 +98,7 @@ RSpec.describe Ducalis::TooLongWorkers do
                       '  a = 5',
                       '  a = 6',
                       '  a = 7',
-                      'end'])
+                      'end'].join("\n"))
       expect(cop).to raise_violation(/too much work/)
     end
   end

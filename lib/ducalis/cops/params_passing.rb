@@ -4,7 +4,7 @@ require 'rubocop'
 
 module Ducalis
   class ParamsPassing < RuboCop::Cop::Cop
-    OFFENSE = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
+    MSG = <<-MESSAGE.gsub(/^ +\|\s/, '').strip
       | It's better to pass already preprocessed params hash to services. Or you can use `arcane` gem.
     MESSAGE
 
@@ -13,7 +13,7 @@ module Ducalis
     def on_send(node)
       _who, _what, *args = *node
       node = inspect_args(args)
-      add_offense(node, :expression, OFFENSE) if node
+      add_offense(node) if node
     end
 
     private
